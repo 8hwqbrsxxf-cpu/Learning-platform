@@ -1308,7 +1308,7 @@
       "whyOthersWrong": {
         "b": "This rule matches every Autopilot-registered device (ZTDId), not only those with the LAW-BRU group tag.",
         "c": "The device name is not the group tag and may only be set later by a name template; it isn't reliable before OOBE.",
-        "d": "enrollmentProfileName contains the Autopilot profile (or device preparation policy) name, not the group tag, and is populated only after enrollment."
+        "d": "enrollmentProfileName holds the name of the Autopilot (or ADE / Android dedicated) enrollment profile, not the Autopilot group tag; the group tag maps to the OrderID physical ID."
       },
       "skillMeasured": "Plan and implement groups for devices in Microsoft Entra ID, including dynamic group membership rules",
       "reference": {
@@ -1404,8 +1404,8 @@
       },
       "skillMeasured": "Configure enrollment profiles for Android devices, including fully managed, dedicated, corporate-owned devices with a work profile",
       "reference": {
-        "title": "Deployment guide: Manage Android devices in Microsoft Intune",
-        "url": "https://learn.microsoft.com/intune/fundamentals/platform-guide-android"
+        "title": "Set up Intune enrollment of Android Enterprise dedicated devices",
+        "url": "https://learn.microsoft.com/intune/device-enrollment/android/setup-dedicated"
       }
     },
     {
@@ -1485,7 +1485,7 @@
         "a": "No - Microsoft documents that 'Require device to be marked as compliant' doesn't block Intune enrollment, even for all users and all resources.",
         "b": "Yes - the existing compliance state is preserved for up to seven days while the setting is in Error.",
         "c": "Yes - compliance settings take precedence over configuration settings.",
-        "d": "Yes - device registration in Entra ID is a prerequisite for the compliant device control."
+        "d": "Yes - device identities (Microsoft Entra registration, join or hybrid join) are a prerequisite for device-based Conditional Access and for Intune device management."
       },
       "skillMeasured": "Implement Microsoft Entra Conditional Access policies that require a compliance status",
       "reference": {
@@ -1522,11 +1522,11 @@
       "correct": [
         "a"
       ],
-      "explanation": "For Entra joined devices the backup directory must be Microsoft Entra ID; LAPS must also be enabled in Microsoft Entra device settings. The password can then be viewed in Intune and Entra by authorised admins.",
+      "explanation": "For Microsoft Entra joined devices the Backup Directory must be Microsoft Entra ID (LAPS must also be enabled in the Microsoft Entra device settings). The password can then be viewed in the Intune admin center (Devices > select device > Local admin password) by admins with the deviceLocalCredentials/password/read permission; the built-in Microsoft Entra roles that can recover LAPS passwords are Cloud Device Administrator and Intune Administrator.",
       "whyOthersWrong": {
         "b": "AD backup only works for devices joined to on-premises AD; the policy would apply but the backup would fail on cloud-only devices.",
         "c": "Without backup, nobody can retrieve the password and manual rotation from Intune fails.",
-        "d": "Windows LAPS backs up to one directory; dual backup is not an option for the same account."
+        "d": "The LAPS BackupDirectory setting has only three values (Disabled, Microsoft Entra ID only, Active Directory only); you can't back up to both directories."
       },
       "skillMeasured": "Implement and manage Windows Local Administrator Password Solution (Windows LAPS) by using Microsoft Intune and Microsoft Entra ID",
       "reference": {
@@ -1571,7 +1571,7 @@
       "explanation": "Scope tags limit which Intune objects an admin can see; the role assignment defines what they can do (Help Desk Operator permissions) and on which groups (scope groups). Together they implement distributed IT.",
       "whyOthersWrong": {
         "c": "Intune Administrator grants full Intune access to everything, the opposite of least privilege.",
-        "d": "Entra administrative units and Global Reader don't scope Intune RBAC objects.",
+        "d": "Intune RBAC doesn't apply to Microsoft Entra roles; Entra administrative units and Global Reader don't scope Intune objects or grant Help Desk Operator permissions.",
         "e": "Multi Admin Approval adds approvals for protected changes; it does not limit visibility."
       },
       "skillMeasured": "Configure scope tags and scoped administration for multi-admin environments",
@@ -1606,8 +1606,8 @@
       },
       "skillMeasured": "Configure Windows Hello for Business by using Intune",
       "reference": {
-        "title": "Configure Windows Hello for Business on devices when they enroll with Intune",
-        "url": "https://learn.microsoft.com/intune/device-security/identity-protection/configure-tenant-wide-policy"
+        "title": "Configure Windows Hello for Business (Intune tenant-wide policy)",
+        "url": "https://learn.microsoft.com/windows/security/identity-protection/hello-for-business/configure"
       }
     },
     {
@@ -1616,7 +1616,7 @@
       "moduleId": "md102-m-autopilot",
       "type": "single",
       "difficulty": "intermediate",
-      "scenario": "A trainee engineer at your MSP tests an Autopilot self-deploying profile on a Hyper-V generation 2 VM with a virtual TPM. Provisioning fails at 'Securing your hardware' with error 0x800705B4.",
+      "scenario": "A trainee engineer at your MSP tests an Autopilot self-deploying profile on a Hyper-V generation 2 VM with a virtual TPM. Provisioning fails while the device is being verified, with timeout error 0x800705B4.",
       "stem": "What is the most likely cause?",
       "options": [
         {
@@ -1639,9 +1639,9 @@
       "correct": [
         "a"
       ],
-      "explanation": "Self-deploying (and pre-provisioning) authenticate the device with TPM 2.0 attestation. Virtual machines, including Hyper-V vTPMs, can't attest, which results in the 0x800705B4 timeout. Use user-driven mode for VM labs.",
+      "explanation": "Self-deploying mode authenticates the device with TPM 2.0 and requires TPM device attestation. Microsoft documents that a self-deploying attempt on a device without TPM 2.0 support or on a virtual machine fails when verifying the device with a 0x800705B4 timeout error, and that this includes Hyper-V virtual TPMs.",
       "whyOthersWrong": {
-        "b": "An MDM user scope issue causes enrollment failures later, not a TPM attestation timeout at 'Securing your hardware'.",
+        "b": "An MDM user scope of None stops automatic enrollment, but it isn't the documented cause of the 0x800705B4 device-verification timeout on a VM.",
         "c": "A missing ESP profile would mean the default ESP applies; it doesn't cause attestation errors.",
         "d": "An invalid name template causes a naming issue, not error 0x800705B4."
       },
@@ -1697,7 +1697,7 @@
       "moduleId": "md102-m-autopilot",
       "type": "sequence",
       "difficulty": "intermediate",
-      "stem": "You are setting up a Windows Autopilot user-driven Microsoft Entra join deployment in a new tenant. Put the configuration steps in the recommended order.",
+      "stem": "You are setting up a Windows Autopilot user-driven Microsoft Entra join deployment in a new tenant. Put the configuration steps in the order used by Microsoft's step-by-step tutorial.",
       "options": [
         {
           "id": "a",
@@ -1831,8 +1831,8 @@
       },
       "skillMeasured": "Choose between Windows Autopilot deployment profiles and device preparation policies",
       "reference": {
-        "title": "Overview of Windows Autopilot device preparation",
-        "url": "https://learn.microsoft.com/autopilot/device-preparation/overview"
+        "title": "Compare Windows Autopilot device preparation and Windows Autopilot",
+        "url": "https://learn.microsoft.com/autopilot/device-preparation/compare"
       }
     },
     {
@@ -1957,8 +1957,8 @@
       },
       "skillMeasured": "Target a profile by using assignment filters and enrollment time grouping",
       "reference": {
-        "title": "App and device properties for assignment filters",
-        "url": "https://learn.microsoft.com/intune/fundamentals/filters/ref-device-properties"
+        "title": "Use assignment filters to assign your apps, policies, and profiles in Microsoft Intune",
+        "url": "https://learn.microsoft.com/intune/fundamentals/filters/overview"
       }
     },
     {
@@ -1998,8 +1998,8 @@
       },
       "skillMeasured": "Sync, restart, retire, or wipe devices",
       "reference": {
-        "title": "Remote device actions in Microsoft Intune",
-        "url": "https://learn.microsoft.com/intune/device-management/actions/"
+        "title": "Device action: retire",
+        "url": "https://learn.microsoft.com/intune/device-management/actions/retire"
       }
     },
     {
@@ -2031,7 +2031,7 @@
       "correct": [
         "a"
       ],
-      "explanation": "User confirmed elevation prompts the user to confirm and can require business justification and/or Windows authentication, without admin approval. Combine with a certificate and a protected file path in the rule.",
+      "explanation": "User confirmed elevation always shows a confirmation prompt and can additionally require a business justification and/or Windows authentication, without administrator approval. Define the file in the rule tightly (for example with a publisher certificate) so only the intended installer can elevate.",
       "whyOthersWrong": {
         "b": "Automatic elevation is silent and doesn't collect justification.",
         "c": "Support approved requires an administrator to approve each request.",
@@ -2238,7 +2238,7 @@
       "options": [
         {
           "id": "a",
-          "text": "The setting isn't applied from either policy; remove the setting from one policy or change values so they match"
+          "text": "The conflict isn't resolved automatically and the setting may fail to apply; remove the setting from one policy or make the values match"
         },
         {
           "id": "b",
@@ -2256,10 +2256,10 @@
       "correct": [
         "a"
       ],
-      "explanation": "Conflicts between configuration-type policies (baselines, endpoint security, settings catalog) are not resolved automatically; the setting is flagged as Conflict and you must resolve it. Only multiple compliance policies resolve to the most restrictive value.",
+      "explanation": "Conflicts between configuration-type policies (security baselines, endpoint security, device configuration, settings catalog) require manual resolution: the setting might fail to apply and is flagged as conflicted. Only multiple compliance policies resolve to the most restrictive value, and compliance settings take precedence over configuration settings.",
       "whyOthersWrong": {
         "b": "'Most restrictive wins' applies to multiple compliance policies, not configuration conflicts.",
-        "c": "There's no precedence between endpoint security policies and baselines.",
+        "c": "All Intune policy types have equal priority; an endpoint security policy doesn't override a baseline.",
         "d": "Assignment order has no effect on conflict resolution."
       },
       "skillMeasured": "Plan and implement security baselines by using Microsoft Intune",
@@ -2347,7 +2347,7 @@
       "explanation": "When devices are targeted by both an update ring and a feature update policy, set the ring's feature update deferral to 0 and don't pause feature updates, so the ring doesn't delay the version controlled by the feature update policy.",
       "whyOthersWrong": {
         "b": "Quality deferral affects monthly updates, not feature updates.",
-        "c": "This ring option moves devices to the latest Windows 11 release and competes with the version control you want from the feature update policy.",
+        "c": "This option only upgrades eligible Windows 10 devices to the latest Windows 11 release; it doesn't remove the 60-day feature update deferral that is delaying the feature update policy.",
         "d": "The grace period only affects restart enforcement after the deadline."
       },
       "skillMeasured": "Create and manage update rings, feature updates, and quality updates for Windows devices by using Intune",
@@ -2496,7 +2496,7 @@
         },
         {
           "id": "b",
-          "text": "A Conditional Access policy for iOS and Android with 'Require approved client app' or 'Require app protection policy'"
+          "text": "A Conditional Access policy for iOS and Android devices with the grant control 'Require app protection policy'"
         },
         {
           "id": "c",
@@ -2515,7 +2515,7 @@
         "a",
         "b"
       ],
-      "explanation": "MAM without enrollment uses user-targeted app protection policies; app-based Conditional Access ensures only MAM-capable/approved apps (such as Outlook) can connect, which blocks native mail clients.",
+      "explanation": "MAM without enrollment uses user-targeted app protection policies. A Conditional Access policy for iOS/Android that requires an app protection policy ensures only apps protected by Intune APP (such as Outlook) can connect, which blocks native mail clients. Microsoft retired the 'Require approved client app' grant (policies using it became read-only on 30 June 2026), so new policies should use only 'Require app protection policy'.",
       "whyOthersWrong": {
         "c": "Compliance policies require enrolled devices.",
         "d": "Work profile is an enrollment method; the devices won't be enrolled.",
@@ -2523,8 +2523,8 @@
       },
       "skillMeasured": "Implement Microsoft Entra Conditional Access policies for app protection policies",
       "reference": {
-        "title": "Require approved client apps or app protection policy",
-        "url": "https://learn.microsoft.com/entra/identity/conditional-access/policy-all-users-approved-app-or-app-protection"
+        "title": "Migrate approved client app to application protection policy in Conditional Access",
+        "url": "https://learn.microsoft.com/entra/identity/conditional-access/migrate-approved-client-app"
       }
     },
     {
@@ -2559,7 +2559,7 @@
       "explanation": "The Microsoft 365 Apps app type isn't installed by the IME, so it can run concurrently with Win32 app installs and break the ESP. Microsoft recommends deploying it as a Win32 app when it must be tracked during the ESP.",
       "whyOthersWrong": {
         "b": "Available apps aren't installed or tracked during the ESP.",
-        "c": "Microsoft 365 Apps isn't distributed as a LOB MSI, and mixing LOB and Win32 during ESP causes conflicts.",
+        "c": "Microsoft 365 Apps isn't distributed as an LOB MSI, and mixing Win32 and LOB app installs during Autopilot ESP can make installations fail.",
         "d": "A longer timeout doesn't solve the installation concurrency issue."
       },
       "skillMeasured": "Deploy Microsoft 365 Apps as part of a Windows Autopilot deployment, including using the Office Deployment Tool (ODT) or Microsoft Intune",
@@ -2682,8 +2682,8 @@
       },
       "skillMeasured": "Deploy apps by using Intune, including Win32 apps, line-of-business (LOB) apps, and Microsoft Store apps",
       "reference": {
-        "title": "Support Tip: deployment flow of a Win32 app through Intune",
-        "url": "https://learn.microsoft.com/troubleshoot/mem/intune/app-management/develop-deliver-working-win32-app-via-intune"
+        "title": "Add, assign, and monitor a Win32 app in Microsoft Intune",
+        "url": "https://learn.microsoft.com/intune/app-management/deployment/add-win32"
       }
     },
     {
@@ -2842,9 +2842,9 @@
       "correct": [
         "t"
       ],
-      "explanation": "The Remediations prerequisites list Windows Enterprise E3 or E5 (included in Microsoft 365 F3, E3, E5), Windows Education A3 or A5, or Windows VDA per user. Plan for this when customers only have Business Premium.",
+      "explanation": "The Remediations licensing section lists Windows Enterprise E3 or E5 (included in Microsoft 365 F3, E3 or E5), Windows Education A3 or A5 (included in Microsoft 365 A3 or A5) or Windows VDA per user. Microsoft 365 Business Premium isn't in that list, so check licensing before promising Remediations to SMB customers.",
       "whyOthersWrong": {
-        "f": "Incorrect: Intune Plan 1 alone isn't sufficient; the documented Windows licences are required."
+        "f": "Incorrect: Learn lists specific Windows Enterprise/Education/VDA licences as a requirement for Remediations."
       },
       "skillMeasured": "Monitor endpoint performance by using Endpoint Analytics, including Remediations",
       "reference": {
@@ -2875,7 +2875,7 @@
         },
         {
           "id": "d",
-          "text": "Unattended runbooks should use an app registration with application permissions and certificate authentication."
+          "text": "An app registration can be granted the Microsoft Graph application permission DeviceManagementManagedDevices.Read.All so that an unattended script can list managed devices without a signed-in user."
         }
       ],
       "correct": [
@@ -2883,17 +2883,17 @@
         "b",
         "d"
       ],
-      "explanation": "Read access to managed devices is covered by DeviceManagementManagedDevices.Read.All. Custom compliance = discovery script + JSON rules. The Intune Graph API requires an active Intune licence. App-only auth with certificates is the recommended pattern for unattended automation.",
+      "explanation": "Listing managed devices (including complianceState) needs DeviceManagementManagedDevices.Read.All, which exists as both a delegated and an application permission. Custom compliance = PowerShell discovery script + JSON rules. The Intune Graph API requires an active Intune licence for the tenant.",
       "whyOthersWrong": {
-        "a": "Yes - this delegated/application scope allows reading managed devices including complianceState.",
+        "a": "Yes - List managedDevices accepts DeviceManagementManagedDevices.Read.All (least privileged), and complianceState is a property of managedDevice.",
         "b": "Yes - the discovery script returns data that the JSON rules evaluate.",
         "c": "No - Microsoft notes that the Graph API for Intune requires an active Intune licence for the tenant.",
-        "d": "Yes - this avoids interactive sign-in and stored passwords."
+        "d": "Yes - List managedDevices supports the Application permission type with DeviceManagementManagedDevices.Read.All, so it works without a signed-in user."
       },
       "skillMeasured": "Automate Intune management tasks by using PowerShell and Microsoft Graph",
       "reference": {
-        "title": "How to use Microsoft Entra ID to access the Intune APIs in Microsoft Graph",
-        "url": "https://learn.microsoft.com/intune/developer/configure-graph-api-access"
+        "title": "List managedDevices (Microsoft Graph Intune API)",
+        "url": "https://learn.microsoft.com/graph/api/intune-devices-manageddevice-list?view=graph-rest-1.0"
       }
     },
     {
@@ -2925,11 +2925,11 @@
       "correct": [
         "a"
       ],
-      "explanation": "The Vulnerability Remediation Agent uses Defender Vulnerability Management data to identify and prioritise CVEs and provides Intune-based remediation steps. It also requires Intune Plan 1 and Security Copilot with sufficient SCUs.",
+      "explanation": "The Vulnerability Remediation Agent (public preview) uses Microsoft Defender Vulnerability Management data to identify and prioritise CVEs and gives step-by-step Intune remediation guidance. It requires Intune Plan 1, Microsoft Security Copilot with sufficient SCUs, and Defender Vulnerability Management (Defender for Endpoint P2 or DVM Standalone).",
       "whyOthersWrong": {
         "b": "The Device Offboarding Agent finds stale or misaligned devices.",
-        "c": "The Policy Configuration Agent turns plain-language requirements into settings catalog policies.",
-        "d": "The Change Review Agent evaluates Multi Admin Approval requests."
+        "c": "The Policy Configuration Agent turned plain-language requirements into settings catalog policies; Learn states it is no longer available in the Intune admin center from 31 August 2026.",
+        "d": "The Change Review Agent evaluated Multi Admin Approval requests; Learn states it is no longer available in the Intune admin center from 31 August 2026."
       },
       "skillMeasured": "Investigate threats identified by Security Copilot agents in Intune",
       "reference": {
@@ -2954,7 +2954,7 @@
       "domainId": "md102-d1",
       "level": "beginner",
       "front": "Which setting makes Entra joined Windows devices auto-enroll into Intune?",
-      "back": "MDM user scope (All or Some) under Windows Automatic Enrollment; requires Microsoft Entra ID P1/P2.",
+      "back": "Set the MDM user scope (Some or All) under Devices > Enrollment > Windows > Automatic Enrollment. Automatic MDM enrollment is a Microsoft Entra ID Premium (P1/P2) feature.",
       "tags": [
         "enrollment",
         "windows"
@@ -2976,7 +2976,7 @@
       "domainId": "md102-d1",
       "level": "beginner",
       "front": "What connects Intune to Apple Business Manager for ADE?",
-      "back": "An enrollment program token (.p7m) created with the Intune public key; renewed yearly. APNs certificate is a separate prerequisite.",
+      "back": "An enrollment program token (.p7m) downloaded from Apple Business Manager after uploading the Intune public key (.pem); renewed every year with the same Apple ID. The Apple MDM push certificate is a separate prerequisite.",
       "tags": [
         "apple",
         "ade"
@@ -3017,7 +3017,7 @@
       "domainId": "md102-d1",
       "level": "expert",
       "front": "Role assignment components in Intune RBAC?",
-      "back": "Role (permissions) + Members (admin groups) + Scope (groups) + Scope tags (visibility). Permissions are additive; no deny.",
+      "back": "Role (permissions) + Members/Admin groups + Scope groups (which users/devices they manage) + Scope tags (which objects they see). Permissions from multiple roles are incremental.",
       "tags": [
         "rbac"
       ]
@@ -3027,7 +3027,7 @@
       "domainId": "md102-d1",
       "level": "intermediate",
       "front": "Where do you create a Windows LAPS policy in Intune?",
-      "back": "Endpoint security > Account protection > Windows > Local admin password solution (Windows LAPS). Assign to device groups.",
+      "back": "Endpoint security > Account protection > Create Policy > Platform Windows > Profile Local admin password solution (Windows LAPS). Assign to device groups (recommended).",
       "tags": [
         "laps"
       ]
@@ -3037,7 +3037,7 @@
       "domainId": "md102-d1",
       "level": "expert",
       "front": "What must be enabled in Entra before Intune LAPS can back up to Entra ID?",
-      "back": "Devices > Device settings > Enable Microsoft Entra Local Administrator Password Solution (LAPS).",
+      "back": "Entra admin center > Entra ID > Devices > Overview > Device settings > Enable Local Administrator Password Solution (LAPS) = Yes. Then set Backup Directory = Microsoft Entra ID in the Intune LAPS policy.",
       "tags": [
         "laps",
         "entra"
@@ -3047,8 +3047,8 @@
       "id": "md102-f11",
       "domainId": "md102-d2",
       "level": "beginner",
-      "front": "Which Autopilot mode works on Hyper-V VMs?",
-      "back": "User-driven. Self-deploying and pre-provisioning need physical TPM 2.0 attestation.",
+      "front": "Can Autopilot self-deploying mode run on a Hyper-V VM with a virtual TPM?",
+      "back": "No. Self-deploying (and pre-provisioning) needs TPM 2.0 with device attestation; on a VM, including Hyper-V vTPM, it fails with a 0x800705B4 timeout. Pre-provisioning explicitly doesn't support VMs.",
       "tags": [
         "autopilot"
       ]
@@ -3068,7 +3068,7 @@
       "domainId": "md102-d2",
       "level": "intermediate",
       "front": "How do you start pre-provisioning at OOBE?",
-      "back": "Press the Windows key five times and choose pre-provision (technician flow), then reseal.",
+      "back": "At the first OOBE screen press the Windows key five times, select Windows Autopilot provisioning > Continue, verify the profile and select Provision; on success select Reseal.",
       "tags": [
         "autopilot"
       ]
@@ -3160,7 +3160,7 @@
       "domainId": "md102-d2",
       "level": "expert",
       "front": "Licence needed for device query (KQL)?",
-      "back": "Advanced Analytics (Intune Plan 2/Suite; included in Microsoft 365 E3 from July 2026 per the Intune planning guide).",
+      "back": "Device query is an Advanced Analytics capability. Advanced Analytics is part of Intune Plan 2 and the Intune Suite; per the Intune planning guide, from July 2026 Microsoft 365 E3 (and E5/E7) include Plan 2, Remote Help and Advanced Analytics.",
       "tags": [
         "device-query",
         "licensing"
@@ -3242,7 +3242,7 @@
       "domainId": "md102-d3",
       "level": "expert",
       "front": "Hotpatch prerequisites?",
-      "back": "Windows 11 24H2+, eligible licence (E3/E5, F3, A3/A5, Business Premium, W365 Enterprise), latest baseline, VBS on, quality update policy with hotpatch.",
+      "back": "Windows 11 24H2+, eligible licence (Windows 11 Enterprise E3/E5, Microsoft 365 F3, Windows 11 Education A3/A5, Microsoft 365 Business Premium or Windows 365 Enterprise), latest quarterly baseline, VBS running, and a Windows quality update policy with Hotpatch set to Allow.",
       "tags": [
         "hotpatch",
         "autopatch"
@@ -3315,7 +3315,7 @@
       "domainId": "md102-d4",
       "level": "intermediate",
       "front": "CA grant controls for MAM on iOS/Android?",
-      "back": "Require approved client app OR Require app protection policy (require one of the selected controls).",
+      "back": "Use 'Require app protection policy'. The 'Require approved client app' grant is retired: since 30 June 2026 policies using it are read-only, and new policies should apply only the app protection policy grant.",
       "tags": [
         "mam",
         "conditional-access"
@@ -3356,7 +3356,7 @@
       "domainId": "md102-d5",
       "level": "intermediate",
       "front": "Remediations licensing?",
-      "back": "Windows Enterprise E3/E5 (incl. M365 F3/E3/E5), Education A3/A5 or Windows VDA per user.",
+      "back": "Windows Enterprise E3/E5 (incl. Microsoft 365 F3/E3/E5), Windows Education A3/A5 (incl. Microsoft 365 A3/A5) or Windows VDA per user.",
       "tags": [
         "remediations",
         "licensing"
@@ -3387,8 +3387,8 @@
       "id": "md102-f44",
       "domainId": "md102-d5",
       "level": "expert",
-      "front": "Four Security Copilot agents in Intune?",
-      "back": "Change Review, Device Offboarding, Policy Configuration, Vulnerability Remediation.",
+      "front": "Security Copilot agents in Intune and their status in late 2026?",
+      "back": "Vulnerability Remediation Agent and Device Offboarding Agent remain. The Policy Configuration Agent and Change Review Agent are no longer available in the Intune admin center from 31 August 2026.",
       "tags": [
         "copilot"
       ]
@@ -3402,6 +3402,28 @@
       "tags": [
         "graph",
         "powershell"
+      ]
+    },
+    {
+      "id": "md102-f46",
+      "domainId": "md102-d1",
+      "level": "intermediate",
+      "front": "Which built-in Microsoft Entra roles can recover (read) Windows LAPS passwords?",
+      "back": "Cloud Device Administrator and Intune Administrator (permission microsoft.directory/deviceLocalCredentials/password/read). Helpdesk Administrator, Security Administrator and Security Reader can read LAPS metadata only.",
+      "tags": [
+        "laps",
+        "rbac"
+      ]
+    },
+    {
+      "id": "md102-f47",
+      "domainId": "md102-d2",
+      "level": "intermediate",
+      "front": "How many devices can one Intune bulk device action target, and what are the daily tenant limits for Wipe/Retire/Delete?",
+      "back": "Up to 100 devices per bulk action. Daily tenant limits: Wipe 500, Retire 1,000, Delete 1,000 (cumulative across single, bulk and Graph requests).",
+      "tags": [
+        "remote-actions",
+        "limits"
       ]
     }
   ],

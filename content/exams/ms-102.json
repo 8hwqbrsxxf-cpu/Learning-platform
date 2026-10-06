@@ -1535,7 +1535,7 @@
       "moduleId": "ms102-m-tenant-users",
       "type": "sequence",
       "difficulty": "intermediate",
-      "stem": "You are onboarding a customer domain manually (the registrar doesn't support Domain Connect). Put the steps in the correct order.",
+      "stem": "You are onboarding a customer domain manually (the registrar doesn't support Domain Connect) and verifying ownership with a TXT record. Put the steps in the correct order.",
       "options": [
         {
           "id": "a",
@@ -1552,28 +1552,23 @@
         {
           "id": "d",
           "text": "Add the MX, Autodiscover CNAME and SPF TXT records shown by the wizard"
-        },
-        {
-          "id": "e",
-          "text": "Remove the verification TXT record from the DNS host"
         }
       ],
       "correct": [
         "a",
         "b",
         "c",
-        "d",
-        "e"
+        "d"
       ],
-      "explanation": "You start the wizard to get the verification value, create the TXT record, verify ownership, then add the service records. The verification TXT record is only used for proof of ownership and can be removed afterwards.",
+      "explanation": "Start the Add domain wizard to get the verification value, create the TXT (MS=ms...) record at the DNS host, select Verify, and only then add the service records (MX, Autodiscover CNAME, SPF TXT) shown on the Add DNS records page. The verification TXT record can be removed from the DNS host once the domain is verified.",
       "whyOthersWrong": {
-        "d": "Service records are added only after ownership is verified; the wizard shows them in the 'Add DNS records' step.",
-        "e": "Removing the verification record is optional clean-up and comes last."
+        "b": "The TXT value is only shown after you start the wizard and choose the TXT verification option.",
+        "d": "Service records are added only after ownership is verified; the wizard shows them in the 'Add DNS records' step."
       },
       "skillMeasured": "Implement and manage domains",
       "reference": {
-        "title": "Gather the information you need to create DNS records",
-        "url": "https://learn.microsoft.com/microsoft-365/admin/get-help-with-domains/information-for-dns-records?view=o365-worldwide"
+        "title": "Add a custom domain to Microsoft 365",
+        "url": "https://learn.microsoft.com/microsoft-365/admin/setup/add-domain?view=o365-worldwide"
       }
     },
     {
@@ -1604,7 +1599,7 @@
       "correct": [
         "a"
       ],
-      "explanation": "Shared mailboxes don't require a licence for normal use within size limits and are accessed via permissions - the standard approach for team mailboxes.",
+      "explanation": "A shared mailbox can store up to 50 GB without a licence and is accessed through permissions (Full Access / Send As), so it's the standard, cost-effective team mailbox. A licence (Exchange Online Plan 2, or Plan 1 + Exchange Online Archiving) is only needed for more than 50 GB, an archive or litigation hold - none of which apply here.",
       "whyOthersWrong": {
         "b": "Sharing credentials breaks accountability and MFA, and the licence is unnecessary.",
         "c": "A Microsoft 365 group is a collaboration workspace (and groups aren't licensed this way); a shared mailbox is the purpose-built, licence-free option.",
@@ -1612,8 +1607,8 @@
       },
       "skillMeasured": "Create and manage groups, including Microsoft 365 Groups and manage shared mailboxes",
       "reference": {
-        "title": "MS-102 Configure your Microsoft 365 tenant (learning path)",
-        "url": "https://learn.microsoft.com/training/paths/configure-microsoft-365-tenant/"
+        "title": "About shared mailboxes in Microsoft 365",
+        "url": "https://learn.microsoft.com/microsoft-365/admin/email/about-shared-mailboxes?view=o365-worldwide"
       }
     },
     {
@@ -1681,14 +1676,14 @@
       "correct": [
         "b"
       ],
-      "explanation": "The initial onmicrosoft.com domain is permanent; it can't be removed, although it no longer needs to be the default domain.",
+      "explanation": "The onmicrosoft.com domain can't be removed (or renamed) because Microsoft 365 uses it behind the scenes for the subscription. You don't have to use it after adding a custom domain, and you can add a new onmicrosoft.com domain as fallback domain, but the original stays.",
       "whyOthersWrong": {
         "a": "It is not possible to remove the initial domain from the tenant."
       },
       "skillMeasured": "Create a tenant",
       "reference": {
-        "title": "Add a custom domain to Microsoft 365",
-        "url": "https://learn.microsoft.com/microsoft-365/admin/setup/add-domain?view=o365-worldwide"
+        "title": "Domains FAQ",
+        "url": "https://learn.microsoft.com/microsoft-365/admin/setup/domains-faq?view=o365-worldwide"
       }
     },
     {
@@ -1697,7 +1692,7 @@
       "moduleId": "ms102-m-roles-pim",
       "type": "single",
       "difficulty": "expert",
-      "stem": "You created a Defender unified RBAC custom role with Security operations permissions for an external SOC partner and assigned it to their group. The partner still cannot triage Defender for Office 365 alerts, while users with Exchange Online role groups still can. What is the most likely cause?",
+      "stem": "In an existing tenant that still uses the legacy Email & collaboration permissions, you created a Defender unified RBAC custom role with Security operations permissions for an external SOC partner and assigned it to their group. The partner still cannot triage Defender for Office 365 alerts, while users with Exchange Online role groups still can. What is the most likely cause?",
       "options": [
         {
           "id": "a",
@@ -1719,10 +1714,10 @@
       "correct": [
         "a"
       ],
-      "explanation": "Until a workload is activated (System > Permissions > Microsoft Defender XDR > Roles > Activate workloads), Defender keeps using the existing workload permission model, so the custom role isn't enforced for that workload. Activation needs at least Security Administrator.",
+      "explanation": "Until a workload is activated (System > Permissions > Microsoft Defender XDR > Roles > Activate workloads, or Workload settings), Defender keeps respecting the existing permission model for that workload, so the custom role isn't enforced. Activation requires at least Security Administrator and takes effect after a few minutes. (New Defender for Office 365 Plan 2 organizations created from July 2026 get unified RBAC by default; existing tenants activate it manually.)",
       "whyOthersWrong": {
         "b": "Global Reader isn't required for unified RBAC custom roles.",
-        "c": "There is no 7-day delay; activation takes effect within minutes.",
+        "c": "There is no 7-day delay; activation takes effect after a few minutes.",
         "d": "Role-assignable groups relate to Entra directory roles, not Defender unified RBAC assignments."
       },
       "skillMeasured": "Manage permissions for Microsoft Defender XDR, Microsoft Purview and other Microsoft 365 workloads",
@@ -1807,8 +1802,8 @@
       },
       "skillMeasured": "Prepare for identity synchronization, including IdFix",
       "reference": {
-        "title": "Prepare for directory synchronization to Microsoft 365",
-        "url": "https://learn.microsoft.com/microsoft-365/enterprise/prepare-for-directory-synchronization?view=o365-worldwide"
+        "title": "Synchronize domain users to Microsoft 365",
+        "url": "https://learn.microsoft.com/microsoft-365/admin/setup/manage-domain-users?view=o365-worldwide"
       }
     },
     {
@@ -1841,7 +1836,7 @@
       ],
       "explanation": "Cloud Sync supports disconnected forests, multiple active agents for high availability and keeps configuration in the cloud. Hybrid join/device sync (which would require Connect Sync) isn't needed because devices are Entra joined.",
       "whyOthersWrong": {
-        "b": "Only one active Connect Sync server can export to a tenant for a given forest set; two active servers isn't supported and still requires heavier infrastructure.",
+        "b": "Connect Sync doesn't support disconnected forests or multiple active sync instances, and it keeps a single on-premises sync server as a point of failure.",
         "c": "A staging server does not export changes, so the new users would never appear.",
         "d": "MIM is complex custom infrastructure and the scenario explicitly excludes a trust."
       },
@@ -1924,7 +1919,7 @@
       "correct": [
         "a"
       ],
-      "explanation": "If the on-premises UPN suffix is non-routable or not a verified domain, synced users get the onmicrosoft.com suffix. Add a routable UPN suffix matching a verified domain and update users' UPNs.",
+      "explanation": "If the on-premises UPN suffix (here .local) doesn't match a verified domain, synchronization replaces the suffix with onmicrosoft.com. Add ingbureau.be as an alternative UPN suffix in AD (Active Directory Domains and Trusts), update the users' UPNs and make sure the domain is verified in Microsoft 365.",
       "whyOthersWrong": {
         "b": "The default domain affects cloud-created users, not the UPN of synced users.",
         "c": "Renaming an AD domain is high risk and unnecessary.",
@@ -1932,8 +1927,8 @@
       },
       "skillMeasured": "Prepare for identity synchronization",
       "reference": {
-        "title": "Prepare for directory synchronization to Microsoft 365",
-        "url": "https://learn.microsoft.com/microsoft-365/enterprise/prepare-for-directory-synchronization?view=o365-worldwide"
+        "title": "Prepare a nonroutable domain for directory synchronization",
+        "url": "https://learn.microsoft.com/microsoft-365/enterprise/prepare-a-non-routable-domain-for-directory-synchronization?view=o365-worldwide"
       }
     },
     {
@@ -2618,7 +2613,7 @@
         "a",
         "b"
       ],
-      "explanation": "Unsanctioned apps are synced from MDCA to MDE as indicators, and Microsoft Defender Antivirus network protection blocks the domains on the device (allow up to about three hours).",
+      "explanation": "Unsanctioned apps are synced from Defender for Cloud Apps to Defender for Endpoint as custom network indicators, and Microsoft Defender Antivirus network protection blocks their domains on the device (allow up to about three hours). Besides the integration and network protection, Enforce app access must be selected in the Cloud Discovery > Microsoft Defender for Endpoint settings and Custom network indicators must be on in Advanced features.",
       "whyOthersWrong": {
         "c": "Log collectors provide discovery data, but blocking uses the MDE integration.",
         "d": "App connectors are for sanctioned apps you want deep visibility into, not for blocking.",
@@ -2730,14 +2725,14 @@
       "correct": [
         "b"
       ],
-      "explanation": "Business Premium includes Defender for Office 365 Plan 1 (plus Defender for Business and Entra ID P1). Plan 2 comes with E5 or the Defender Suite add-on.",
+      "explanation": "Business Premium includes Defender for Office 365 Plan 1, Defender for Business, Intune Plan 1 and Entra ID P1. Plan 2 comes with Microsoft 365 E5 or the Microsoft Defender Suite for Business Premium add-on.",
       "whyOthersWrong": {
         "a": "Plan 2 features like Threat Explorer and Attack simulation training aren't included in Business Premium."
       },
       "skillMeasured": "Implement and manage email and collaboration protection by using Microsoft Defender for Office 365",
       "reference": {
-        "title": "Microsoft 365 for business security overview",
-        "url": "https://learn.microsoft.com/microsoft-365/admin/security-and-compliance/m365b-security-overview?view=o365-worldwide"
+        "title": "Add Microsoft Defender Suite for Business Premium to your subscription",
+        "url": "https://learn.microsoft.com/microsoft-365/admin/security-and-compliance/add-defender-suite-business-premium?view=o365-worldwide"
       }
     },
     {
@@ -2843,7 +2838,7 @@
         },
         {
           "id": "c",
-          "text": "Windows devices already onboarded to Microsoft Defender for Endpoint are automatically onboarded to Endpoint DLP."
+          "text": "Windows devices already onboarded to Microsoft Defender for Endpoint appear in the Purview device list without running a separate onboarding script."
         },
         {
           "id": "d",
@@ -2854,11 +2849,11 @@
         "a",
         "c"
       ],
-      "explanation": "Allow is device-only. Simulation mode enforces no actions. Device onboarding is shared with MDE. Simulation evaluates existing and new SharePoint/OneDrive items, but only new items for Exchange, Teams and devices.",
+      "explanation": "Allow is available only for the Devices location. Simulation mode enforces no actions. Device onboarding is shared with Defender for Endpoint, so MDE-onboarded devices show up automatically (you still turn on device monitoring). Simulation evaluates existing and new SharePoint/OneDrive items, but only new items for Exchange, Teams and devices.",
       "whyOthersWrong": {
         "a": "Yes - Allow only exists for the Devices location.",
         "b": "No - no actions are enforced in simulation mode.",
-        "c": "Yes - onboarding to MDE also onboards to Endpoint DLP.",
+        "c": "Yes - onboarding to Defender for Endpoint also onboards the device for Endpoint DLP; only device monitoring needs to be turned on.",
         "d": "No - Exchange is evaluated only for new items during the simulation."
       },
       "skillMeasured": "Configure Endpoint DLP",
@@ -2948,7 +2943,7 @@
       },
       "skillMeasured": "Monitor label usage by using Content explorer, Activity explorer, and label reports",
       "reference": {
-        "title": "Get started with Content Explorer",
+        "title": "Get started with Content Explorer (classic)",
         "url": "https://learn.microsoft.com/purview/data-classification-content-explorer"
       }
     }
@@ -2970,7 +2965,7 @@
       "domainId": "ms102-d1",
       "level": "beginner",
       "front": "Which Microsoft 365 DNS record routes inbound email to Exchange Online Protection?",
-      "back": "The MX record pointing to <domain-with-dashes>.mail.protection.outlook.com.",
+      "back": "The MX record for the domain pointing to the <MX token>.mail.protection.outlook.com value shown in the admin center (copy it exactly), with the lowest preference number.",
       "tags": [
         "domains",
         "exchange"
@@ -2991,7 +2986,7 @@
       "domainId": "ms102-d1",
       "level": "beginner",
       "front": "Does a shared mailbox need a licence?",
-      "back": "Not for normal use within the size limit; licence it only for extra storage, archive or holds.",
+      "back": "Not up to 50 GB. An Exchange Online Plan 2 licence is needed for more than 50 GB (up to 100 GB), and Plan 2 or Plan 1 + Exchange Online Archiving for an archive or litigation hold.",
       "tags": [
         "exchange",
         "licensing"
@@ -3189,7 +3184,7 @@
       "domainId": "ms102-d2",
       "level": "expert",
       "front": "Sign-in risk vs user risk remediation?",
-      "back": "Sign-in risk -> require MFA. User risk -> secure password change/risk remediation. Keep them in separate policies; needs Entra ID P2.",
+      "back": "Sign-in risk Medium/High -> require MFA. User risk High -> require risk remediation (secure password change for password users). Keep them in separate policies; needs Entra ID P2.",
       "tags": [
         "id-protection"
       ]
@@ -3199,7 +3194,7 @@
       "domainId": "ms102-d2",
       "level": "expert",
       "front": "Which accounts/roles should be excluded from blocking CA policies?",
-      "back": "Emergency access (break-glass) accounts and the Directory Synchronization Accounts role; service accounts -> workload identities.",
+      "back": "Emergency access (break-glass) accounts, and service accounts such as the Microsoft Entra Connect Sync account; protect service principals with Conditional Access for workload identities.",
       "tags": [
         "ca"
       ]
@@ -3346,7 +3341,7 @@
       "domainId": "ms102-d3",
       "level": "beginner",
       "front": "What does Business Premium include for endpoints and email?",
-      "back": "Defender for Business (MDE P1 + some P2 features) and Defender for Office 365 Plan 1.",
+      "back": "Defender for Business (endpoint protection built on Defender for Endpoint), Defender for Office 365 Plan 1, Intune Plan 1 and Entra ID P1.",
       "tags": [
         "licensing"
       ]
@@ -3406,7 +3401,7 @@
       "domainId": "ms102-d4",
       "level": "expert",
       "front": "How are devices onboarded to Endpoint DLP if MDE is deployed?",
-      "back": "Automatically - onboarding is shared with Defender for Endpoint.",
+      "back": "They appear automatically in the Purview device list - onboarding is shared with Defender for Endpoint; you only need to turn on device monitoring.",
       "tags": [
         "endpoint-dlp"
       ]
@@ -3419,6 +3414,54 @@
       "back": "Content Explorer List viewer (items/locations) and Content Explorer Content viewer (item contents).",
       "tags": [
         "explorers"
+      ]
+    },
+    {
+      "id": "ms102-f46",
+      "domainId": "ms102-d2",
+      "level": "intermediate",
+      "front": "Licensing for Microsoft Entra Connect Health?",
+      "back": "Entra ID P1 or P2: 1 licence for the first registered agent, plus 25 licences per additional agent. Licences don't have to be assigned to specific users.",
+      "tags": [
+        "sync",
+        "health",
+        "licensing"
+      ]
+    },
+    {
+      "id": "ms102-f47",
+      "domainId": "ms102-d4",
+      "level": "intermediate",
+      "front": "Which licences include Endpoint DLP and automatic sensitivity labelling?",
+      "back": "E5-tier: Microsoft 365 E5/A5/G5, E5 Compliance or E5 Information Protection & Governance (or Purview Suite). Business Premium and E3 include manual labelling and DLP for Exchange/SharePoint/OneDrive, but not auto-labelling or Endpoint DLP.",
+      "tags": [
+        "licensing",
+        "dlp",
+        "labels"
+      ]
+    },
+    {
+      "id": "ms102-f48",
+      "domainId": "ms102-d3",
+      "level": "intermediate",
+      "front": "DMARC TXT record for a Microsoft 365 domain?",
+      "back": "Host _dmarc, value v=DMARC1; p=none|quarantine|reject; pct=..; rua=mailto:..; ruf=mailto:.. - start at p=none, move to quarantine, end at reject. Configure SPF and DKIM first.",
+      "tags": [
+        "email-auth",
+        "dmarc",
+        "dns"
+      ]
+    },
+    {
+      "id": "ms102-f49",
+      "domainId": "ms102-d3",
+      "level": "intermediate",
+      "front": "DKIM DNS records for a custom domain in Microsoft 365?",
+      "back": "Two CNAMEs: selector1._domainkey and selector2._domainkey, pointing to the values shown in the Defender portal or Exchange Online PowerShell (only one selector is active at a time).",
+      "tags": [
+        "email-auth",
+        "dkim",
+        "dns"
       ]
     }
   ],
