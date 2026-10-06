@@ -31,6 +31,7 @@ export default async function Labs({ params }: { params: Promise<{ id: string }>
         Run labs in a <strong>test or developer tenant</strong>, never in a customer production tenant. Policies such as Conditional Access can
         lock out users. Every lab has a cleanup section.
       </div>
+      <div className="table-scroll">
       <table>
         <thead>
           <tr><th>Lab</th><th>Technology</th><th>Level</th><th>Time</th><th>Status</th></tr>
@@ -50,6 +51,7 @@ export default async function Labs({ params }: { params: Promise<{ id: string }>
           })}
         </tbody>
       </table>
+      </div>
     </>
   );
 }

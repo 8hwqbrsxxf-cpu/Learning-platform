@@ -5,7 +5,7 @@ import { getProfile } from "@/lib/db";
 import { generatePlan } from "@/lib/planner";
 import { computeReadiness } from "@/lib/readiness";
 import StudyProfileForm from "@/components/StudyProfileForm";
-import { ExamTabs } from "@/components/ui";
+import { ExamTabs, RetirementBanner } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +25,8 @@ export default async function PlanPage({ params }: { params: Promise<{ id: strin
     <>
       <h1>{exam.code} · Personal study plan</h1>
       <ExamTabs examId={exam.id} active="/plan" />
-      <div className="grid" style={{ gridTemplateColumns: "minmax(260px, 1fr) minmax(0, 2.4fr)", alignItems: "start" }}>
+      <RetirementBanner code={exam.code} retirement={exam.retirement} />
+      <div className="grid plan-layout">
         <div className="card">
           <h2>Your situation</h2>
           <StudyProfileForm

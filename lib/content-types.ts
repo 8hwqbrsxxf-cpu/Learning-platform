@@ -112,6 +112,11 @@ export interface Exam {
   audience: string;
   studyGuideUrl: string;
   lastReviewed: string; // ISO date the content was checked against the study guide
+  retirement?: {
+    date: string; // YYYY-MM-DD, last day the exam can be taken
+    successor?: string; // e.g. "AB-650: Administering Microsoft 365 and AI Services"
+    url: string; // official retirement announcement
+  };
   domains: Domain[];
   roadmap: RoadmapPhase[];
   modules: KnowledgeModule[];

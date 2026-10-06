@@ -64,6 +64,15 @@ Design choices:
 - **Server-side grading.** The attempts API re-grades answers against the content, so readiness can't be skewed from the browser.
 - **Claude API for the coach** (`claude-opus-5-5`, streaming, prompt-cached system prompt, server-side refusal fallback). The stable coach prompt is in `lib/coach.ts`; learner context is appended per request.
 
+## Content status
+
+| Exam | Domains | Modules | Questions | Flashcards | Labs | Notes |
+|---|---|---|---|---|---|---|
+| MD-102 | 5 | 10 | 40 | 45 | 6 | Skills measured as of 27 Oct 2026 |
+| MS-102 | 4 | 10 | 40 | 45 | 6 | **Retires 30 Nov 2026.** Successor: AB-650 |
+
+Open review items (facts not yet verified against documentation) are tracked in [`content/REVIEW.md`](content/REVIEW.md).
+
 ## Adding an exam
 
 1. Create `content/exams/<exam-id>.json` following `lib/content-types.ts` (use `md-102.json` as a template).
@@ -77,7 +86,7 @@ Design choices:
 - **Multi-user with Entra ID sign-in** (Azure App Service Easy Auth or NextAuth with Entra ID), `learner_id` on all progress tables, team overview for managers.
 - **Azure hosting**: App Service (Linux) + Azure SQL / PostgreSQL instead of SQLite, Key Vault for the API key.
 - **AI-generated question bank** reviewed by a human before publishing, plus drag-and-drop and full case-study formats.
-- **Content for AZ-104, SC-300, MS-900, AZ-900, SC-200, AZ-500.**
+- **Content for AB-650 (MS-102 successor)**, AZ-104, SC-300, MS-900, AZ-900, SC-200, AZ-500.
 - **Knowledge base export** to SharePoint / Copilot Studio.
 
 ## Disclaimer

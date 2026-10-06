@@ -143,3 +143,9 @@ ul.clean li { padding: 4px 0; }
   .domain-row { grid-template-columns: 1fr 52px; }
   .domain-row .bar { grid-column: 1 / -1; grid-row: 2; }
 }
+
+.plan-layout { grid-template-columns: minmax(260px, 1fr) minmax(0, 2.4fr); align-items: start; }
+@media (max-width: 800px) { .plan-layout { grid-template-columns: minmax(0, 1fr); } }
+/* Wide tables scroll inside their card instead of widening the page on phones. */
+.card { overflow-x: auto; }
+.table-scroll { overflow-x: auto; }

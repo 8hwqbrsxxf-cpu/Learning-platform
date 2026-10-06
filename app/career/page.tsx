@@ -3,8 +3,8 @@ import Link from "next/link";
 const PATHS = [
   {
     role: "Helpdesk / Service desk → Modern Workplace engineer",
-    steps: ["MS-900", "MD-102", "MS-102", "SC-300"],
-    why: "Start from the user and device, then grow into tenant-wide administration and identity. This is the most common path inside an MSP.",
+    steps: ["MS-900", "MD-102", "AB-650", "SC-300"],
+    why: "Start from the user and device, then grow into tenant-wide administration and identity. This is the most common path inside an MSP. AB-650 succeeds MS-102, which retires on 30 November 2026.",
     jobs: "Modern Workplace Engineer, Intune Engineer, M365 Administrator",
   },
   {
@@ -21,7 +21,7 @@ const PATHS = [
   },
   {
     role: "Compliance & data protection",
-    steps: ["SC-900", "MS-102", "SC-401"],
+    steps: ["SC-900", "AB-650", "SC-401"],
     why: "Purview, sensitivity labels, DLP and retention are increasingly requested by SMBs (NIS2, GDPR).",
     jobs: "Information Protection Administrator, Compliance Consultant",
   },

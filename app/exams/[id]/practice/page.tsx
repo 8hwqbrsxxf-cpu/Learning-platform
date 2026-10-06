@@ -128,8 +128,9 @@ export default async function Practice({ params, searchParams }: { params: Promi
       {history.length > 0 && (
         <>
           <h2>Recent sessions</h2>
-          <table>
-            <thead>
+          <div className="table-scroll">
+            <table>
+              <thead>
               <tr><th>Date</th><th>Mode</th><th>Score</th></tr>
             </thead>
             <tbody>
@@ -141,7 +142,8 @@ export default async function Practice({ params, searchParams }: { params: Promi
                 </tr>
               ))}
             </tbody>
-          </table>
+            </table>
+          </div>
         </>
       )}
     </>

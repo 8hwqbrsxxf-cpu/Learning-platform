@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { domainWeight, getExam } from "@/lib/content";
 import { completedModules, labProgress } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
-import { Bar, ExamTabs, LevelBadge, Stat } from "@/components/ui";
+import { Bar, ExamTabs, LevelBadge, RetirementBanner, Stat } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +22,7 @@ export default async function ExamOverview({ params }: { params: Promise<{ id: s
       </h1>
       <p className="muted">{exam.certification}</p>
       <ExamTabs examId={exam.id} active="" />
+      <RetirementBanner code={exam.code} retirement={exam.retirement} />
 
       <div className="grid grid-4">
         <Stat value={`${r.overall}%`} label="Exam readiness" />

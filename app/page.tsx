@@ -3,7 +3,7 @@ import { getExams } from "@/lib/content";
 import { cardStates, labProgress, sessions } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
 import { isDue } from "@/lib/srs";
-import { Bar, scoreColor } from "@/components/ui";
+import { Bar, RetirementBanner, scoreColor } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +34,7 @@ export default function Dashboard() {
                 </h2>
                 <span className="badge accent">{exam.level}</span>
               </div>
+              <RetirementBanner code={exam.code} retirement={exam.retirement} />
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, margin: "14px 0 6px" }}>
                 <span style={{ fontSize: "2.2rem", fontWeight: 700, color: scoreColor(r.overall) }}>{r.overall}%</span>
                 <span className="muted">exam readiness</span>

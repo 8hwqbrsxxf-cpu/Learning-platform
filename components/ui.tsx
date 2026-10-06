@@ -72,6 +72,21 @@ export function ExamTabs({ examId, active }: { examId: string; active: (typeof T
   );
 }
 
+export function RetirementBanner({ code, retirement }: { code: string; retirement?: { date: string; successor?: string; url: string } }) {
+  if (!retirement) return null;
+  const days = Math.ceil((new Date(retirement.date).getTime() - Date.now()) / 86_400_000);
+  return (
+    <div className="callout bad small">
+      <strong>
+        {code} {days > 0 ? `retires on ${retirement.date} (${days} days left)` : `retired on ${retirement.date}`}.
+      </strong>{" "}
+      After that date you can no longer take the exam or earn the certification.
+      {retirement.successor && <> Successor: <strong>{retirement.successor}</strong>.</>}{" "}
+      <a href={retirement.url} target="_blank" rel="noreferrer">Official retirement list</a>
+    </div>
+  );
+}
+
 export function LevelBadge({ level }: { level: string }) {
   const cls = level === "beginner" ? "good" : level === "intermediate" ? "accent" : "warn";
   return <span className={`badge ${cls}`}>{level}</span>;

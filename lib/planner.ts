@@ -162,8 +162,11 @@ export function generatePlan(
         : `Score ≥ 75 % on this week's practice sets; review every explanation of a wrong answer.`;
   });
 
-  const warning =
-    hoursAvailable < hoursNeeded
+  const retiresBeforeTarget = exam.retirement && p.targetDate > exam.retirement.date;
+  const warning = retiresBeforeTarget
+    ? `${exam.code} retires on ${exam.retirement!.date}, before your target date. Move the exam date forward` +
+      (exam.retirement!.successor ? ` or plan for ${exam.retirement!.successor} instead.` : ".")
+    : hoursAvailable < hoursNeeded
       ? `You have about ${hoursAvailable} h until the target date but this exam typically needs ~${hoursNeeded} h at your level. ` +
         `The plan is compressed; consider ${Math.ceil(hoursNeeded / weeksAvailable)} h/week or moving the exam date.`
       : null;
