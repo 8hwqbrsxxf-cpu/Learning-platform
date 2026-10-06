@@ -6,9 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    env_file:
-      - path: .env
-        required: false
+    env_file: .env # copy .env.example to .env first
     volumes:
       - certcoach-data:/data # SQLite progress database; survives rebuilds and updates
 
