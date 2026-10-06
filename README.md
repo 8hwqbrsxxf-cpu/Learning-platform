@@ -21,7 +21,7 @@ No exam dumps: all questions are original and written to teach understanding.
 
 ## Getting started
 
-Requirements: Node.js 20+.
+Requirements: Node.js 20+. (For a permanent install on a server, see [Self-hosting](#self-hosting-home-server--docker).)
 
 ```bash
 npm install
@@ -38,6 +38,32 @@ npm run build && npm start
 ```
 
 Progress is stored in SQLite at `data/learning.db` (override with `DATABASE_PATH`). Delete the file to reset.
+
+## Self-hosting (home server / Docker)
+
+Runs on any machine with Docker: a Linux box, Proxmox VM/LXC, Unraid, Synology (Container Manager), or a Raspberry Pi 4/5 (64-bit).
+
+```bash
+git clone https://github.com/8hwqbrsxxf-cpu/Learning-platform.git certcoach
+cd certcoach
+cp .env.example .env        # set APP_PASSWORD (and ANTHROPIC_API_KEY for the coach)
+docker compose up -d --build
+```
+
+Open `http://<server-ip>:3000`. Your progress is stored in the Docker volume `certcoach-data` and survives updates.
+
+| Task | Command |
+|---|---|
+| Update to the latest version | `git pull && docker compose up -d --build` |
+| Logs | `docker compose logs -f` |
+| Back up progress | `docker run --rm -v certcoach_certcoach-data:/data -v "$PWD":/backup busybox tar czf /backup/certcoach-backup.tgz -C /data .` |
+| Stop | `docker compose down` (add `-v` only if you want to delete all progress) |
+
+**Security**
+
+- Set `APP_PASSWORD` in `.env`. Every page and API route then asks for a username and password (HTTP Basic Auth).
+- Access from outside your home: prefer a VPN such as **Tailscale** or **WireGuard** (no open ports). If you do expose it, put it behind a reverse proxy with HTTPS (Caddy, Nginx Proxy Manager, Traefik or a Cloudflare Tunnel). Basic Auth without HTTPS sends the password in clear text.
+- Never commit `.env`; it holds your API key and password.
 
 ## Architecture
 

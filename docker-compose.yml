@@ -1,0 +1,16 @@
+services:
+  certcoach:
+    build: .
+    image: certcoach:latest
+    container_name: certcoach
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - certcoach-data:/data # SQLite progress database; survives rebuilds and updates
+
+volumes:
+  certcoach-data:
