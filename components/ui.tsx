@@ -51,6 +51,7 @@ export function Callout({ kind, title, items }: { kind: "tip" | "warn" | "lab" |
 }
 
 const TABS = [
+  ["/learn", "Learning paths"],
   ["", "Overview"],
   ["/plan", "Study plan"],
   ["/practice", "Practice exam"],
@@ -67,7 +68,6 @@ export function ExamTabs({ examId, active }: { examId: string; active: (typeof T
           {label}
         </Link>
       ))}
-      <Link href={`/coach?exam=${examId}`}>AI Coach</Link>
     </nav>
   );
 }

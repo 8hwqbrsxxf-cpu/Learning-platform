@@ -1,0 +1,527 @@
+{
+  "examId": "md-102",
+  "course": "MD-102T00",
+  "retrieved": "2026-10-06",
+  "paths": [
+    {
+      "uid": "learn.wwl.prepare-infrastructure-devices-intune-microsoft-entra-id",
+      "title": "Prepare infrastructure for devices using Microsoft Intune and Microsoft Entra ID",
+      "url": "https://learn.microsoft.com/training/paths/prepare-infrastructure-devices-intune-microsoft-entra-id/",
+      "summary": "Learn how to configure Microsoft Entra ID and Microsoft Intune to support modern endpoint management. This learning path covers identity infrastructure, device enrollment, and automated deployment strategies for Windows, iOS/iPadOS, macOS, and Android devices.",
+      "durationMinutes": 284,
+      "modules": [
+        {
+          "uid": "learn.wwl.understand-intune-strategies",
+          "slug": "understand-intune-strategies",
+          "title": "Understand endpoint management strategies and Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/",
+          "durationMinutes": 55,
+          "updated": "2026-07-14",
+          "learnSummary": "Introduces Microsoft Intune, management models (cloud-only, hybrid, co-managed), and how Microsoft Entra ID supports device management.",
+          "tldr": "Intune is Microsoft's cloud service for managing devices (MDM) and protecting data inside apps (MAM). Microsoft Entra ID supplies the user, group and device identities that every Intune assignment depends on. Pick a management model — cloud-only, hybrid or co-managed — based on your existing infrastructure and migration goals.",
+          "objectives": [
+            "Describe how Microsoft Intune works as a cloud-based device management service",
+            "Compare Configuration Manager, Intune and co-management",
+            "Explain the role of Microsoft Entra ID in Intune-based device management",
+            "Evaluate cloud-only, hybrid and co-managed device management models",
+            "Identify the key MDM capabilities in Intune"
+          ],
+          "keyPoints": [
+            "**MDM** manages the whole device (settings, updates, security, inventory); **MAM** protects corporate data inside apps and also works on devices that are **not enrolled** — ideal for BYOD.",
+            "Policies are created in the **Intune admin center**, assigned to **Entra ID groups**, and delivered to devices over **HTTPS** — no VPN or on-premises servers needed.",
+            "Intune **can't work without Microsoft Entra ID**: enrollment starts with Entra authentication and creates a device object Intune references.",
+            "Three join types: **Entra registered** (BYOD, light management via app protection), **Entra joined** (cloud-only corporate, full MDM), **hybrid Entra joined** (also in on-prem AD, enables co-management).",
+            "**Co-management** = one Windows device managed by Configuration Manager *and* Intune; you move **workloads** (e.g. compliance, Windows Update policies) to Intune one at a time.",
+            "**RBAC** limits what each admin sees and can do — e.g. help desk can wipe a lost device without seeing licensing.",
+            "Intune supports the full device lifecycle: **provision → configure → secure → monitor → retire**."
+          ],
+          "units": [
+            {
+              "title": "What is Microsoft Intune and how does it work?",
+              "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/02-intune-overview",
+              "minutes": 10,
+              "points": [
+                "Cloud service: configuration and policy definitions live in the cloud; devices check in over the internet.",
+                "MDM controls the device; MAM protects data in apps, also on unenrolled devices. Many organizations combine both (corporate phones enrolled, personal tablets app protection only).",
+                "On enrollment the device registers and downloads a management profile that establishes trust.",
+                "Intune tracks compliance, reports inventory and can run remote actions such as lock or wipe.",
+                "Typical roles: Global Administrator, Intune Administrator (no billing/licensing), and a compliance-focused admin role; RBAC narrows permissions per job."
+              ]
+            },
+            {
+              "title": "Compare Configuration Manager, Intune, and co-management",
+              "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/03-compare-configuration-manager-intune",
+              "minutes": 8,
+              "points": [
+                "Configuration Manager: on-premises, Windows-focused, deep inventory and scripting, works offline — but needs servers and bandwidth.",
+                "Intune: cloud, multi-platform (Windows, macOS, iOS/iPadOS, Android), modern app types (Win32, MSIX, Store) — less granular inventory, needs internet.",
+                "Co-management: Windows 10/11 only; phased migration per workload; extra complexity of dual management.",
+                "To start: enroll a Configuration Manager–managed device in Intune, then in the Configuration Manager console choose which workloads Intune controls."
+              ]
+            },
+            {
+              "title": "Understand the role of Microsoft Entra ID in Intune",
+              "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/04-entra-id-role",
+              "minutes": 8,
+              "points": [
+                "Every Intune assignment is identity-based: users, groups and devices come from Entra ID.",
+                "The device object records type, ownership and join type.",
+                "Entra ID issues the tokens; Conditional Access combines identity with device compliance from Intune before granting access."
+              ]
+            },
+            {
+              "title": "Evaluate device management models",
+              "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/05-evaluate-management-models",
+              "minutes": 10,
+              "points": [
+                "**Cloud-only**: devices Entra joined, all policy from Intune — for cloud-first, remote/mobile and BYOD scenarios.",
+                "**Hybrid**: devices joined to on-prem AD and hybrid Entra joined; Group Policy and Intune side by side — for legacy apps that need domain authentication.",
+                "**Co-managed**: Configuration Manager and Intune together, shifting workloads gradually — for heavy Configuration Manager users.",
+                "You can start with one model and evolve as the organization changes."
+              ]
+            },
+            {
+              "title": "Explore MDM capabilities in Intune",
+              "url": "https://learn.microsoft.com/training/modules/understand-intune-strategies/06-mdm-capabilities",
+              "minutes": 8,
+              "points": [
+                "Enrollment and provisioning: Autopilot, Apple automated enrollment, or manual enrollment; zero-touch setup reduces hands-on work.",
+                "Configuration profiles set device settings; security baselines give recommended settings; compliance policies check requirements and can flag or block non-compliant devices.",
+                "App deployment (store, line-of-business, web apps), monitoring and reporting dashboards, and remote actions (lock, wipe, reset)."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "MDM",
+              "definition": "Mobile device management — settings and policies applied to an enrolled device."
+            },
+            {
+              "term": "MAM",
+              "definition": "Mobile application management — protects corporate data inside apps; works without enrollment."
+            },
+            {
+              "term": "Co-management",
+              "definition": "Configuration Manager and Intune manage the same Windows device; workloads are switched to Intune individually."
+            },
+            {
+              "term": "Workload",
+              "definition": "A management area (e.g. compliance policies, Windows Update policies) assigned to either Configuration Manager or Intune under co-management."
+            },
+            {
+              "term": "Microsoft Entra registered / joined / hybrid joined",
+              "definition": "The three device identity types: personal (BYOD), cloud-only corporate, and on-prem AD–joined with a cloud identity."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which management model?",
+              "headers": [
+                "Model",
+                "Device identity",
+                "Best for"
+              ],
+              "rows": [
+                [
+                  "Cloud-only",
+                  "Microsoft Entra joined",
+                  "Cloud-first, remote workforce, minimal on-prem infrastructure, BYOD"
+                ],
+                [
+                  "Hybrid",
+                  "Hybrid Microsoft Entra joined (on-prem AD + Entra)",
+                  "Existing AD investment, legacy apps needing domain authentication, Group Policy still required"
+                ],
+                [
+                  "Co-managed",
+                  "Configuration Manager client + Intune enrollment (Windows)",
+                  "Large Configuration Manager estates migrating workload by workload"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "BYOD without enrollment → think **MAM / app protection policies**, not MDM.",
+            "Co-management is **Windows only**; macOS, iOS/iPadOS and Android are managed by Intune alone.",
+            "Intune policies target **Entra ID groups** — no group, no assignment."
+          ],
+          "selfCheck": [
+            {
+              "q": "Employees want to read company email on their personal phones without enrolling them. Which Intune approach fits?",
+              "a": "MAM — app protection policies protect the corporate data in the apps without enrolling the device."
+            },
+            {
+              "q": "A company manages 10,000 laptops with Configuration Manager and wants to move compliance to the cloud first. What do they enable?",
+              "a": "Co-management, switching the compliance policies workload to Intune while Configuration Manager keeps the rest."
+            },
+            {
+              "q": "Which device join type is used for cloud-only corporate devices with full MDM?",
+              "a": "Microsoft Entra joined."
+            }
+          ],
+          "summarizedOn": "2026-10-06"
+        },
+        {
+          "uid": "learn.wwl.configure-entraid-device-management",
+          "slug": "configure-entraid-device-management",
+          "title": "Configure Microsoft Entra ID for device and policy management",
+          "url": "https://learn.microsoft.com/training/modules/configure-entraid-device-management/",
+          "durationMinutes": 55,
+          "updated": "2026-07-14",
+          "learnSummary": "Configure user and device identity, admin roles, registration settings, and dynamic groups to support Intune policy targeting."
+        },
+        {
+          "uid": "learn.wwl.device-identity-authentication-entra-id",
+          "slug": "device-identity-authentication-entra-id",
+          "title": "Administer device identity and authentication using Microsoft Entra ID",
+          "url": "https://learn.microsoft.com/training/modules/device-identity-authentication-entra-id/",
+          "durationMinutes": 55,
+          "updated": "2026-07-14",
+          "learnSummary": "Explore device object lifecycle, join types, trust models, and troubleshooting join and authentication failures in Microsoft Entra ID."
+        },
+        {
+          "uid": "learn.wwl.plan-implement-device-enrollment",
+          "slug": "plan-implement-device-enrollment",
+          "title": "Plan and implement device enrollment using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/plan-implement-device-enrollment/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Covers enrollment strategy selection, step-by-step platform enrollment guidance for Windows, iOS/iPadOS, macOS, and Android, plus enrollment restrictions and troubleshooting."
+        },
+        {
+          "uid": "learn.wwl.deploy-windows-autopilot",
+          "slug": "deploy-windows-autopilot",
+          "title": "Deploy Windows devices using Windows Autopilot",
+          "url": "https://learn.microsoft.com/training/modules/deploy-windows-autopilot/",
+          "durationMinutes": 59,
+          "updated": "2026-07-14",
+          "learnSummary": "Covers Windows Autopilot registration, deployment profiles, pre-provisioning, monitoring, and common troubleshooting scenarios."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.manage-maintain-devices-intune",
+      "title": "Manage and maintain devices using Microsoft Intune",
+      "url": "https://learn.microsoft.com/training/paths/manage-maintain-devices-intune/",
+      "summary": "Learn how to configure device profiles and compliance policies, manage Windows updates and device lifecycle, monitor device health with analytics and reporting, and troubleshoot device and policy issues using Microsoft Intune.",
+      "durationMinutes": 236,
+      "modules": [
+        {
+          "uid": "learn.wwl.configure-device-profiles-intune",
+          "slug": "configure-device-profiles-intune",
+          "title": "Configure device profiles and policy management using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/configure-device-profiles-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Configure and assign device configuration and compliance policies, and analyze Group Policy migrations using Microsoft Intune."
+        },
+        {
+          "uid": "learn.wwl.monitor-maintain-devices-intune",
+          "slug": "monitor-maintain-devices-intune",
+          "title": "Monitor and maintain devices using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/monitor-maintain-devices-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Use Endpoint Analytics, proactive remediation, reporting, and automation to monitor and maintain device health and compliance."
+        },
+        {
+          "uid": "learn.wwl.manage-windows-updates-intune",
+          "slug": "manage-windows-updates-intune",
+          "title": "Manage Windows updates and lifecycle using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/manage-windows-updates-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-08-20",
+          "learnSummary": "Configure update rings, feature updates, Hotpatch, and Autopatch to manage Windows servicing and lifecycle using Intune."
+        },
+        {
+          "uid": "learn.wwl.troubleshoot-intune-devices",
+          "slug": "troubleshoot-intune-devices",
+          "title": "Troubleshoot device and policy issues using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/troubleshoot-intune-devices/",
+          "durationMinutes": 56,
+          "updated": "2026-07-14",
+          "learnSummary": "Investigate and resolve device enrollment, configuration, and policy application issues using Intune diagnostics and remediation techniques."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.manage-applications-intune",
+      "title": "Manage applications using Microsoft Intune",
+      "url": "https://learn.microsoft.com/training/paths/manage-applications-intune/",
+      "summary": "Learn how to deploy and manage applications with Microsoft Intune, including app protection policies, application lifecycle management, performance monitoring, and the Enterprise App Catalog.",
+      "durationMinutes": 285,
+      "modules": [
+        {
+          "uid": "learn.wwl.deploy-manage-applications-intune",
+          "slug": "deploy-manage-applications-intune",
+          "title": "Deploy and manage applications using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/deploy-manage-applications-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Plan and deploy applications across Windows devices using Microsoft Intune, including Microsoft Store, Microsoft 365, Win32, and line-of-business apps."
+        },
+        {
+          "uid": "learn.wwl.implement-application-protection-intune",
+          "slug": "implement-application-protection-intune",
+          "title": "Implement application protection and security using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/implement-application-protection-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Plan, configure, assign, monitor, and troubleshoot Microsoft Intune Mobile Application Management (MAM) and App Protection Policies to secure corporate data on BYOD and corporate devices."
+        },
+        {
+          "uid": "learn.wwl.manage-application-lifecycle-intune",
+          "slug": "manage-application-lifecycle-intune",
+          "title": "Manage application lifecycle and user experience using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/manage-application-lifecycle-intune/",
+          "durationMinutes": 59,
+          "updated": "2026-07-14",
+          "learnSummary": "Learn how to manage applications across the full Microsoft Intune lifecycle, including deployment, configuration, protection, monitoring, update, and retirement."
+        },
+        {
+          "uid": "learn.wwl.monitor-optimize-application-performance-intune",
+          "slug": "monitor-optimize-application-performance-intune",
+          "title": "Monitor and optimize application performance using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/monitor-optimize-application-performance-intune/",
+          "durationMinutes": 59,
+          "updated": "2026-09-23",
+          "learnSummary": "Monitor application health, deployment status, and performance across managed devices using Microsoft Intune reports and Endpoint analytics."
+        },
+        {
+          "uid": "learn.wwl.manage-enterprise-application-catalog",
+          "slug": "manage-enterprise-application-catalog",
+          "title": "Manage Enterprise App Catalog applications",
+          "url": "https://learn.microsoft.com/training/modules/manage-enterprise-application-catalog/",
+          "durationMinutes": 47,
+          "updated": "2026-07-14",
+          "learnSummary": "Discover, deploy, configure, update, and monitor prepackaged Win32 applications from the Microsoft Intune Enterprise App Catalog."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.protect-devices-intune",
+      "title": "Protect devices using Microsoft Intune",
+      "url": "https://learn.microsoft.com/training/paths/protect-devices-intune/",
+      "summary": "Learn how to secure endpoints with Microsoft Intune and Microsoft Defender, including device encryption, compliance policies, advanced threat protection, Microsoft Tunnel VPN, and Microsoft Cloud PKI.",
+      "durationMinutes": 302,
+      "modules": [
+        {
+          "uid": "learn.wwl.implement-defender-endpoint-intune",
+          "slug": "implement-defender-endpoint-intune",
+          "title": "Implement endpoint security with Microsoft Defender and Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/implement-defender-endpoint-intune/",
+          "durationMinutes": 60,
+          "updated": "2026-07-14",
+          "learnSummary": "Onboard devices to Microsoft Defender with Microsoft Intune, configure security baselines and EDR policies, and investigate and triage incidents in the Microsoft Defender portal."
+        },
+        {
+          "uid": "learn.wwl.implement-device-encryption",
+          "slug": "implement-device-encryption",
+          "title": "Implement device encryption and security policies using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/implement-device-encryption/",
+          "durationMinutes": 56,
+          "updated": "2026-07-14",
+          "learnSummary": "Deploy and manage BitLocker device encryption on Windows endpoints using Microsoft Intune, including policy configuration, recovery key management, and compliance monitoring."
+        },
+        {
+          "uid": "learn.wwl.implement-advanced-threat-protection",
+          "slug": "implement-advanced-threat-protection",
+          "title": "Implement advanced threat protection using Microsoft Intune and Microsoft Defender",
+          "url": "https://learn.microsoft.com/training/modules/implement-advanced-threat-protection/",
+          "durationMinutes": 47,
+          "updated": "2026-07-14",
+          "learnSummary": "Apply layered endpoint defenses by combining Microsoft Intune policy enforcement with Microsoft Defender for SaaS app discovery, Attack Surface Reduction rules, Zero Trust device access, and proactive remediation."
+        },
+        {
+          "uid": "learn.wwl.enforce-compliance-intune",
+          "slug": "enforce-compliance-intune",
+          "title": "Enforce compliance and remediate security issues by using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/enforce-compliance-intune/",
+          "durationMinutes": 59,
+          "updated": "2026-08-20",
+          "learnSummary": "Design, assign, and monitor Microsoft Intune compliance policies, configure graduated noncompliance actions, and automate remediation for noncompliant devices."
+        },
+        {
+          "uid": "learn.wwl.secure-mobile-access-microsoft-tunnel",
+          "slug": "secure-mobile-access-microsoft-tunnel",
+          "title": "Secure mobile access using Microsoft Tunnel",
+          "url": "https://learn.microsoft.com/training/modules/secure-mobile-access-microsoft-tunnel/",
+          "durationMinutes": 41,
+          "updated": "2026-07-14",
+          "learnSummary": "Learn how to deploy and manage Microsoft Tunnel Gateway to securely extend access to on-premises resources for enrolled and unenrolled mobile devices."
+        },
+        {
+          "uid": "learn.wwl.microsoft-cloud-pki",
+          "slug": "microsoft-cloud-pki",
+          "title": "Implement Microsoft Cloud PKI",
+          "url": "https://learn.microsoft.com/training/modules/microsoft-cloud-pki/",
+          "durationMinutes": 39,
+          "updated": "2026-07-14",
+          "learnSummary": "Stand up a cloud-hosted certificate authority hierarchy in Microsoft Intune, automate SCEP issuance and renewal, and monitor certificate health across managed devices."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.automate-optimize-endpoint-management-intune",
+      "title": "Automate and optimize endpoint management using Microsoft Intune",
+      "url": "https://learn.microsoft.com/training/paths/automate-optimize-endpoint-management-intune/",
+      "summary": "Learn how to automate endpoint management with PowerShell and Microsoft Graph, optimize device management using AI and Copilot, and monitor and optimize endpoint performance using Microsoft Intune.",
+      "durationMinutes": 156,
+      "modules": [
+        {
+          "uid": "learn.wwl.automate-endpoint-management-powershell-graph",
+          "slug": "automate-endpoint-management-powershell-graph",
+          "title": "Automate endpoint management using PowerShell and Microsoft Graph",
+          "url": "https://learn.microsoft.com/training/modules/automate-endpoint-management-powershell-graph/",
+          "durationMinutes": 56,
+          "updated": "2026-07-14",
+          "learnSummary": "Automate Microsoft Intune operations at scale using PowerShell and the Microsoft Graph PowerShell SDK, including device management, policy assignment, and secure authentication."
+        },
+        {
+          "uid": "learn.wwl.optimize-device-management-ai-copilot",
+          "slug": "optimize-device-management-ai-copilot",
+          "title": "Optimize device management using AI and Copilot tools",
+          "url": "https://learn.microsoft.com/training/modules/optimize-device-management-ai-copilot/",
+          "durationMinutes": 49,
+          "updated": "2026-07-14",
+          "learnSummary": "Use AI and Copilot tools across Microsoft Intune and Microsoft Defender to prioritize endpoint issues, investigate threats, and apply targeted remediation actions."
+        },
+        {
+          "uid": "learn.wwl.monitor-optimize-endpoint-performance-intune",
+          "slug": "monitor-optimize-endpoint-performance-intune",
+          "title": "Monitor and optimize endpoint performance using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/monitor-optimize-endpoint-performance-intune/",
+          "durationMinutes": 51,
+          "updated": "2026-08-26",
+          "learnSummary": "Monitor endpoint performance and implement proactive remediation using Microsoft Intune and Endpoint analytics."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.support-operational-excellence-intune",
+      "title": "Support operational excellence and readiness using Microsoft Intune",
+      "url": "https://learn.microsoft.com/training/paths/support-operational-excellence-intune/",
+      "summary": "Learn how to implement reporting and data visibility, delegate administration using role-based access control, and maintain tenant health to keep your Microsoft Intune environment operationally ready.",
+      "durationMinutes": 135,
+      "modules": [
+        {
+          "uid": "learn.wwl.implement-reporting-data-visibility",
+          "slug": "implement-reporting-data-visibility",
+          "title": "Implement reporting and data visibility using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/implement-reporting-data-visibility/",
+          "durationMinutes": 45,
+          "updated": "2026-07-14",
+          "learnSummary": "Access, customize, and share Microsoft Intune reports, workbooks, and dashboards to deliver actionable operational insights across your organization."
+        },
+        {
+          "uid": "learn.wwl.apply-rbac-admin-delegation",
+          "slug": "apply-rbac-admin-delegation",
+          "title": "Apply RBAC and admin delegation in Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/apply-rbac-admin-delegation/",
+          "durationMinutes": 45,
+          "updated": "2026-07-14",
+          "learnSummary": "Configure role-based access control, scope tags, role assignments, and auditing to delegate Microsoft Intune administration safely across your organization."
+        },
+        {
+          "uid": "learn.wwl.maintain-tenant-health",
+          "slug": "maintain-tenant-health",
+          "title": "Maintain tenant health and support readiness",
+          "url": "https://learn.microsoft.com/training/modules/maintain-tenant-health/",
+          "durationMinutes": 45,
+          "updated": "2026-07-14",
+          "learnSummary": "Monitor Microsoft Intune tenant health, configure proactive alerts, use built-in support tools, and document changes to maintain operational readiness."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.extend-intune-suite",
+      "title": "Extend endpoint capabilities using Microsoft Intune Suite",
+      "url": "https://learn.microsoft.com/training/paths/extend-intune-suite/",
+      "summary": "Learn how to extend Microsoft Intune with the Microsoft Intune Suite, including Remote Help, Endpoint Privilege Management, Advanced Endpoint Analytics, and other premium endpoint management capabilities.",
+      "durationMinutes": 193,
+      "modules": [
+        {
+          "uid": "learn.wwl.explore-intune-suite-capabilities",
+          "slug": "explore-intune-suite-capabilities",
+          "title": "Explore Microsoft Intune Suite capabilities",
+          "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/",
+          "durationMinutes": 49,
+          "updated": "2026-07-14",
+          "learnSummary": "Identify Microsoft Intune Suite add-on components, evaluate how they extend core Intune capabilities, and plan licensing and deployment strategies for advanced endpoint management scenarios."
+        },
+        {
+          "uid": "learn.wwl.implement-remote-help",
+          "slug": "implement-remote-help",
+          "title": "Implement Remote Help scenarios using Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/implement-remote-help/",
+          "durationMinutes": 46,
+          "updated": "2026-07-14",
+          "learnSummary": "Configure and deploy Microsoft Intune Remote Help, assign helper and sharer permissions, monitor support sessions, and evaluate privacy considerations for managed remote support."
+        },
+        {
+          "uid": "learn.wwl.analyze-advanced-device-signals",
+          "slug": "analyze-advanced-device-signals",
+          "title": "Analyze advanced device signals with Microsoft Intune Suite",
+          "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/",
+          "durationMinutes": 49,
+          "updated": "2026-07-14",
+          "learnSummary": "Use Microsoft Intune Suite Advanced Analytics, anomaly detection, and integration with Microsoft Defender to surface real-time device health and risk signals and drive risk-based policy decisions."
+        },
+        {
+          "uid": "learn.wwl.evaluate-endpoint-privilege-management",
+          "slug": "evaluate-endpoint-privilege-management",
+          "title": "Evaluate Endpoint Privilege Management with Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/",
+          "durationMinutes": 49,
+          "updated": "2026-07-14",
+          "learnSummary": "Evaluate Microsoft Intune Endpoint Privilege Management — design just-in-time elevation, configure elevation policies, monitor elevated actions, and troubleshoot and refine the deployment."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.deliver-cloud-hosted-desktops",
+      "title": "Deliver cloud-hosted desktops using Azure Virtual Desktop and Windows 365",
+      "url": "https://learn.microsoft.com/training/paths/deliver-cloud-hosted-desktops/",
+      "summary": "Learn how to plan, deploy, and manage cloud-hosted desktops using Windows 365 and Azure Virtual Desktop, and integrate Cloud PCs and Azure Virtual Desktop session hosts with Microsoft Intune.",
+      "durationMinutes": 195,
+      "modules": [
+        {
+          "uid": "learn.wwl.explore-windows-365-intune",
+          "slug": "explore-windows-365-intune",
+          "title": "Explore Windows 365 for cloud PC deployment",
+          "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/",
+          "durationMinutes": 52,
+          "updated": "2026-07-14",
+          "learnSummary": "Explore Windows 365 — its role for cloud PC deployment, how it compares to traditional VDI, licensing and prerequisites, common use cases, and endpoint experience options like Windows 365 Boot and Switch."
+        },
+        {
+          "uid": "learn.wwl.configure-manage-windows-365-intune",
+          "slug": "configure-manage-windows-365-intune",
+          "title": "Configure and manage Windows 365 with Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/",
+          "durationMinutes": 51,
+          "updated": "2026-06-03",
+          "learnSummary": "Configure Windows 365 provisioning policies, assign and manage Cloud PCs, apply configuration profiles and security policies, and monitor Cloud PC usage, performance, and health with Microsoft Intune."
+        },
+        {
+          "uid": "learn.wwl.explore-azure-virtual-desktop",
+          "slug": "explore-azure-virtual-desktop",
+          "title": "Explore Azure Virtual Desktop",
+          "url": "https://learn.microsoft.com/training/modules/explore-azure-virtual-desktop/",
+          "durationMinutes": 43,
+          "updated": "2026-07-14",
+          "learnSummary": "Explore Azure Virtual Desktop architecture, compare it with Windows 365, and learn how host pools, session hosts, and scaling deliver virtualized Windows desktops and apps from Azure."
+        },
+        {
+          "uid": "learn.wwl.integrate-azure-virtual-desktop-intune",
+          "slug": "integrate-azure-virtual-desktop-intune",
+          "title": "Integrate Azure Virtual Desktop with Microsoft Intune",
+          "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/",
+          "durationMinutes": 49,
+          "updated": "2026-06-03",
+          "learnSummary": "Enroll Azure Virtual Desktop session hosts in Microsoft Intune, apply compliance and configuration policies, monitor and troubleshoot virtual desktops, and address governance, licensing, and hybrid scenarios."
+        }
+      ]
+    }
+  ]
+}

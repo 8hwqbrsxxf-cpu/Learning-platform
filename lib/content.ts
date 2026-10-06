@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "node:fs";
 import path from "node:path";
-import type { CatalogEntry, Exam } from "./content-types";
+import type { CatalogEntry, Exam, LearningPathCollection } from "./content-types";
 
 const EXAM_DIR = path.join(process.cwd(), "content", "exams");
 
@@ -27,6 +27,14 @@ export function getExams(): Exam[] {
 
 export function getExam(id: string): Exam | undefined {
   return loadAll().get(id);
+}
+
+const PATHS_DIR = path.join(process.cwd(), "content", "learning-paths");
+
+export function getLearningPaths(examId: string): LearningPathCollection | undefined {
+  const file = path.join(PATHS_DIR, `${examId}.json`);
+  if (!/^[a-z0-9-]+$/.test(examId) || !fs.existsSync(file)) return undefined;
+  return JSON.parse(fs.readFileSync(file, "utf8")) as LearningPathCollection;
 }
 
 export function domainWeight(d: { weightMin: number; weightMax: number }): number {

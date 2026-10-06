@@ -47,10 +47,10 @@ export default function Dashboard() {
               </ul>
               <div className="callout tip small">{r.recommendation}</div>
               <div className="btn-row">
-                <Link className="btn primary" href={`/exams/${exam.id}/practice`}>Practice</Link>
+                <Link className="btn primary" href={`/exams/${exam.id}/learn`}>Learning paths</Link>
+                <Link className="btn" href={`/exams/${exam.id}/practice`}>Practice</Link>
                 <Link className="btn" href={`/exams/${exam.id}/flashcards`}>Review cards</Link>
                 <Link className="btn" href={`/exams/${exam.id}/plan`}>Study plan</Link>
-                <Link className="btn" href={`/coach?exam=${exam.id}`}>Ask the coach</Link>
               </div>
             </div>
           );

@@ -149,3 +149,24 @@ ul.clean li { padding: 4px 0; }
 /* Wide tables scroll inside their card instead of widening the page on phones. */
 .card { overflow-x: auto; }
 .table-scroll { overflow-x: auto; }
+
+/* Learning-path summaries: optimized for reading */
+.reading { max-width: 860px; display: grid; gap: 16px; }
+.reading .card { font-size: 1rem; line-height: 1.7; }
+.tldr { border-left: 4px solid var(--accent); background: var(--accent-soft); }
+.tldr p { margin: 4px 0 0; font-size: 1.08rem; }
+ol.keypoints { padding-left: 22px; margin: 0; }
+ol.keypoints li { padding: 4px 0; }
+ol.keypoints li p { margin: 0; }
+details.unit { border-top: 1px solid var(--border); padding: 10px 0; }
+details.unit:first-of-type { border-top: none; }
+details.unit summary { cursor: pointer; }
+details.unit ul { margin: 8px 0; }
+details.unit li p { margin: 0; }
+dl.terms { margin: 0; display: grid; gap: 10px; }
+dl.terms dt { font-weight: 700; }
+dl.terms dd { margin: 0; color: var(--muted); }
+ol.path-modules { list-style: none; padding: 0; margin: 12px 0; }
+ol.path-modules li { display: flex; gap: 10px; padding: 10px 0; border-top: 1px solid var(--border); }
+ol.path-modules li:first-child { border-top: none; }
+.path-check { width: 22px; flex: none; }

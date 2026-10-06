@@ -133,3 +133,48 @@ export interface CatalogEntry {
   track: string;
   available: boolean;
 }
+
+// ---------- Microsoft Learn learning-path summaries (content/learning-paths/<exam-id>.json) ----------
+
+export interface UnitSummary {
+  title: string;
+  url: string;
+  minutes?: number;
+  points: string[]; // 2-5 short bullets, markdown allowed
+}
+
+export interface ModuleSummary {
+  uid: string; // Learn catalog uid, e.g. learn.wwl.understand-intune-strategies
+  slug: string; // last path segment of the module URL
+  title: string;
+  url: string;
+  durationMinutes: number;
+  updated: string; // last_modified from the Learn catalog
+  learnSummary: string; // the module description as published on Learn
+  // The fields below are filled once the module has been summarized from its Learn units.
+  tldr?: string; // 2-3 sentences: the module in one glance
+  objectives?: string[];
+  keyPoints?: string[]; // the 5-8 things to remember
+  units?: UnitSummary[];
+  keyTerms?: { term: string; definition: string }[];
+  tables?: { title: string; headers: string[]; rows: string[][] }[];
+  remember?: string[]; // exam memory hooks and pitfalls, grounded in the module/docs
+  selfCheck?: { q: string; a: string }[];
+  summarizedOn?: string; // ISO date the summary was written from Learn
+}
+
+export interface LearningPathSummary {
+  uid: string;
+  title: string;
+  url: string;
+  summary: string;
+  durationMinutes: number;
+  modules: ModuleSummary[];
+}
+
+export interface LearningPathCollection {
+  examId: string;
+  course: string; // e.g. "MD-102T00"
+  retrieved: string; // ISO date the structure was read from the Learn catalog
+  paths: LearningPathSummary[];
+}

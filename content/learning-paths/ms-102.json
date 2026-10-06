@@ -1,0 +1,439 @@
+{
+  "examId": "ms-102",
+  "course": "MS-102T00",
+  "retrieved": "2026-10-06",
+  "paths": [
+    {
+      "uid": "learn.wwl.configure-microsoft-365-tenant",
+      "title": "MS-102 Configure your Microsoft 365 tenant",
+      "url": "https://learn.microsoft.com/training/paths/configure-microsoft-365-tenant/",
+      "summary": "This learning path provides instruction on how to configure your Microsoft 365 tenant, including your organizational profile, tenant subscriptions, user accounts and licenses, groups, custom domains, and client connectivity.",
+      "durationMinutes": 211,
+      "modules": [
+        {
+          "uid": "learn.wwl.configure-microsoft-365-experience",
+          "slug": "configure-microsoft-365-experience",
+          "title": "Configure your Microsoft 365 experience",
+          "url": "https://learn.microsoft.com/training/modules/configure-microsoft-365-experience/",
+          "durationMinutes": 56,
+          "updated": "2026-08-20",
+          "learnSummary": "This module examines each of the tasks that an organization must complete to successfully configure its Microsoft 365 experience."
+        },
+        {
+          "uid": "learn.wwl.manage-accounts-licenses-microsoft-365",
+          "slug": "manage-accounts-licenses-microsoft-365",
+          "title": "Manage users, licenses, guests, and contacts in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/manage-accounts-licenses-microsoft-365/",
+          "durationMinutes": 54,
+          "updated": "2026-08-20",
+          "learnSummary": "This module provides instruction on how to create and manage user accounts, assign Microsoft 365 licenses to users, recover deleted user accounts, and create and manage guests and contacts."
+        },
+        {
+          "uid": "learn.wwl.manage-microsoft-365",
+          "slug": "manage-microsoft-365",
+          "title": "Manage groups in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/manage-microsoft-365/",
+          "durationMinutes": 39,
+          "updated": "2026-08-20",
+          "learnSummary": "This module provides instruction on how to create groups for distributing email to multiple users within Exchange Online. It also explains how to create groups to support collaboration in SharePoint Online."
+        },
+        {
+          "uid": "learn.wwl.add-domain-microsoft-365",
+          "slug": "add-domain-microsoft-365",
+          "title": "Add a custom domain in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/add-domain-microsoft-365/",
+          "durationMinutes": 37,
+          "updated": "2026-08-20",
+          "learnSummary": "This module provides instruction on how to add a custom domain to your Microsoft 365 deployment. It also examines the DNS requirements that are necessary to support a new domain."
+        },
+        {
+          "uid": "learn.wwl.configure-client-connectivity-microsoft-365",
+          "slug": "configure-client-connectivity-microsoft-365",
+          "title": "Configure client connectivity to Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/configure-client-connectivity-microsoft-365/",
+          "durationMinutes": 25,
+          "updated": "2026-08-20",
+          "learnSummary": "This module examines how clients connect to Microsoft 365. It also provides instruction on how to configure name resolution and Outlook clients, and how to troubleshoot client connectivity."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.manage-your-microsoft-365-tenant",
+      "title": "MS-102 Manage your Microsoft 365 tenant",
+      "url": "https://learn.microsoft.com/training/paths/manage-your-microsoft-365-tenant/",
+      "summary": "This learning path provides instruction on how to manage your Microsoft 365 tenant, including administrative roles, tenant health and services, Microsoft 365 Apps for enterprise, and workplace analytics using Microsoft Viva Insights.",
+      "durationMinutes": 213,
+      "modules": [
+        {
+          "uid": "learn.wwl.manage-roles-groups-microsoft-365",
+          "slug": "manage-roles-groups-microsoft-365",
+          "title": "Manage permissions, roles, and role groups in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/manage-roles-groups-microsoft-365/",
+          "durationMinutes": 66,
+          "updated": "2024-05-03",
+          "learnSummary": "This module examines the use of roles and role groups in the Microsoft 365 permission model, including role management, best practices when configuring admin roles, delegating roles, and elevating privileges."
+        },
+        {
+          "uid": "learn.wwl.manage-tenant-services-microsoft-365",
+          "slug": "manage-tenant-services-microsoft-365",
+          "title": "Manage tenant health and services in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/manage-tenant-services-microsoft-365/",
+          "durationMinutes": 49,
+          "updated": "2024-04-09",
+          "learnSummary": "This module examines how to monitor your organization's transition to Microsoft 365 using Microsoft 365 tools. It also examines how to develop an incident response plan and request assistance from Microsoft."
+        },
+        {
+          "uid": "learn.wwl.deploy-microsoft-365-apps-enterprise",
+          "slug": "deploy-microsoft-365-apps-enterprise",
+          "title": "Deploy Microsoft 365 Apps for enterprise",
+          "url": "https://learn.microsoft.com/training/modules/deploy-microsoft-365-apps-enterprise/",
+          "durationMinutes": 58,
+          "updated": "2024-11-06",
+          "learnSummary": "This module examines how to implement the Microsoft 365 Apps for enterprise productivity suite in both user-driven and centralized deployments."
+        },
+        {
+          "uid": "learn.wwl.analyze-microsoft-365-workplace-data-use-microsoft-viva-insights",
+          "slug": "analyze-microsoft-365-workplace-data-use-microsoft-viva-insights",
+          "title": "Analyze your Microsoft 365 workplace data using Microsoft Viva Insights",
+          "url": "https://learn.microsoft.com/training/modules/analyze-microsoft-365-workplace-data-use-microsoft-viva-insights/",
+          "durationMinutes": 40,
+          "updated": "2025-08-07",
+          "learnSummary": "This module examines the workplace analytical features of Microsoft Viva Insights, including how it works, and how it generates insights and improves collaboration within an organization."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.implement-identity-synchronization",
+      "title": "MS-102 Implement identity synchronization",
+      "url": "https://learn.microsoft.com/training/paths/implement-identity-synchronization/",
+      "summary": "This learning path examines how organizations should plan for and implement identity synchronization in a hybrid Microsoft 365 deployment. You learn how to implement Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync, and how to manage synchronized identities.",
+      "durationMinutes": 158,
+      "modules": [
+        {
+          "uid": "learn.wwl.explore-identity-synchronization",
+          "slug": "explore-identity-synchronization",
+          "title": "Explore identity synchronization",
+          "url": "https://learn.microsoft.com/training/modules/explore-identity-synchronization/",
+          "durationMinutes": 24,
+          "updated": "2025-06-06",
+          "learnSummary": "This module examines identity synchronization using Microsoft Entra Connect Sync and explores the authentication and provisioning options that can be used and the inner-workings of directory synchronization."
+        },
+        {
+          "uid": "learn.wwl.prepare-synchronization-microsoft-365",
+          "slug": "prepare-synchronization-microsoft-365",
+          "title": "Prepare for identity synchronization to Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/prepare-synchronization-microsoft-365/",
+          "durationMinutes": 43,
+          "updated": "2024-02-29",
+          "learnSummary": "This module examines all the planning aspects that must be considered when implementing directory synchronization between on-premises Active Directory and Microsoft Entra ID."
+        },
+        {
+          "uid": "learn.wwl.implement-synchronization-tools",
+          "slug": "implement-synchronization-tools",
+          "title": "Implement directory synchronization tools",
+          "url": "https://learn.microsoft.com/training/modules/implement-synchronization-tools/",
+          "durationMinutes": 45,
+          "updated": "2024-08-12",
+          "learnSummary": "This module examines the Microsoft Entra Connect Sync and Microsoft Entra Cloud Sync installation requirements, the options for installing and configuring the tools, and how to monitor synchronization services using Microsoft Entra Connect Health."
+        },
+        {
+          "uid": "learn.wwl.manage-synchronized",
+          "slug": "manage-synchronized",
+          "title": "Manage synchronized identities",
+          "url": "https://learn.microsoft.com/training/modules/manage-synchronized/",
+          "durationMinutes": 46,
+          "updated": "2024-04-25",
+          "learnSummary": "This module examines how to manage user identities when you configure Microsoft Entra Connect Sync, how to manage users and groups in Microsoft 365 with Microsoft Entra Connect Sync, and how to maintain directory synchronization."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.explore-security-metrics-microsoft-365-defender",
+      "title": "Manage identity and access in Microsoft 365",
+      "url": "https://learn.microsoft.com/training/paths/explore-security-metrics-microsoft-365-defender/",
+      "summary": "This learning path examines the threat vectors and data breaches organizations face today in their cybersecurity landscape, and the wide range of security solutions that Microsoft 365 provides to combat those threats.",
+      "durationMinutes": 268,
+      "modules": [
+        {
+          "uid": "learn.wwl.examine-threat-vectors-data-breaches",
+          "slug": "examine-threat-vectors-data-breaches",
+          "title": "Examine threat vectors and data breaches",
+          "url": "https://learn.microsoft.com/training/modules/examine-threat-vectors-data-breaches/",
+          "durationMinutes": 46,
+          "updated": "2024-04-25",
+          "learnSummary": "This module examines the types of threat vectors and their potential outcomes that organizations must deal with on a daily basis and how users can enable hackers to access targets by unwittingly executing malicious content. MS-102"
+        },
+        {
+          "uid": "learn.wwl.explore-zero-trust-security-model",
+          "slug": "explore-zero-trust-security-model",
+          "title": "Explore the Zero Trust security model",
+          "url": "https://learn.microsoft.com/training/modules/explore-zero-trust-security-model/",
+          "durationMinutes": 30,
+          "updated": "2025-02-27",
+          "learnSummary": "This module examines the concepts and principles of the Zero Trust security model, as well as how Microsoft 365 supports it, and how your organization can implement it. MS-102"
+        },
+        {
+          "uid": "learn.wwl.manage-secure-access-microsoft-365",
+          "slug": "manage-secure-access-microsoft-365",
+          "title": "Manage secure user access in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/manage-secure-access-microsoft-365/",
+          "durationMinutes": 80,
+          "updated": "2024-12-30",
+          "learnSummary": "This module examines the various features provided in the Microsoft 365 ecosystem for securing user access, such as Conditional Access policies, multifactor authentication, self-service password management, Smart Lockout policies, and security defaults."
+        },
+        {
+          "uid": "learn.wwl.explore-security-solutions-microsoft-365-defender",
+          "slug": "explore-security-solutions-microsoft-365-defender",
+          "title": "Explore security solutions in Microsoft Defender XDR",
+          "url": "https://learn.microsoft.com/training/modules/explore-security-solutions-microsoft-365-defender/",
+          "durationMinutes": 39,
+          "updated": "2024-03-28",
+          "learnSummary": "This module introduces you to several features in Microsoft 365 that can help protect your organization against cyberthreats, detect when a user or computer has been compromised, and monitor your organization for suspicious activities. MS-102"
+        },
+        {
+          "uid": "learn.wwl.examine-microsoft-secure-score",
+          "slug": "examine-microsoft-secure-score",
+          "title": "Examine Microsoft  Secure Score",
+          "url": "https://learn.microsoft.com/training/modules/examine-microsoft-secure-score/",
+          "durationMinutes": 23,
+          "updated": "2024-05-31",
+          "learnSummary": "This module examines how Microsoft Secure Score helps organizations understand what they've done to reduce the risk to their data and show them what they can do to further reduce that risk. MS-102"
+        },
+        {
+          "uid": "learn.wwl.examine-privileged-identity-management",
+          "slug": "examine-privileged-identity-management",
+          "title": "Examine Privileged Identity Management in Microsoft Entra ID",
+          "url": "https://learn.microsoft.com/training/modules/examine-privileged-identity-management/",
+          "durationMinutes": 21,
+          "updated": "2026-08-03",
+          "learnSummary": "This module examines how Microsoft Entra Privileged Identity Management (PIM) ensures users in your organization have just the right privileges to perform the tasks they need to accomplish."
+        },
+        {
+          "uid": "learn.wwl.examine-azure-identity-protection",
+          "slug": "examine-azure-identity-protection",
+          "title": "Examine Microsoft Entra ID Protection",
+          "url": "https://learn.microsoft.com/training/modules/examine-azure-identity-protection/",
+          "durationMinutes": 29,
+          "updated": "2024-06-06",
+          "learnSummary": "This module examines how Azure Identity Protection provides organizations the same protection systems used by Microsoft to secure identities. MS-102"
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.manage-security-services-microsoft-365-defender",
+      "title": "MS-102 Manage your security services in Microsoft Defender XDR",
+      "url": "https://learn.microsoft.com/training/paths/manage-security-services-microsoft-365-defender/",
+      "summary": "This learning path examines how to manage the Microsoft 365 security services, with a special focus on security reporting and managing the Safe Attachments and Safe Links features in Microsoft Defender for Office 365.  MS-102",
+      "durationMinutes": 179,
+      "modules": [
+        {
+          "uid": "learn.wwl.examine-exchange-online-protection",
+          "slug": "examine-exchange-online-protection",
+          "title": "Examine email protection in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/",
+          "durationMinutes": 57,
+          "updated": "2026-08-20",
+          "learnSummary": "This module examines how Exchange Online Protection (EOP) protects organizations from phishing and spoofing. It also explores how EOP blocks spam, bulk email, and malware before they arrive in users’ mailboxes."
+        },
+        {
+          "uid": "learn.wwl.examine-microsoft-defender-office-365",
+          "slug": "examine-microsoft-defender-office-365",
+          "title": "Enhance your email protection using Microsoft Defender for Office 365",
+          "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/",
+          "durationMinutes": 48,
+          "updated": "2024-11-11",
+          "learnSummary": "This module examines how Microsoft Defender for Office 365 extends EOP protection through various tools, including Safe Attachments, Safe Links, spoofed intelligence, spam filtering policies, and the Tenant Allow/Block List."
+        },
+        {
+          "uid": "learn.wwl.manage-safe-attachments-microsoft-365",
+          "slug": "manage-safe-attachments-microsoft-365",
+          "title": "Manage Safe Attachments",
+          "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/",
+          "durationMinutes": 33,
+          "updated": "2024-12-12",
+          "learnSummary": "This module examines how to manage Safe Attachments in your Microsoft 365 tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102"
+        },
+        {
+          "uid": "learn.wwl.manage-safe-links-microsoft-365",
+          "slug": "manage-safe-links-microsoft-365",
+          "title": "Manage Safe Links",
+          "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/",
+          "durationMinutes": 41,
+          "updated": "2024-12-13",
+          "learnSummary": "This module examines how to manage Safe Links in your tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102"
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.implement-threat-protection-use-microsoft-365-defender",
+      "title": "MS-102 Implement threat protection by using Microsoft Defender XDR",
+      "url": "https://learn.microsoft.com/training/paths/implement-threat-protection-use-microsoft-365-defender/",
+      "summary": "This learning path examines how to manage the Microsoft 365 threat intelligence features that provide organizations with insight and protection against the internal and external cyber-attacks that threaten their tenants.  MS-102",
+      "durationMinutes": 185,
+      "modules": [
+        {
+          "uid": "learn.wwl.explore-threat-intelligence-microsoft-365-defender",
+          "slug": "explore-threat-intelligence-microsoft-365-defender",
+          "title": "Explore threat intelligence in Microsoft Defender XDR",
+          "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/",
+          "durationMinutes": 53,
+          "updated": "2026-05-25",
+          "learnSummary": "This module examines how Microsoft 365 Threat Intelligence provides admins with evidence-based knowledge and actionable advice that can be used to make informed decisions about protecting and responding to cyber-attacks against their tenants. MS-102"
+        },
+        {
+          "uid": "learn.wwl.implement-app-protection-use-microsoft-defender-cloud-apps",
+          "slug": "implement-app-protection-use-microsoft-defender-cloud-apps",
+          "title": "Implement app protection by using Microsoft Defender for Cloud Apps",
+          "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/",
+          "durationMinutes": 44,
+          "updated": "2024-03-26",
+          "learnSummary": "This module examines how to implement Microsoft Defender for Cloud Apps, which identifies and combats cyberthreats across all your Microsoft and third-party cloud services. MS-102"
+        },
+        {
+          "uid": "learn.wwl.implement-endpoint-protection-use-microsoft-defender-endpoint",
+          "slug": "implement-endpoint-protection-use-microsoft-defender-endpoint",
+          "title": "Implement endpoint protection by using Microsoft Defender for Endpoint",
+          "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/",
+          "durationMinutes": 53,
+          "updated": "2026-08-20",
+          "learnSummary": "This module examines how Microsoft Defender for Endpoint helps enterprise networks prevent, detect, investigate, and respond to advanced threats by using endpoint behavioral sensors, cloud security analytics, and threat intelligence. MS-102"
+        },
+        {
+          "uid": "learn.wwl.implement-threat-protection-use-microsoft-defender-office-365",
+          "slug": "implement-threat-protection-use-microsoft-defender-office-365",
+          "title": "Implement threat protection by using Microsoft Defender for Office 365",
+          "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/",
+          "durationMinutes": 35,
+          "updated": "2026-05-25",
+          "learnSummary": "This module examines the Microsoft Defender for Office 365 protection stack and its corresponding threat intelligence features, including Threat Explorer, Threat Trackers, and Attack simulation training. MS-102"
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.explore-data-governance-microsoft-365",
+      "title": "MS-102 Explore data governance in Microsoft 365",
+      "url": "https://learn.microsoft.com/training/paths/explore-data-governance-microsoft-365/",
+      "summary": "This learning path introduces you to the data governance features of Microsoft 365, which serve regulatory compliance, can facilitate eDiscovery, and are part of a business strategy to protect the integrity of the data estate.",
+      "durationMinutes": 123,
+      "modules": [
+        {
+          "uid": "learn.wwl.examine-data-governance-solutions-microsoft-purview",
+          "slug": "examine-data-governance-solutions-microsoft-purview",
+          "title": "Examine data governance solutions in Microsoft Purview",
+          "url": "https://learn.microsoft.com/training/modules/examine-data-governance-solutions-microsoft-purview/",
+          "durationMinutes": 49,
+          "updated": "2024-05-10",
+          "learnSummary": "This module introduces Microsoft Purview, which is designed to meet the challenges of today’s decentralized, data-rich workplace by providing a comprehensive set of solutions that help organizations govern, protect, and manage their entire data estate. MS-102"
+        },
+        {
+          "uid": "learn.wwl.explore-data-management-practices",
+          "slug": "explore-data-management-practices",
+          "title": "Explore data management practices in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/explore-data-management-practices/",
+          "durationMinutes": 25,
+          "updated": "2024-04-09",
+          "learnSummary": "This module examines how Microsoft 365 supports data governance by enabling organizations to archive content by using archive mailboxes and restore deleted data in Exchange Online and SharePoint Online."
+        },
+        {
+          "uid": "learn.wwl.explore-retention-policies-labels-microsoft-365",
+          "slug": "explore-retention-policies-labels-microsoft-365",
+          "title": "Explore retention in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/explore-retention-policies-labels-microsoft-365/",
+          "durationMinutes": 49,
+          "updated": "2025-05-07",
+          "learnSummary": "This module examines how data can be retained and ultimately removed in Microsoft 365 by using data retention policies and data retention labels in retention policies. MS-102"
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.implement-compliance-microsoft-365",
+      "title": "MS-102 Implement compliance in Microsoft 365",
+      "url": "https://learn.microsoft.com/training/paths/implement-compliance-microsoft-365/",
+      "summary": "This learning path provides instruction on implementing the Microsoft 365 data governance features, including how to calculate your compliance readiness, implement compliance solutions, and create information barriers, DLP policies, and policy tips.",
+      "durationMinutes": 251,
+      "modules": [
+        {
+          "uid": "learn.wwl.explore-plan-compliance-microsoft-365",
+          "slug": "explore-plan-compliance-microsoft-365",
+          "title": "Explore compliance in Microsoft 365",
+          "url": "https://learn.microsoft.com/training/modules/explore-plan-compliance-microsoft-365/",
+          "durationMinutes": 49,
+          "updated": "2024-12-24",
+          "learnSummary": "This module explores the tools Microsoft 365 provides to help ensure an organization's regulatory compliance, including the Microsoft Purview compliance portal, Compliance Manager, and the Microsoft compliance score. MS-102"
+        },
+        {
+          "uid": "learn.wwl.implement-insider-risk-management",
+          "slug": "implement-insider-risk-management",
+          "title": "Implement Microsoft Purview Insider Risk Management",
+          "url": "https://learn.microsoft.com/training/modules/implement-insider-risk-management/",
+          "durationMinutes": 63,
+          "updated": "2024-05-14",
+          "learnSummary": "This module examines how Microsoft Purview Insider Risk Management helps organizations minimize internal risks by enabling them to detect, investigate, and act on malicious and inadvertent activities. MS-102"
+        },
+        {
+          "uid": "learn.wwl.create-information-barriers",
+          "slug": "create-information-barriers",
+          "title": "Implement Microsoft Purview Information Barriers",
+          "url": "https://learn.microsoft.com/training/modules/create-information-barriers/",
+          "durationMinutes": 46,
+          "updated": "2024-04-22",
+          "learnSummary": "This module examines how Microsoft Purview uses information barriers to restrict communication and collaboration in Microsoft Teams, SharePoint Online, and OneDrive for Business. MS-102"
+        },
+        {
+          "uid": "learn.wwl.explore-examine-data-loss-prevention-microsoft-365",
+          "slug": "explore-examine-data-loss-prevention-microsoft-365",
+          "title": "Explore Microsoft Purview Data Loss Prevention",
+          "url": "https://learn.microsoft.com/training/modules/explore-examine-data-loss-prevention-microsoft-365/",
+          "durationMinutes": 39,
+          "updated": "2024-05-29",
+          "learnSummary": "This module examines the data loss prevention features in Microsoft 365 that help organizations identify, monitor, report, and protect sensitive data through deep content analysis while helping users understand and manage data risks."
+        },
+        {
+          "uid": "learn.wwl.implement-data-loss-prevention-policies-microsoft-365",
+          "slug": "implement-data-loss-prevention-policies-microsoft-365",
+          "title": "Implement Microsoft Purview Data Loss Prevention",
+          "url": "https://learn.microsoft.com/training/modules/implement-data-loss-prevention-policies-microsoft-365/",
+          "durationMinutes": 54,
+          "updated": "2026-08-20",
+          "learnSummary": "This module examines how organizations can use Microsoft Purview Data Loss Prevention to help protect sensitive data and define the protective actions that organizations can take when a DLP rule is violated. MS-102"
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.ms-102-manage-compliance-microsoft-365",
+      "title": "MS-102 Manage compliance in Microsoft 365",
+      "url": "https://learn.microsoft.com/training/paths/ms-102-manage-compliance-microsoft-365/",
+      "summary": "This learning path provides instruction on managing the Microsoft 365 data governance features, including how to implement retention in email, sensitivity labels, and Windows Information Protection, and how to troubleshoot data loss prevention issues.",
+      "durationMinutes": 137,
+      "modules": [
+        {
+          "uid": "learn.wwl.implement-data-classification-sensitive-information",
+          "slug": "implement-data-classification-sensitive-information",
+          "title": "Implement data classification of sensitive information",
+          "url": "https://learn.microsoft.com/training/modules/implement-data-classification-sensitive-information/",
+          "durationMinutes": 52,
+          "updated": "2024-07-10",
+          "learnSummary": "This module introduces you to data classification in Microsoft 365, including how to create and train classifiers, view sensitive data using Content explorer and Activity explorer, and implement Document Fingerprinting."
+        },
+        {
+          "uid": "learn.wwl.explore-sensitivity-labels-microsoft-365",
+          "slug": "explore-sensitivity-labels-microsoft-365",
+          "title": "Explore sensitivity labels",
+          "url": "https://learn.microsoft.com/training/modules/explore-sensitivity-labels-microsoft-365/",
+          "durationMinutes": 40,
+          "updated": "2024-05-14",
+          "learnSummary": "This module examines how sensitivity labels from the Microsoft Information Protection solution let you classify and protect your organization's data, while making sure that user productivity and collaboration isn't hindered."
+        },
+        {
+          "uid": "learn.wwl.implement-sensitivity-labels-microsoft-365",
+          "slug": "implement-sensitivity-labels-microsoft-365",
+          "title": "Implement sensitivity labels",
+          "url": "https://learn.microsoft.com/training/modules/implement-sensitivity-labels-microsoft-365/",
+          "durationMinutes": 45,
+          "updated": "2024-04-11",
+          "learnSummary": "This module examines the process for implementing sensitivity labels, including applying proper administrative permissions, determining a deployment strategy, creating, configuring, and publishing labels, and removing and deleting labels."
+        }
+      ]
+    }
+  ]
+}
