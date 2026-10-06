@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getExam } from "@/lib/content";
-import { COACH_SYSTEM_PROMPT, learnerContext } from "@/lib/coach";
+import { COACH_SYSTEM_PROMPT, LEARN_GROUNDING, learnerContext } from "@/lib/coach";
 import { latestAttempts } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
 
@@ -13,6 +13,9 @@ interface ChatMessage {
 
 const MAX_TURNS = 40;
 const MAX_CHARS = 20_000;
+const MAX_ROUNDS = 4;
+// Public Microsoft Learn MCP server (no authentication). maxTokenBudget caps the size of search results.
+const LEARN_MCP_URL = "https://learn.microsoft.com/api/mcp?maxTokenBudget=4000";
 
 export async function POST(req: Request) {
   if (!process.env.ANTHROPIC_API_KEY && !process.env.ANTHROPIC_AUTH_TOKEN) {
@@ -43,34 +46,57 @@ export async function POST(req: Request) {
     : [];
 
   const client = new Anthropic();
-  const stream = client.beta.messages.stream({
-    model: "claude-opus-5-5",
-    max_tokens: 16000,
-    output_config: { effort: "medium" },
-    // On a safety-classifier decline the API retries on a fallback model inside the same call.
-    betas: ["server-side-fallback-2026-07-01"],
-    fallbacks: "default",
-    system: [
-      { type: "text", text: COACH_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } },
-      { type: "text", text: learnerContext(exam, readiness, mistakes) },
-    ],
-    messages,
-  });
+  const useLearn = process.env.LEARN_MCP !== "off";
+  const system: Anthropic.Beta.Messages.BetaTextBlockParam[] = [
+    { type: "text", text: COACH_SYSTEM_PROMPT + (useLearn ? LEARN_GROUNDING : ""), cache_control: { type: "ephemeral" } },
+    { type: "text", text: learnerContext(exam, readiness, mistakes) },
+  ];
+  const conversation: Anthropic.Beta.Messages.BetaMessageParam[] = [...messages];
+  let current: ReturnType<typeof client.beta.messages.stream> | null = null;
 
   const encoder = new TextEncoder();
   const readable = new ReadableStream<Uint8Array>({
     async start(controller) {
+      const send = (text: string) => controller.enqueue(encoder.encode(text));
+      let announcedLearn = false;
       try {
-        for await (const event of stream) {
-          if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
-            controller.enqueue(encoder.encode(event.delta.text));
+        // The Learn lookups run server-side; a long research turn can pause and is then resumed.
+        for (let round = 0; round < MAX_ROUNDS; round++) {
+          current = client.beta.messages.stream({
+            model: "claude-opus-5-5",
+            max_tokens: 16000,
+            output_config: { effort: "medium" },
+            // fallbacks: on a safety-classifier decline the API retries on a fallback model in the same call.
+            betas: useLearn ? ["server-side-fallback-2026-07-01", "mcp-client-2025-11-20"] : ["server-side-fallback-2026-07-01"],
+            fallbacks: "default",
+            ...(useLearn
+              ? {
+                  mcp_servers: [{ type: "url" as const, url: LEARN_MCP_URL, name: "microsoft-learn" }],
+                  tools: [{ type: "mcp_toolset" as const, mcp_server_name: "microsoft-learn" }],
+                }
+              : {}),
+            system,
+            messages: conversation,
+          });
+          for await (const event of current) {
+            if (event.type === "content_block_start" && event.content_block.type === "mcp_tool_use" && !announcedLearn) {
+              announcedLearn = true;
+              send("_🔎 Checking Microsoft Learn…_\n\n");
+            } else if (event.type === "content_block_delta" && event.delta.type === "text_delta") {
+              send(event.delta.text);
+            }
           }
-        }
-        const final = await stream.finalMessage();
-        if (final.stop_reason === "refusal") {
-          controller.enqueue(encoder.encode("\n\n_The coach could not answer this request. Try rephrasing it as a study question._"));
-        } else if (final.stop_reason === "max_tokens") {
-          controller.enqueue(encoder.encode("\n\n_(Answer truncated — ask me to continue.)_"));
+          const final = await current.finalMessage();
+          if (final.stop_reason === "pause_turn") {
+            conversation.push({ role: "assistant", content: final.content });
+            continue;
+          }
+          if (final.stop_reason === "refusal") {
+            send("\n\n_The coach could not answer this request. Try rephrasing it as a study question._");
+          } else if (final.stop_reason === "max_tokens") {
+            send("\n\n_(Answer truncated — ask me to continue.)_");
+          }
+          break;
         }
       } catch (error) {
         let msg = "The coach is temporarily unavailable.";
@@ -78,13 +104,13 @@ export async function POST(req: Request) {
         else if (error instanceof Anthropic.RateLimitError) msg = "Rate limited by the Claude API — try again in a minute.";
         else if (error instanceof Anthropic.APIError) msg = `Claude API error ${error.status ?? ""}: ${error.message}`;
         console.error("coach error", error);
-        controller.enqueue(encoder.encode(`\n\n⚠️ ${msg}`));
+        send(`\n\n⚠️ ${msg}`);
       } finally {
         controller.close();
       }
     },
     cancel() {
-      stream.abort();
+      current?.abort();
     },
   });
 

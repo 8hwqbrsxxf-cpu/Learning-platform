@@ -88,6 +88,7 @@ Design choices:
 
 - **Content as JSON in Git, progress in SQLite.** Content changes are reviewable in pull requests; learner data stays separate.
 - **Server-side grading.** The attempts API re-grades answers against the content, so readiness can't be skewed from the browser.
+- **Microsoft Learn as the single source of truth.** Content may only cite learn.microsoft.com (`npm run validate` enforces it, `npm run check-links` checks every link is live), and the AI coach looks up facts live through the public [Microsoft Learn MCP server](https://learn.microsoft.com/training/support/mcp) via the Claude API MCP connector, citing the Learn pages it used.
 - **Claude API for the coach** (`claude-opus-5-5`, streaming, prompt-cached system prompt, server-side refusal fallback). The stable coach prompt is in `lib/coach.ts`; learner context is appended per request.
 
 ## Content status

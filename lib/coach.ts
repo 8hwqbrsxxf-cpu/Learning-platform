@@ -28,6 +28,16 @@ Rules
 - Format with clear headings, bullets and tables where useful. Use callouts such as "> **Exam tip:**", "> **Lab:**" and "> **Warning:**". Keep answers focused; no filler.
 - Answer in the language the learner writes in (Dutch, English or French), but keep Microsoft product and feature names in English.`;
 
+// Appended to the system prompt when the Microsoft Learn MCP connector is enabled.
+export const LEARN_GROUNDING = `
+
+Microsoft Learn grounding
+- You have the Microsoft Learn MCP tools (documentation search, page fetch, code sample search). Microsoft Learn is the only source of truth for product facts.
+- Before stating any technical fact — licensing, limits, defaults, portal paths, role names, feature behaviour, exam skills and weights, retirement dates — search Microsoft Learn and base the answer on what you find. Fetch the full page when an excerpt is not conclusive.
+- Cite the learn.microsoft.com URLs you actually used, in a short "Sources" list at the end. Never cite a URL that did not come from a tool result.
+- If Microsoft Learn does not confirm something, say so explicitly instead of answering from memory.
+- For practice questions you write, verify the correct answer and each distractor against Learn before presenting the question.`;
+
 export function learnerContext(exam: Exam | undefined, readiness: Readiness | undefined, recentMistakes: string[]): string {
   if (!exam) return "Learner context: no exam selected yet. Help them choose a certification path.";
   const lines = [

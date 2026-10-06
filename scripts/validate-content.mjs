@@ -61,6 +61,15 @@ for (const file of files) {
     if (!domainIds.has(l.domainId)) e(`lab ${l.id}: unknown domain ${l.domainId}`);
     if (!l.steps?.length || !l.validation?.length || !l.cleanup?.length) e(`lab ${l.id}: needs steps, validation and cleanup`);
   }
+  // Only Microsoft Learn may be cited as a source.
+  const refs = [
+    ...exam.domains.flatMap((d) => d.learnPaths),
+    ...exam.modules.flatMap((m) => m.references),
+    ...exam.labs.flatMap((l) => l.references),
+    ...exam.questions.map((q) => q.reference),
+  ];
+  for (const r of refs) if (!/^https:\/\/learn\.microsoft\.com\//.test(r?.url ?? "")) e(`non-Learn reference: ${r?.url}`);
+
   console.log(
     `✓ ${file}: ${exam.domains.length} domains, ${exam.modules.length} modules, ${exam.questions.length} questions, ` +
       `${exam.flashcards.length} flashcards, ${exam.labs.length} labs`,
