@@ -447,7 +447,157 @@
           "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/",
           "durationMinutes": 49,
           "updated": "2026-07-14",
-          "learnSummary": "Identify Microsoft Intune Suite add-on components, evaluate how they extend core Intune capabilities, and plan licensing and deployment strategies for advanced endpoint management scenarios."
+          "learnSummary": "Identify Microsoft Intune Suite add-on components, evaluate how they extend core Intune capabilities, and plan licensing and deployment strategies for advanced endpoint management scenarios.",
+          "tldr": "The Microsoft Intune Suite is a set of premium add-ons on top of core Intune for advanced management, security and support scenarios. Its eight components — from Endpoint Privilege Management and Remote Help to Cloud PKI — can be licensed individually or as one package. Plan with a 90-day trial, pilot groups and correct per-user license assignment.",
+          "objectives": [
+            "Describe the purpose and business value of the Microsoft Intune Suite",
+            "Identify the key components of the Intune Suite, including Remote Help, Endpoint Privilege Management, and Advanced Analytics",
+            "Compare Intune Suite features to core Microsoft Intune capabilities",
+            "Plan licensing options and deployment strategies for Intune Suite add-ons"
+          ],
+          "keyPoints": [
+            "**Core Intune** covers enrollment, configuration, apps, compliance, Conditional Access, basic reporting and RBAC; the **Intune Suite** adds premium capabilities for advanced scenarios.",
+            "Eight add-ons: **EPM, Remote Help, Advanced Analytics, Enterprise App Management, Tunnel for MAM, Cloud PKI, FOTA, specialty devices management**.",
+            "**Endpoint Privilege Management** lets standard users elevate approved apps via rules, using an isolated **virtual account** — least privilege without productivity loss.",
+            "**Microsoft Tunnel for MAM** is the only add-on that works on **unenrolled** Android and iOS devices (app-level VPN for BYOD).",
+            "**Licensing**: individual add-ons (per user), the full Intune Suite (includes future add-ons), or some add-ons via **Intune Plan 2**.",
+            "**Trials** last 90 days, up to 250 users, one trial per add-on per tenant, plus a 30-day grace period (120 days total); started by Global or Billing administrators.",
+            "**Remote Help** needs licenses for both **helpers and sharers**; EPM licenses go to the users who elevate, not to admins who only manage policies.",
+            "Roll out in **phases**: pilot groups first (EPM tip: 10–20 users from one department for 2–4 weeks), then expand."
+          ],
+          "units": [
+            {
+              "title": "Understand the purpose and value of the Microsoft Intune Suite",
+              "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/02-understand-purpose-value",
+              "minutes": 8,
+              "points": [
+                "The Intune Suite is a collection of premium add-ons extending core Intune; license individually or as a complete package.",
+                "Business value per component: least privilege (EPM), secure remote assistance (Remote Help), proactive management (Advanced Analytics), streamlined Win32 apps (Enterprise App Management).",
+                "Also: BYOD connectivity (Tunnel for MAM), certificate automation (Cloud PKI), firmware updates (FOTA) and purpose-built devices (specialty devices management).",
+                "Supports Zero Trust: verify explicitly, use least privilege access, assume breach."
+              ]
+            },
+            {
+              "title": "Identify key components of the Microsoft Intune Suite",
+              "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/03-identify-key-components",
+              "minutes": 12,
+              "points": [
+                "EPM elevation types: automatic, user-confirmed, support-approved, elevate as current user, plus deny rules; reports separate managed from unmanaged elevations.",
+                "Remote Help: helper and sharer sign in with organizational Entra accounts (same tenant only); compliance warnings shown before connecting; Windows adds elevation, remote launch and optional unenrolled support.",
+                "Advanced Analytics: anomaly detection, predictive insights, recommendations, **Device Query** (real-time KQL) and **Battery Health**.",
+                "Enterprise App Catalog: pre-configured Win32 apps hosted in Microsoft storage; Cloud PKI automates issuance, renewal and revocation.",
+                "FOTA currently supports Zebra devices (LifeGuard Over-the-Air); specialty devices management covers AR/VR headsets, smart screens and meeting-room devices."
+              ]
+            },
+            {
+              "title": "Compare Microsoft Intune Suite features to core Intune capabilities",
+              "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/04-compare-intune-suite-features",
+              "minutes": 8,
+              "points": [
+                "Core Intune has remote actions (lock, wipe, sync, restart) but no screen sharing or remote control — that's Remote Help.",
+                "Core Intune can run deployments with system privileges, but can't let users elevate specific apps on demand — that's EPM.",
+                "Core reporting is reactive; Advanced Analytics is proactive (anomalies, predictions).",
+                "Core Intune still deploys Win32 apps; Enterprise App Management only cuts the preparation work for catalog apps.",
+                "Core Microsoft Tunnel requires enrollment; Tunnel for MAM doesn't."
+              ]
+            },
+            {
+              "title": "Plan licensing and deployment strategies for the Microsoft Intune Suite",
+              "url": "https://learn.microsoft.com/training/modules/explore-intune-suite-capabilities/05-plan-licensing-deployment-strategies",
+              "minutes": 10,
+              "points": [
+                "Trials via **Tenant administration > Intune add-ons > All add-ons**, completed in the Microsoft 365 admin center.",
+                "Assign licenses per user or with group-based licensing on Entra groups; unlicensed users can't use the features even if configured.",
+                "Check prerequisites: network endpoints, OS versions, Intune enrollment and Entra ID integration.",
+                "Plan change management, help desk training and regular license reviews (reclaim unused licenses).",
+                "Sovereign cloud (e.g. GCC) availability varies per add-on."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Intune Suite",
+              "definition": "Package of premium Intune add-ons, licensed individually or together, extending core Intune."
+            },
+            {
+              "term": "Endpoint Privilege Management (EPM)",
+              "definition": "Lets standard users run approved apps elevated based on admin-defined rules."
+            },
+            {
+              "term": "Enterprise App Catalog",
+              "definition": "Curated set of pre-configured, Microsoft-hosted Win32 apps for Intune deployment."
+            },
+            {
+              "term": "Microsoft Tunnel for MAM",
+              "definition": "App-level VPN through Microsoft Tunnel for unenrolled Android and iOS devices."
+            },
+            {
+              "term": "Cloud PKI",
+              "definition": "Cloud-hosted PKI that issues, renews and revokes certificates for Intune-managed devices."
+            },
+            {
+              "term": "FOTA",
+              "definition": "Firmware Over-the-Air: remote firmware updates for supported specialty devices (Zebra)."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Core Intune vs Intune Suite add-on",
+              "headers": [
+                "Scenario",
+                "Core Intune",
+                "Intune Suite add-on"
+              ],
+              "rows": [
+                [
+                  "Remote support",
+                  "Remote actions: lock, wipe, sync, restart",
+                  "Remote Help: screen sharing, full control, elevation, auditing"
+                ],
+                [
+                  "Admin rights",
+                  "Deployments run with system privileges",
+                  "EPM: standard users elevate approved apps"
+                ],
+                [
+                  "Reporting",
+                  "Reactive inventory/compliance reports",
+                  "Advanced Analytics: anomalies, predictions, Device Query"
+                ],
+                [
+                  "Mobile VPN",
+                  "Microsoft Tunnel requires enrollment",
+                  "Tunnel for MAM on unenrolled Android/iOS"
+                ],
+                [
+                  "Certificates",
+                  "On-premises CA or third party",
+                  "Cloud PKI"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Personal phones, no enrollment, need VPN → **Tunnel for MAM**, the only Suite add-on not requiring an enrolled device.",
+            "Trial = **90 days + 30-day grace**, max 250 users, **one trial per add-on per tenant**.",
+            "Remote Help licensing → **both helper and sharer**; EPM licensing → the **elevating users**, not policy admins.",
+            "Lock/wipe/restart are **core Intune**; screen sharing and control are **Remote Help**."
+          ],
+          "selfCheck": [
+            {
+              "q": "A company wants to stop maintaining its on-premises certificate authority for device certificates. Which Intune Suite component fits?",
+              "a": "Cloud PKI, which automates certificate issuance, renewal and revocation as a cloud service."
+            },
+            {
+              "q": "Your tenant's EPM trial expired last year and you want to evaluate it again. Can you start a new trial?",
+              "a": "No — each tenant can start only one trial per add-on."
+            },
+            {
+              "q": "You plan to use several add-ons and want new capabilities included as they're released. Which licensing option fits?",
+              "a": "The complete Intune Suite, which includes all current add-ons plus new ones Microsoft adds."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.implement-remote-help",
@@ -456,7 +606,143 @@
           "url": "https://learn.microsoft.com/training/modules/implement-remote-help/",
           "durationMinutes": 46,
           "updated": "2026-07-14",
-          "learnSummary": "Configure and deploy Microsoft Intune Remote Help, assign helper and sharer permissions, monitor support sessions, and evaluate privacy considerations for managed remote support."
+          "learnSummary": "Configure and deploy Microsoft Intune Remote Help, assign helper and sharer permissions, monitor support sessions, and evaluate privacy considerations for managed remote support.",
+          "tldr": "Remote Help is an Intune Suite capability for secure, interactive support: an approved helper views the user's screen and, with consent, takes control or handles elevation prompts. Access is tied to Entra ID identities in the same tenant and controlled with Intune RBAC. Sessions are monitored through Intune reports and audit logs, which store only metadata — never recordings or keystrokes.",
+          "objectives": [
+            "Describe the purpose of Remote Help in end-user support",
+            "Identify the helper, sharer, and administrator roles in a Remote Help workflow",
+            "Configure Remote Help in the Microsoft Intune admin center and deploy the app to supported platforms",
+            "Assign Remote Help permissions by using Intune role-based access control",
+            "Support and monitor Remote Help sessions",
+            "Evaluate privacy, permission, and compliance considerations for remote support"
+          ],
+          "keyPoints": [
+            "**Remote Help** is **disabled by default**; enable it under **Tenant administration > Remote Help > Settings**.",
+            "Helper and sharer both sign in with **organizational Entra ID accounts** in the **same tenant** — cross-tenant sessions aren't supported.",
+            "**Licenses** are needed for **both helpers and sharers**, on top of Intune Plan 1 or Plan 2; new licenses can take 30 minutes to several hours to apply.",
+            "A helper needs **Offer remote assistance**, **Remote Assistance Connector – Read** and at least one app permission: **View screen, Take full control, Elevation or Unattended**.",
+            "The built-in **Help Desk Operator** role includes the Remote Help permissions; use **custom roles** and **scope groups** for least privilege.",
+            "**Elevation** (UAC prompts) is Windows-only and privileged; **Unattended** is only for supported Android Enterprise **dedicated devices**.",
+            "The user sees the helper's identity, **approves** screen sharing or full control, and either party can end the session.",
+            "Only **session metadata** (who, which device, times, features used) is kept, for up to **30 days**; no screen images, recordings or keystrokes."
+          ],
+          "units": [
+            {
+              "title": "Understand Remote Help and its role in end-user support",
+              "url": "https://learn.microsoft.com/training/modules/implement-remote-help/02-understand-remote-help-role",
+              "minutes": 7,
+              "points": [
+                "Supports screen sharing, file transfer and privileged escalation; a session can start with a one-time session code.",
+                "Use it when the agent needs screen-level visibility and an auditable workflow — not as a meeting or collaboration tool.",
+                "Roles: device user (sharer, approves the session), support agent (helper, needs Intune RBAC permissions), administrator (configures settings, assigns roles, reviews logs).",
+                "RBAC scope controls which users or devices a helper can support."
+              ]
+            },
+            {
+              "title": "Configure and deploy Remote Help with Microsoft Intune",
+              "url": "https://learn.microsoft.com/training/modules/implement-remote-help/03-configure-deploy-remote-help",
+              "minutes": 12,
+              "points": [
+                "Platforms: Windows, Windows 365, Azure Virtual Desktop, macOS, Android Enterprise dedicated devices and the web app.",
+                "Tenant settings: **Allow Remote Help to unenrolled devices** (less context and auditing) and **Disable chat**.",
+                "If the sharer or device is outside the helper's RBAC scope, no help is possible; for unenrolled devices use **user** scope groups (All Devices excludes them).",
+                "Windows: deploy via Enterprise App Catalog or as Win32 app; needs WebView2 Runtime, and remote launch needs the Intune management extension.",
+                "macOS: native app needed for full control (web app = screen sharing only); Android: deploy from Managed Google Play, camera permission required."
+              ]
+            },
+            {
+              "title": "Support and monitor Remote Help sessions",
+              "url": "https://learn.microsoft.com/training/modules/implement-remote-help/04-support-monitor-sessions",
+              "minutes": 8,
+              "points": [
+                "Start with screen sharing; request full control only when the helper must interact directly.",
+                "**Tenant administration > Remote Help**: the Monitor tab shows active and historical sessions; the Remote Help sessions tab shows past sessions.",
+                "Troubleshoot with **Tenant administration > Audit logs**: device offline, missing role, or user declined elevation.",
+                "Check that the device is enrolled and healthy, the app is up to date and the helper has the right permissions."
+              ]
+            },
+            {
+              "title": "Evaluate privacy, permission, and compliance considerations",
+              "url": "https://learn.microsoft.com/training/modules/implement-remote-help/05-evaluate-privacy-permissions",
+              "minutes": 8,
+              "points": [
+                "Before connecting, the user sees the helper's name, company, verified domain and job title.",
+                "Grant elevation only to roles that need it; disable unattended access for normal user support.",
+                "Compliance checks: verify identities, scope, view-only vs full control, and failed sessions against tickets.",
+                "Review regularly who can help, which groups can receive help and whether unenrolled support is still allowed."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Helper",
+              "definition": "Support agent who connects to a device; needs a license and Intune RBAC permissions."
+            },
+            {
+              "term": "Sharer",
+              "definition": "The device user receiving help; needs a license and approves screen sharing or control."
+            },
+            {
+              "term": "Help Desk Operator",
+              "definition": "Built-in Intune role that includes the required Remote Help permissions."
+            },
+            {
+              "term": "Elevation",
+              "definition": "Remote Help permission letting the helper interact with Windows UAC prompts."
+            },
+            {
+              "term": "Unattended",
+              "definition": "Permission to connect to supported Android Enterprise dedicated devices without the sharer accepting each time."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Remote Help app permissions",
+              "headers": [
+                "Permission",
+                "What it allows"
+              ],
+              "rows": [
+                [
+                  "View screen",
+                  "See the sharer's screen without control"
+                ],
+                [
+                  "Take full control",
+                  "Control the sharer's device"
+                ],
+                [
+                  "Elevation",
+                  "Interact with UAC prompts (Windows)"
+                ],
+                [
+                  "Unattended",
+                  "Connect to Android Enterprise dedicated devices without acceptance each time"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Helper can't connect even though licensed → check **RBAC scope**; for unenrolled devices use **user** scope groups.",
+            "Remote Help records **metadata only** (30 days) — **no** screen recordings or keystrokes.",
+            "Unattended access → **Android Enterprise dedicated devices**, not regular Windows user support.",
+            "Supporting another company's tenant → **not possible**; Remote Help is single-tenant."
+          ],
+          "selfCheck": [
+            {
+              "q": "First-line support should only see users' screens, while a small senior team may approve UAC prompts. How do you configure this?",
+              "a": "Create custom Intune roles: one with View screen only, another with Take full control and Elevation, each scoped to the right groups."
+            },
+            {
+              "q": "A helper wants to use Remote Help for a device that isn't enrolled in Intune. What must be in place?",
+              "a": "The tenant setting Allow Remote Help to unenrolled devices must be enabled, and the helper's scope must use user scope groups."
+            },
+            {
+              "q": "An auditor asks for a recording of last week's Remote Help session. Can you provide one?",
+              "a": "No. Remote Help keeps only session metadata such as who, which device, times and features used, for up to 30 days."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.analyze-advanced-device-signals",
@@ -465,7 +751,142 @@
           "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/",
           "durationMinutes": 49,
           "updated": "2026-07-14",
-          "learnSummary": "Use Microsoft Intune Suite Advanced Analytics, anomaly detection, and integration with Microsoft Defender to surface real-time device health and risk signals and drive risk-based policy decisions."
+          "learnSummary": "Use Microsoft Intune Suite Advanced Analytics, anomaly detection, and integration with Microsoft Defender to surface real-time device health and risk signals and drive risk-based policy decisions.",
+          "tldr": "Intune Advanced Analytics (Intune Suite or standalone add-on) moves reporting from static compliance to real-time health: live KQL Device Query, machine-learning anomaly detection, resource performance and battery insights. Integrating Intune with Microsoft Defender for Endpoint adds a live machine risk score that drives risk-based compliance and Conditional Access. Together these signals let you adapt policies to a device's actual risk and health.",
+          "objectives": [
+            "Explore advanced reporting with Microsoft Intune Suite Advanced Analytics",
+            "Identify and respond to anomaly detection insights",
+            "Integrate Intune data with Microsoft Defender for proactive threat signals",
+            "Use advanced insights to support risk-based compliance and Conditional Access policy decisions"
+          ],
+          "keyPoints": [
+            "**Advanced Analytics** requires the standalone Advanced Analytics add-on or the **Microsoft Intune Suite**.",
+            "**Device Query** runs live **KQL** queries against devices and answers in seconds, instead of waiting for inventory sync.",
+            "**Anomaly detection** uses machine learning to baseline \"normal\" for your tenant and flags deviations by **severity** (High, Medium, Low) — no manual thresholds.",
+            "Investigate anomalies with **Correlations** (shared model or OS version) and the **Device Timeline**; **Mute** anomalies you don't need to act on to avoid alert fatigue.",
+            "Intune deploys Defender onboarding to devices; **Defender** sends back a **machine risk score** — a two-way signal flow.",
+            "**Risk-based compliance**: a compliance rule requiring risk Clear/Low marks a High-risk device **noncompliant**, and **Conditional Access** blocks access until the risk clears.",
+            "**Security tasks**: SecOps sends a remediation request from the Defender portal; IT sees it under **Endpoint security > Security tasks** and Defender closes it after the fix.",
+            "**Custom compliance** policies run a PowerShell (Windows) or Bash (macOS) discovery script returning JSON to base compliance on your own signals."
+          ],
+          "units": [
+            {
+              "title": "Explore advanced reporting with Intune Suite analytics",
+              "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/02-explore-advanced-reporting",
+              "minutes": 10,
+              "points": [
+                "Device Query: live KQL across Windows and macOS devices, e.g. to find machines running a vulnerable service right now.",
+                "Anomaly Detection flags deviations such as a crash spike on one hardware model after an update.",
+                "EPM reporting shows what users try to elevate; use it to build targeted elevation rules instead of granting local admin.",
+                "Resource Performance: fleet-wide CPU, memory and disk performance for enrolled Windows devices."
+              ]
+            },
+            {
+              "title": "Identify and respond to anomaly detection insights",
+              "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/03-identify-respond-anomalies",
+              "minutes": 8,
+              "points": [
+                "How it works: baselining telemetry (app reliability, boot times, crashes) → machine-learning model → anomaly on deviation.",
+                "Find them under **Reports > Endpoint analytics > Anomalies**; the State column shows Active or Resolved.",
+                "Respond: review details → Correlations → Device Timeline → remediate (pause update rings, alert help desk, test a fix on a small group).",
+                "Mute anomalies for apps known to be unstable or being deprecated."
+              ]
+            },
+            {
+              "title": "Integrate Intune with Microsoft Defender for proactive threat signals",
+              "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/04-integrate-intune-data-microsoft-defender",
+              "minutes": 10,
+              "points": [
+                "Connector: **Tenant administration > Connectors and tokens > Microsoft Defender for Endpoint**; enable Windows (10 1809+ and 11) and iOS/iPadOS and Android (Mobile Threat Defense).",
+                "Turn on **Allow Microsoft Defender for Endpoint to enforce Endpoint Security Configurations**.",
+                "Add a Defender for Endpoint rule in compliance policies requiring a maximum machine risk score (typically Clear or Low).",
+                "The connector only builds the pipeline — you still need an **EDR policy** in Intune to onboard devices.",
+                "When the threat is remediated, the score returns to Clear, the device becomes compliant and access is restored."
+              ]
+            },
+            {
+              "title": "Use advanced insights to support risk-based policy decisions",
+              "url": "https://learn.microsoft.com/training/modules/analyze-advanced-device-signals/05-use-advanced-insights",
+              "minutes": 10,
+              "points": [
+                "Risk-based policy is a sliding scale: slightly elevated risk → Conditional Access requires MFA; High risk → access blocked.",
+                "Endpoint analytics insights (app reliability, battery health, anomalies) inform actions like pausing update rings or running Remediations scripts.",
+                "Custom compliance scripts can check e.g. a vulnerable registry key; noncompliant devices are blocked by Conditional Access.",
+                "Microsoft Security Copilot's Intune plugin answers natural-language questions on live Intune data; it needs separately licensed SCU capacity.",
+                "If an agent is unstable, temporarily switch its compliance check from Require to Report-only to avoid mass lockouts."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Device Query",
+              "definition": "Real-time KQL query against managed devices for current property data."
+            },
+            {
+              "term": "Anomaly detection",
+              "definition": "Machine-learning baseline of normal device behavior that flags deviations by severity."
+            },
+            {
+              "term": "Machine risk score",
+              "definition": "Dynamic device risk level calculated by Defender for Endpoint and shared with Intune."
+            },
+            {
+              "term": "Risk-based compliance",
+              "definition": "Compliance based on the live Defender risk score rather than static settings."
+            },
+            {
+              "term": "Security tasks",
+              "definition": "Defender vulnerability remediation requests that appear in Intune under Endpoint security."
+            },
+            {
+              "term": "Custom compliance",
+              "definition": "Compliance policy based on a PowerShell or Bash discovery script that outputs JSON."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Anomaly severity levels",
+              "headers": [
+                "Severity",
+                "Meaning"
+              ],
+              "rows": [
+                [
+                  "High",
+                  "Critical issue affecting many devices or severe disruption (e.g. frequent BSODs); act immediately"
+                ],
+                [
+                  "Medium",
+                  "Noticeable degradation without halting productivity (e.g. more app hangs)"
+                ],
+                [
+                  "Low",
+                  "Minor deviation from baseline; monitor"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Need an answer from devices **right now** → **Device Query (KQL)**, not standard hardware inventory.",
+            "Defender connector enabled but devices not in Defender → you still need an **EDR policy** to onboard them.",
+            "Static compliance asks \"should it be secure?\"; **risk-based compliance** asks \"is it secure right now?\" via the machine risk score.",
+            "Vulnerability fix handoff from SecOps to IT → **Security tasks** in Intune, not a spreadsheet."
+          ],
+          "selfCheck": [
+            {
+              "q": "Defender detects malware on a laptop and raises its risk score to High. What happens if the compliance policy requires Low or Clear?",
+              "a": "Intune marks the device noncompliant and Conditional Access blocks access to corporate resources until the risk returns to Clear."
+            },
+            {
+              "q": "After a Windows update, Advanced Analytics flags a High anomaly of VPN crashes on one laptop model. What are sensible first steps?",
+              "a": "Check Correlations and the Device Timeline to find the cause, then pause the update ring, alert the help desk and test a fix on a small group."
+            },
+            {
+              "q": "Your security team needs compliance to depend on a specific registry key that native settings don't cover. What do you use?",
+              "a": "A custom compliance policy with a PowerShell discovery script that returns the result in JSON."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.evaluate-endpoint-privilege-management",
@@ -474,7 +895,177 @@
           "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/",
           "durationMinutes": 49,
           "updated": "2026-07-14",
-          "learnSummary": "Evaluate Microsoft Intune Endpoint Privilege Management — design just-in-time elevation, configure elevation policies, monitor elevated actions, and troubleshoot and refine the deployment."
+          "learnSummary": "Evaluate Microsoft Intune Endpoint Privilege Management — design just-in-time elevation, configure elevation policies, monitor elevated actions, and troubleshoot and refine the deployment.",
+          "tldr": "Endpoint Privilege Management (EPM) removes permanent local admin rights and lets standard users run approved files, installers or scripts with just-in-time elevation. You configure it with two Intune policies: an elevation settings policy (enables EPM, default response, reporting) and an elevation rules policy (per-file rules and elevation types). Reports and support-approved requests help you find gaps and refine the rule set.",
+          "objectives": [
+            "Describe the role of Endpoint Privilege Management in Zero Trust endpoint strategies",
+            "Understand just-in-time elevation in EPM",
+            "Configure EPM elevation policies and rules in the Microsoft Intune admin center",
+            "Monitor elevated actions and review elevation reports",
+            "Troubleshoot and refine an EPM deployment"
+          ],
+          "keyPoints": [
+            "**Just-in-time elevation**: users stay standard users; EPM allows, denies or routes each elevation request according to policy.",
+            "Most elevations run under an isolated **virtual account** — neither it nor the user is added to local Administrators; **Elevate as current user** is the exception.",
+            "Two policies: **elevation settings policy** (enables EPM, default response, reporting scope) and **elevation rules policy** (rules per file). Rules do nothing without the settings policy.",
+            "Secure **default elevation response**: **Deny all requests** or **Require support approval**; Require user confirmation applies to all unmatched files, so use it carefully.",
+            "Elevation types: **Automatic, User confirmed, Support approved, Deny, Elevate as current user**.",
+            "Precedence: **Deny wins**, **user-targeted beats device-targeted**, rules with a **hash** are more specific.",
+            "Child process default: **Require rule to elevate**; \"Allow all child processes\" skips rule evaluation, including deny rules.",
+            "Requirements: add-on license on top of Intune Plan 1/2, supported Windows 10/11, **Entra joined or hybrid joined**, Intune-enrolled or co-managed; **no SSL inspection**, **workplace joined not supported**."
+          ],
+          "units": [
+            {
+              "title": "Understand just-in-time elevation in Endpoint Privilege Management",
+              "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/02-understand-just-in-time-endpoint-privilege-management",
+              "minutes": 10,
+              "points": [
+                "Local admin rights let users and attackers change system settings; EPM limits elevation to defined conditions (Zero Trust).",
+                "Benefits: fewer permanent admins, approved admin tasks without changing account type, control of what elevates, recorded activity.",
+                "Supports Windows 365 and Azure Virtual Desktop single-session VMs; unsupported OS versions report **Not applicable**.",
+                "Required EPM traffic must bypass SSL inspection."
+              ]
+            },
+            {
+              "title": "Configure elevation policies and rules",
+              "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/03-configure-elevation-policies",
+              "minutes": 12,
+              "points": [
+                "Create both under **Endpoint security > Endpoint Privilege Management > Policies > Create**, platform Windows.",
+                "Reporting scope options: diagnostic data only, managed elevations only, or all endpoint elevations.",
+                "Rules identify files by name, path, signature source/certificate or hash, minimum version and metadata; use paths standard users can't modify.",
+                "**Reusable settings groups** store a publisher certificate used across multiple rules.",
+                "Rules can be created directly from the Elevation report or a support-approved request; policies can target users or devices."
+              ]
+            },
+            {
+              "title": "Monitor elevated actions and review reports",
+              "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/04-monitor-elevated-actions",
+              "minutes": 8,
+              "points": [
+                "Reports under **Endpoint security > Endpoint Privilege Management > Reports**: Elevation report, Managed elevation report, by application, by publisher, by user, Denied elevation report.",
+                "**Unmanaged elevations** (e.g. an admin using Run as administrator) reveal gaps in your model.",
+                "Support-approved requests are handled on the **Elevation requests** tab; once approved, the user can retry for **24 hours**.",
+                "Denied requests aren't notified automatically — tell the user through the normal support process."
+              ]
+            },
+            {
+              "title": "Troubleshoot and refine an EPM deployment",
+              "url": "https://learn.microsoft.com/training/modules/evaluate-endpoint-privilege-management/05-troubleshoot-adjust-endpoint-privilege-management",
+              "minutes": 8,
+              "points": [
+                "Settings policy errors or Not applicable: often missing Windows updates or blocked Intune endpoints.",
+                "Rule mismatch causes: wrong path, updated file (hash/version changed), changed certificate, missing required arguments, wrong assignment.",
+                "Only local files elevate — files on network shares or mapped drives aren't supported.",
+                "Elevated apps run in an isolated context and can't reach resources needing user authentication (network shares, OneDrive, SharePoint, Azure)."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Just-in-time elevation",
+              "definition": "Elevated privileges only for a specific approved task, without making the user a permanent admin."
+            },
+            {
+              "term": "Virtual account",
+              "definition": "Isolated account EPM uses to run most elevated processes, separate from the signed-in user."
+            },
+            {
+              "term": "Elevation settings policy",
+              "definition": "Enables EPM and sets the default elevation response and reporting."
+            },
+            {
+              "term": "Elevation rules policy",
+              "definition": "Defines per-file rules and their elevation type and child process behavior."
+            },
+            {
+              "term": "Default elevation response",
+              "definition": "What happens to elevation requests for files that match no rule."
+            },
+            {
+              "term": "Unmanaged elevation",
+              "definition": "Elevation outside EPM, such as a local admin using Run as administrator."
+            }
+          ],
+          "tables": [
+            {
+              "title": "EPM elevation types",
+              "headers": [
+                "Elevation type",
+                "Behavior",
+                "Use when"
+              ],
+              "rows": [
+                [
+                  "Automatic",
+                  "Elevates silently",
+                  "Highly trusted files with strong criteria (hash, certificate, path, version)"
+                ],
+                [
+                  "User confirmed",
+                  "User prompt; optional justification and/or Windows authentication",
+                  "Trusted file but accountability wanted"
+                ],
+                [
+                  "Support approved",
+                  "Admin must approve the request first",
+                  "Exceptions, infrequent or higher-risk tasks"
+                ],
+                [
+                  "Deny",
+                  "Blocks elevation; overrides allow rules",
+                  "Known unsafe or unneeded files"
+                ],
+                [
+                  "Elevate as current user",
+                  "Runs under the signed-in user's account",
+                  "App needs the user profile or context"
+                ]
+              ]
+            },
+            {
+              "title": "Child process behavior",
+              "headers": [
+                "Option",
+                "Effect"
+              ],
+              "rows": [
+                [
+                  "Require rule to elevate",
+                  "Child needs its own matching rule (preferred)"
+                ],
+                [
+                  "Allow all child processes to run elevated",
+                  "Children elevate without rule evaluation, even deny rules"
+                ],
+                [
+                  "Deny all",
+                  "No child processes created or elevated"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Rules assigned but nothing happens → device also needs an **elevation settings policy** enabling EPM.",
+            "Two rules conflict → **Deny wins**, then **user-targeted over device-targeted**, then the more specific **hash** rule.",
+            "Elevated app can't open SharePoint or a network share → **expected EPM limitation** (isolated context), not a broken rule.",
+            "Workplace joined (registered) device → **EPM not supported**; needs Entra joined or hybrid joined."
+          ],
+          "selfCheck": [
+            {
+              "q": "You want unknown applications never to elevate unless a support engineer reviews them. Which default elevation response do you choose?",
+              "a": "Require support approval (or Deny all requests if requests shouldn't be possible at all)."
+            },
+            {
+              "q": "A user's approved support request worked yesterday, but today the elevation fails again. Why?",
+              "a": "An approved request only lets the user retry elevation for that file for 24 hours."
+            },
+            {
+              "q": "An EPM rule stopped matching after the vendor released a new version of the tool. What's the likely cause?",
+              "a": "The rule's file hash or version no longer matches the updated file; update the rule or use certificate-based criteria."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     },
@@ -492,7 +1083,187 @@
           "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/",
           "durationMinutes": 52,
           "updated": "2026-07-14",
-          "learnSummary": "Explore Windows 365 — its role for cloud PC deployment, how it compares to traditional VDI, licensing and prerequisites, common use cases, and endpoint experience options like Windows 365 Boot and Switch."
+          "learnSummary": "Explore Windows 365 — its role for cloud PC deployment, how it compares to traditional VDI, licensing and prerequisites, common use cases, and endpoint experience options like Windows 365 Boot and Switch.",
+          "tldr": "Windows 365 is a SaaS service that streams persistent, personalized Cloud PCs from Microsoft-managed Azure infrastructure, managed through Intune and secured with Entra ID. Compared with traditional PCs and VDI, it removes imaging, host-pool and infrastructure work. Choose the right plan (Business, Enterprise, Frontline, Flex), network model and access experience (Windows App/browser, Windows 365 Boot, Windows 365 Switch).",
+          "objectives": [
+            "Describe the role of Windows 365 in delivering cloud-hosted Windows desktops",
+            "Compare Windows 365 to traditional virtual desktop infrastructure (VDI)",
+            "Identify Windows 365 licensing, service plans, and prerequisites",
+            "Identify common Windows 365 use cases",
+            "Explore Windows 365 endpoint experience options, including Windows 365 Boot and Windows 365 Switch"
+          ],
+          "keyPoints": [
+            "A **Cloud PC** is **persistent**: apps, settings and files remain between sessions, just like a physical PC.",
+            "**Shared responsibility**: Microsoft runs the Cloud PC infrastructure and availability; you manage users, licenses, apps, identity and security policies.",
+            "Plans: **Business** (SMB, simple), **Enterprise** (Intune integration, custom networking, GPU options), **Frontline** (shift workers, concurrent use), **Flex** (intermittent use).",
+            "**Frontline**: license for the **maximum concurrent users** — e.g. 15 associates across shifts, never more than 5 at once → 5 licenses.",
+            "**Flex Dedicated**: one license provisions up to **three** personal Cloud PCs, one active session at a time; **Flex Shared**: one license = one shared Cloud PC, no data persistence required.",
+            "Networking: **Microsoft Hosted Network** (recommended, no Azure subscription) or **Azure Network Connection** (needed for **hybrid join** or line-of-sight to on-prem resources).",
+            "The **Windows App** is the recommended client and successor to the Remote Desktop app; a browser is a fallback for unmanaged or shared devices.",
+            "**Windows 365 Boot** signs users straight into the Cloud PC (thin-client style); **Windows 365 Switch** toggles local and Cloud PC via **Task View** — both need **Windows 11 22H2+**."
+          ],
+          "units": [
+            {
+              "title": "Understand the role of Windows 365",
+              "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/02-understand-windows-365-role",
+              "minutes": 8,
+              "points": [
+                "Integrations: Entra ID (identity), Intune (management and compliance), Azure networking, Microsoft Defender (security).",
+                "Identity-centered security with Conditional Access, MFA, compliance policies and Defender supports Zero Trust; data stays in the cloud even from personal devices.",
+                "Management in the Intune admin center: provisioning policies, apps, profiles, device actions (restart, reprovision, resize, restore).",
+                "Removes imaging, VDI design, session host and capacity management, and platform patching."
+              ]
+            },
+            {
+              "title": "Compare Windows 365 to traditional VDI",
+              "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/03-compare-windows-365-traditional-virtual-desktop-infrastructure",
+              "minutes": 8,
+              "points": [
+                "Traditional PCs: full offline capability and hardware access, but imaging, repairs and refresh cycles.",
+                "VDI: centralized, pooled or persistent desktops, but needs virtualization hosts, storage, networking and capacity planning.",
+                "Windows 365: automatic user-based provisioning, always persistent, managed with Intune, predictable per-user subscription.",
+                "Best fit: offline work and specialized hardware → physical PCs; hybrid work, BYOD and rapid onboarding → Windows 365."
+              ]
+            },
+            {
+              "title": "Identify Windows 365 licensing, service plans, and prerequisites",
+              "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/04-licensing-service-plans",
+              "minutes": 10,
+              "points": [
+                "Users need an Entra ID account, the right Windows 365 license, internet connectivity and a supported client.",
+                "Enterprise offers GPU-enabled Cloud PCs for CAD, 3D, media and visualization — higher cost, assign only when needed.",
+                "Admin roles: **Windows 365 Administrator** (Enterprise and Business), **Cloud PC Administrator**, **Cloud PC Reader** (read-only), Intune Administrator; use least privilege.",
+                "Access from Windows, macOS, iOS/iPadOS, Android and supported browsers."
+              ]
+            },
+            {
+              "title": "Identify Windows 365 use cases",
+              "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/05-use-cases",
+              "minutes": 7,
+              "points": [
+                "Hybrid/remote work and BYOD: corporate data stays in the Cloud PC; Conditional Access enforces MFA and compliance.",
+                "Contractors and temporary staff: provision within hours, remove access immediately when the engagement ends.",
+                "Privileged access workstations: dedicated Cloud PCs with security baselines, BitLocker, ASR rules, app control and EDR.",
+                "Also onboarding on day one, business continuity after hardware failure or office outage, and training labs.",
+                "Not ideal for offline needs, specialized hardware or performance-sensitive apps."
+              ]
+            },
+            {
+              "title": "Explore the Windows 365 endpoint experience",
+              "url": "https://learn.microsoft.com/training/modules/explore-windows-365-intune/06-explore-windows-365-endpoint-experience",
+              "minutes": 8,
+              "points": [
+                "Standard access (Windows App or browser): broadest device support — remote workers, contractors, BYOD.",
+                "Boot: power on → sign in → connected to the Cloud PC; for frontline, shared devices, call centers, hot-desking.",
+                "Switch: move between local and cloud desktops in Task View; for knowledge workers, developers, admins who need local resources.",
+                "All are configured through Intune; organizations can combine experiences per persona."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Cloud PC",
+              "definition": "Persistent, personalized Windows desktop streamed from Microsoft's cloud via Windows 365."
+            },
+            {
+              "term": "Windows 365 Frontline",
+              "definition": "Plan for shift workers licensed by concurrent use; users have their own Cloud PC but not simultaneously."
+            },
+            {
+              "term": "Windows 365 Flex",
+              "definition": "Plan for intermittent use with Dedicated mode (up to 3 Cloud PCs per license) or Shared mode."
+            },
+            {
+              "term": "Microsoft Hosted Network",
+              "definition": "Recommended network option where Microsoft manages the network; no Azure subscription needed."
+            },
+            {
+              "term": "Azure Network Connection",
+              "definition": "Customer-managed option connecting Cloud PCs to an Azure VNet, required for hybrid join or on-prem access."
+            },
+            {
+              "term": "Windows 365 Boot / Switch",
+              "definition": "Boot logs straight into the Cloud PC; Switch toggles local and Cloud PC through Task View."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Windows 365 plans",
+              "headers": [
+                "Plan",
+                "Model",
+                "Typical scenario"
+              ],
+              "rows": [
+                [
+                  "Business",
+                  "Dedicated Cloud PC per user, simplified",
+                  "Small and medium organizations with limited management needs"
+                ],
+                [
+                  "Enterprise",
+                  "Dedicated Cloud PC per user, full Intune integration",
+                  "Centralized provisioning, custom networking, compliance, GPU workloads"
+                ],
+                [
+                  "Frontline",
+                  "Concurrent-session licensing",
+                  "Shift workers who never all work at the same time"
+                ],
+                [
+                  "Flex",
+                  "Dedicated (up to 3 Cloud PCs/license) or Shared mode",
+                  "Occasional, scheduled or on-demand use; training, temporary access"
+                ]
+              ]
+            },
+            {
+              "title": "Access experiences",
+              "headers": [
+                "Experience",
+                "How it works",
+                "Typical users"
+              ],
+              "rows": [
+                [
+                  "Windows App / browser",
+                  "Launch a Cloud PC session from an app or portal",
+                  "Remote workers, contractors, cross-platform and BYOD"
+                ],
+                [
+                  "Windows 365 Boot",
+                  "Sign directly into the Cloud PC at startup",
+                  "Frontline, shared devices, cloud-first"
+                ],
+                [
+                  "Windows 365 Switch",
+                  "Switch between local and Cloud PC in Task View",
+                  "Knowledge workers, developers, admins"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Cloud PC needs **hybrid Entra join** or direct on-prem access → **Azure Network Connection**, not Microsoft Hosted Network.",
+            "Shift workers sharing capacity → **Frontline** (concurrency); occasional users → **Flex**.",
+            "Device should act like a thin client → **Boot**; user needs both local and cloud desktops → **Switch**.",
+            "Windows 365 is **always persistent**; VDI can be persistent or nonpersistent."
+          ],
+          "selfCheck": [
+            {
+              "q": "A hospital has 60 nurses over three shifts, with at most 20 working at once. Which Windows 365 plan minimizes licensing cost?",
+              "a": "Windows 365 Frontline, licensed for 20 concurrent users."
+            },
+            {
+              "q": "Cloud PCs must reach on-premises file servers and be hybrid Entra joined. Which network option do you choose?",
+              "a": "Azure Network Connection, the customer-managed option linking Cloud PCs to an Azure virtual network and on-prem resources."
+            },
+            {
+              "q": "An administrator should only view Cloud PC information in Intune, without making changes. Which role do you assign?",
+              "a": "Cloud PC Reader."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.configure-manage-windows-365-intune",
@@ -501,7 +1272,153 @@
           "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/",
           "durationMinutes": 51,
           "updated": "2026-06-03",
-          "learnSummary": "Configure Windows 365 provisioning policies, assign and manage Cloud PCs, apply configuration profiles and security policies, and monitor Cloud PC usage, performance, and health with Microsoft Intune."
+          "learnSummary": "Configure Windows 365 provisioning policies, assign and manage Cloud PCs, apply configuration profiles and security policies, and monitor Cloud PC usage, performance, and health with Microsoft Intune.",
+          "tldr": "Intune is the management layer for Windows 365: a provisioning policy (join type, network, image, settings) assigned to an Entra user group creates Cloud PCs for licensed users. After provisioning you manage Cloud PCs like other Windows devices — remote actions, configuration profiles and the Windows 365 Security Baseline. Utilization, connection quality and resource performance reports show whether Cloud PCs are used, healthy and correctly sized.",
+          "objectives": [
+            "Set up Windows 365 provisioning policies in Microsoft Intune",
+            "Assign and manage Cloud PCs",
+            "Apply configuration profiles and policies to Cloud PCs",
+            "Monitor Cloud PC usage, performance, and health"
+          ],
+          "keyPoints": [
+            "A **provisioning policy** defines experience type, license type, **join type**, network, **image**, language/region, naming and optional services; no policy → user shows **Not provisioned**.",
+            "**Hybrid Entra join** requires an **Azure network connection**; Microsoft Entra join can use the **Microsoft-hosted network** (no Azure subscription).",
+            "Assign provisioning policies to **Entra user groups** — **nested groups aren't supported**; with overlapping policies the **first assigned** one wins.",
+            "**Grace period**: after a license or assignment change the user keeps the Cloud PC for **7 days**, then it's deprovisioned; ending it manually deletes the OS and data.",
+            "**Pending** = not enough licenses; **Provisioned with warnings** = usable but a non-critical step failed.",
+            "**Resize** keeps the Cloud PC (15–20 min downtime); **Restore** returns to a restore point; **Reprovision** rebuilds from the policy and erases data, apps and settings.",
+            "Target Cloud PCs with a **dynamic device group** on `deviceModel` starting with \"Cloud PC\", `enrollmentProfileName` per provisioning policy, or **Intune filters**.",
+            "Monitor with **Cloud PC utilization**, **Connection quality**, connectivity health checks, user connectivity history and **Resource performance** (Endpoint analytics)."
+          ],
+          "units": [
+            {
+              "title": "Set up Windows 365 provisioning policies",
+              "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/02-set-up-windows-365-provisioning-policies",
+              "minutes": 12,
+              "points": [
+                "Create under **Devices > Provision Cloud PCs > Provisioning policies > Create policy**.",
+                "Experience: full Cloud PC desktop, or only apps (Cloud Apps, for Flex Shared mode); license types include Enterprise, Frontline and Reserve.",
+                "Image: **gallery image** for a standard experience, **custom image** for organization-specific apps and settings.",
+                "Device name template must include a randomized string; optional services include Windows Autopatch and Windows Autopilot device preparation (installs selected apps and scripts during provisioning)."
+              ]
+            },
+            {
+              "title": "Assign and manage Cloud PCs",
+              "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/03-assign-manage-cloud-personal-computers",
+              "minutes": 10,
+              "points": [
+                "Flow: assign license → add user to the policy's group → Windows 365 provisions → verify. In a group but no Enterprise license → no Cloud PC.",
+                "User settings: enable local admin, allow user reset (wipes and reprovisions), allow user-initiated restore, cross-region disaster recovery; changes apply at next sign-in.",
+                "Access via the **Windows App** or windows.cloud.microsoft; **Windows 365 Link** is a dedicated device that Entra joins and enrolls in Intune.",
+                "Bulk remote actions: up to **5,000** Cloud PCs at a time, using a **user** group, not a device group."
+              ]
+            },
+            {
+              "title": "Apply configuration profiles and policies to Cloud PCs",
+              "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/04-apply-configuration-profiles-policies",
+              "minutes": 10,
+              "points": [
+                "Create profiles under **Devices > Configuration > Create > New policy**; settings catalog for precise control, templates for grouped scenarios.",
+                "Typical areas: restrictions, Edge, OneDrive, Windows Update, Defender, Windows Hello for Business, network/VPN/certificates.",
+                "The **Windows 365 Security Baseline** (Endpoint security > Security baselines) covers Windows, Edge and Defender settings and can be customized.",
+                "Baseline profiles don't auto-update to new versions — review and update them; use filters to keep hardware-only policies off Cloud PCs."
+              ]
+            },
+            {
+              "title": "Monitor Cloud PC usage, performance, and health",
+              "url": "https://learn.microsoft.com/training/modules/configure-manage-windows-365-intune/05-monitor-usage-performance-health",
+              "minutes": 8,
+              "points": [
+                "**Cloud PC utilization** (Devices > Cloud PC performance): time connected and last connection — find rarely used Cloud PCs to reclaim licenses.",
+                "**Connection quality** (Reports > Cloud PC overview): round-trip time, bandwidth, gateway, sign-in time, protocol, UDP utilization.",
+                "Connectivity health: Available or Unavailable; **Troubleshoot this connection** shows failed checks (domain join, trust, blocked URLs).",
+                "**Resource performance** score is based on CPU and RAM spike time; below baseline → consider a resize. Cloud PCs must be enrolled in Endpoint analytics.",
+                "Cloud PC monitoring is in preview — use with caution in production."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Provisioning policy",
+              "definition": "Intune object that tells Windows 365 how to build Cloud PCs and for which Entra user group."
+            },
+            {
+              "term": "Grace period",
+              "definition": "Seven days of continued access after a license or assignment change before deprovisioning."
+            },
+            {
+              "term": "Reprovision",
+              "definition": "Deletes the Cloud PC and rebuilds it from the current provisioning policy; user data is lost."
+            },
+            {
+              "term": "Windows 365 Security Baseline",
+              "definition": "Recommended security settings for Cloud PCs covering Windows, Edge and Defender."
+            },
+            {
+              "term": "Windows 365 Link",
+              "definition": "Purpose-built device that connects users directly to their Cloud PC and is managed with Intune."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Cloud PC status values",
+              "headers": [
+                "Status",
+                "Meaning"
+              ],
+              "rows": [
+                [
+                  "Provisioned",
+                  "Ready; user can sign in"
+                ],
+                [
+                  "Provisioned with warnings",
+                  "Usable, but a non-critical step failed"
+                ],
+                [
+                  "Not provisioned",
+                  "Licensed, but no provisioning policy assigned"
+                ],
+                [
+                  "Pending",
+                  "Not enough licenses available in the tenant"
+                ],
+                [
+                  "In grace period",
+                  "License or assignment changed; 7 days of continued use"
+                ],
+                [
+                  "Deprovisioning",
+                  "Grace period over; Cloud PC being removed and can't be restored"
+                ],
+                [
+                  "Failed",
+                  "Provisioning didn't complete; review, fix and retry"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Licensed user has no Cloud PC → status **Not provisioned** means **no provisioning policy assigned**; **Pending** means **not enough licenses**.",
+            "Needs more CPU/RAM but keep data → **Resize**, not Reprovision.",
+            "Provisioning policy assignment → **user groups, no nesting**; bulk remote actions → **user groups** too.",
+            "Ending the grace period manually is **destructive** — the Cloud PC's OS and data are deleted."
+          ],
+          "selfCheck": [
+            {
+              "q": "A user is licensed for Windows 365 Enterprise and in an assigned group, but the group is nested in another group targeted by the policy. Why is no Cloud PC created?",
+              "a": "Nested groups aren't supported for provisioning policy assignments; add the user to a directly assigned group."
+            },
+            {
+              "q": "A user's Cloud PC is consistently below the resource performance baseline because of RAM spikes. What do you do?",
+              "a": "Review the device history in the Resource performance report and resize the Cloud PC to add resources."
+            },
+            {
+              "q": "You need to find Cloud PCs that haven't been used for weeks so you can reassign licenses. Which report do you use?",
+              "a": "The Cloud PC utilization report, which shows total time connected and date last connected."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.explore-azure-virtual-desktop",
@@ -510,7 +1427,171 @@
           "url": "https://learn.microsoft.com/training/modules/explore-azure-virtual-desktop/",
           "durationMinutes": 43,
           "updated": "2026-07-14",
-          "learnSummary": "Explore Azure Virtual Desktop architecture, compare it with Windows 365, and learn how host pools, session hosts, and scaling deliver virtualized Windows desktops and apps from Azure."
+          "learnSummary": "Explore Azure Virtual Desktop architecture, compare it with Windows 365, and learn how host pools, session hosts, and scaling deliver virtualized Windows desktops and apps from Azure.",
+          "tldr": "Azure Virtual Desktop (AVD) is a platform service: Microsoft runs the control plane (web, broker, gateway), you run the session host VMs, images, networking and profiles. Users reach desktops or RemoteApps through workspaces and application groups attached to pooled or personal host pools. Compared with Windows 365, AVD gives more control and multi-session density, at the cost of more operational ownership.",
+          "objectives": [
+            "Describe Azure Virtual Desktop architecture, including the control plane and customer-managed resources",
+            "Compare Azure Virtual Desktop with Windows 365 to match each option to the right scenario",
+            "Explain how host pools, session hosts, and scaling plans deliver desktops and apps to users"
+          ],
+          "keyPoints": [
+            "**Control plane** (Microsoft): web service, broker, gateway, resource directory. **Data plane** (you): session host VMs, images, apps, networking, identity, profiles (often **FSLogix**).",
+            "Resource chain: **host pool** (session hosts) ← **application group** (desktop or **RemoteApp**) ← **workspace** (what users see in the **Windows App**).",
+            "**Pooled** host pools share session hosts (density, needs a roaming profile solution); **personal** host pools give each user a dedicated VM.",
+            "**Reverse connect**: session hosts connect outbound to AVD, so **no inbound RDP ports** are opened; **RDP Shortpath** adds direct UDP paths with TCP as fallback.",
+            "Load balancing (pooled only): **breadth-first** spreads sessions for performance; **depth-first** fills a host to its limit for cost savings.",
+            "**Autoscale scaling plans** power hosts on/off by schedule; one plan can cover several host pools, but each host pool uses **only one** plan; personal pools can hibernate or deallocate.",
+            "**Start VM on Connect** powers hosts on only when a user connects — lower idle cost, longer first connection.",
+            "Choose **AVD** for multi-session density, RemoteApp-only publishing or deep Azure/network control; **Windows 365** for 1:1 Cloud PCs and Intune-first simplicity."
+          ],
+          "units": [
+            {
+              "title": "Understand Azure Virtual Desktop architecture",
+              "url": "https://learn.microsoft.com/training/modules/explore-azure-virtual-desktop/02-understand-azure-virtual-desktop-architecture",
+              "minutes": 10,
+              "points": [
+                "Microsoft runs brokering and connectivity, so you don't build classic Remote Desktop Services roles.",
+                "Connection flow: **feed discovery** (Entra sign-in, workspace subscription) then **session connection** (brokered RDP).",
+                "Session hosts can be Microsoft Entra joined (cloud-first) or domain joined via AD DS or Microsoft Entra Domain Services.",
+                "Session hosts need outbound connectivity to AVD endpoints; ExpressRoute or site-to-site VPN support private paths.",
+                "Windows App replaces the earlier Remote Desktop clients."
+              ]
+            },
+            {
+              "title": "Compare Azure Virtual Desktop with Windows 365",
+              "url": "https://learn.microsoft.com/training/modules/explore-azure-virtual-desktop/03-compare-azure-virtual-desktop-windows-365",
+              "minutes": 10,
+              "points": [
+                "AVD: platform service, pooled multi-session and personal desktops, you design networking, managed in the Azure portal.",
+                "Windows 365: SaaS 1:1 Cloud PC (Frontline adds concurrent use), capacity follows licenses, Intune-centric.",
+                "Task/shift workers → AVD pooled or Windows 365 Frontline; knowledge workers → Windows 365; app-only publishing → AVD.",
+                "Developers/power users → Windows 365 or AVD personal; bursty demand → AVD pooled or Frontline.",
+                "Decide per workload, not per company; use team skills as a tie-breaker."
+              ]
+            },
+            {
+              "title": "Examine host pools, session hosts, and scaling",
+              "url": "https://learn.microsoft.com/training/modules/explore-azure-virtual-desktop/04-host-pool-session-host-scaling",
+              "minutes": 12,
+              "points": [
+                "Start from a consistent image so scaling and troubleshooting are predictable.",
+                "Management: **standard** (you manage VMs) or **session host configuration** (service-managed creation and updates; pooled only, preview).",
+                "**Drain mode** blocks new sessions on a host while existing ones finish — for patching, scale-in and rotation.",
+                "Scaling options: autoscale plans (predictable hours, spiky sign-ins), Start VM on Connect (occasional use), custom automation (special rules)."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Host pool",
+              "definition": "Collection of session host VMs registered to AVD; pooled or personal."
+            },
+            {
+              "term": "Session host",
+              "definition": "VM running Windows and the apps that host user sessions."
+            },
+            {
+              "term": "Application group",
+              "definition": "Publishes either a full desktop or selected RemoteApps from one host pool."
+            },
+            {
+              "term": "Workspace",
+              "definition": "User-facing container presenting one or more application groups in the client."
+            },
+            {
+              "term": "Reverse connect",
+              "definition": "Session hosts keep outbound connections to AVD, so no inbound RDP ports are needed."
+            },
+            {
+              "term": "Drain mode",
+              "definition": "Stops new sessions landing on a host while existing sessions continue."
+            },
+            {
+              "term": "Start VM on Connect",
+              "definition": "Powers on a session host only when a user connects."
+            }
+          ],
+          "tables": [
+            {
+              "title": "AVD vs Windows 365",
+              "headers": [
+                "Area",
+                "Azure Virtual Desktop",
+                "Windows 365"
+              ],
+              "rows": [
+                [
+                  "Service model",
+                  "Platform: Microsoft control plane, you run hosts, images, network",
+                  "SaaS Cloud PCs; Microsoft runs most infrastructure"
+                ],
+                [
+                  "Session model",
+                  "Pooled multi-session, personal, RemoteApp",
+                  "Dedicated 1:1 Cloud PC; Frontline concurrent use"
+                ],
+                [
+                  "Scaling",
+                  "Scale host capacity by demand and schedules",
+                  "Capacity follows license assignment"
+                ],
+                [
+                  "Management",
+                  "Azure portal plus endpoint tools",
+                  "Intune-centric"
+                ],
+                [
+                  "Best fit",
+                  "Task workers, shared desktops, app-only publishing, bursty demand",
+                  "Knowledge workers, steady usage, simple operations"
+                ]
+              ]
+            },
+            {
+              "title": "Breadth-first vs depth-first load balancing",
+              "headers": [
+                "Algorithm",
+                "Placement",
+                "Best for",
+                "Trade-off"
+              ],
+              "rows": [
+                [
+                  "Breadth-first",
+                  "Spreads sessions evenly",
+                  "Performance-sensitive workloads",
+                  "Less efficient scale-in"
+                ],
+                [
+                  "Depth-first",
+                  "Fills one host to its max session limit first",
+                  "Cost optimization",
+                  "Needs accurate session limits"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Publish one line-of-business app without a full desktop → **AVD RemoteApp** application group.",
+            "Users connect to **workspaces/application groups**, never directly to host pools.",
+            "Cost first → **depth-first**; performance first → **breadth-first** (pooled host pools only).",
+            "Each host pool can have **only one** autoscale scaling plan, though a plan can serve several host pools."
+          ],
+          "selfCheck": [
+            {
+              "q": "You need to patch a session host without kicking off active users. What do you use?",
+              "a": "Drain mode, which prevents new sessions on that host while existing sessions finish."
+            },
+            {
+              "q": "A pooled host pool is rarely used outside office hours, and cost must be minimized. Which load-balancing algorithm and scaling option fit?",
+              "a": "Depth-first load balancing combined with an autoscale scaling plan scheduled around office hours."
+            },
+            {
+              "q": "Does AVD require inbound RDP ports to be opened to the internet?",
+              "a": "No. With reverse connect transport, session hosts keep outbound communication to the AVD service."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.integrate-azure-virtual-desktop-intune",
@@ -519,7 +1600,172 @@
           "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/",
           "durationMinutes": 49,
           "updated": "2026-06-03",
-          "learnSummary": "Enroll Azure Virtual Desktop session hosts in Microsoft Intune, apply compliance and configuration policies, monitor and troubleshoot virtual desktops, and address governance, licensing, and hybrid scenarios."
+          "learnSummary": "Enroll Azure Virtual Desktop session hosts in Microsoft Intune, apply compliance and configuration policies, monitor and troubleshoot virtual desktops, and address governance, licensing, and hybrid scenarios.",
+          "tldr": "Enrolling Azure Virtual Desktop session hosts in Intune brings them under the same management plane as physical PCs and Cloud PCs: configuration, compliance, endpoint security, apps and updates. Windows Enterprise multi-session is supported but behaves differently — target device settings to device groups, expect some Not applicable results, and use the Settings catalog instead of update rings. Combine Intune reporting with Azure Virtual Desktop Insights, and plan governance and licensing for hybrid environments.",
+          "objectives": [
+            "Enroll Azure Virtual Desktop session hosts in Microsoft Intune",
+            "Apply compliance and configuration policies to session hosts",
+            "Monitor and troubleshoot Azure Virtual Desktop environments",
+            "Address governance, licensing, and hybrid scenarios for Azure Virtual Desktop"
+          ],
+          "keyPoints": [
+            "Only **Windows 10/11 Enterprise multi-session** (and single-session client) session hosts enroll in Intune; **Windows Server session hosts can't** — use Configuration Manager or Group Policy.",
+            "Session hosts must be **Microsoft Entra joined** (recommended) or **hybrid Entra joined** and enroll through **automatic MDM enrollment**; hybrid joined multi-session uses **device credential enrollment**.",
+            "On multi-session, assign **device settings to device groups** and **user settings to user groups**; **compliance policies must target device groups**.",
+            "**Not applicable** is often expected on multi-session — build policies in the **Settings catalog** with an OS edition filter for Enterprise multi-session.",
+            "**Update rings aren't supported** on multi-session; configure Windows Update for Business settings through the **Settings catalog**.",
+            "Secure Boot/TPM compliance needs **Generation 2 VMs with Trusted Launch** — plan it at deployment, it can't be enabled on existing hosts.",
+            "**Intune** shows device compliance, policy and update health; **Azure Virtual Desktop Insights** (Azure Monitor + Log Analytics) shows sessions, connections and host performance.",
+            "Licensing: **Windows 365** per user, compute included; **AVD** uses an eligible license (e.g. Microsoft 365 E3/E5, Business Premium) **plus Azure consumption costs**."
+          ],
+          "units": [
+            {
+              "title": "Enroll Azure Virtual Desktop session hosts in Microsoft Intune",
+              "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/02-enroll-azure-virtual-desktop-session-hosts",
+              "minutes": 10,
+              "points": [
+                "Benefits: consistent profiles and baselines, app deployment, Windows Update for Business, compliance, Defender and Conditional Access integration.",
+                "Workflow: deploy host → Entra join or hybrid join → automatic MDM enrollment (check the MDM user scope) → register → receive policies.",
+                "Verify under **Devices > Windows**: inventory, compliance, profile and endpoint security status, update reporting.",
+                "Validate profiles, baselines, apps and remediation scripts in a **pilot host pool** before production; use Azure Compute Gallery for images."
+              ]
+            },
+            {
+              "title": "Apply compliance and configuration policies to session hosts",
+              "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/03-apply-compliance-configuration-policies",
+              "minutes": 10,
+              "points": [
+                "Personal (single-session) hosts behave like physical Windows Enterprise devices; pooled multi-session hosts may not support every setting.",
+                "Settings catalog is the recommended profile type; Administrative Templates remain useful for Group Policy–based settings.",
+                "Conditional Access evaluates the compliance of the device hosting the user session — validate designs for shared hosts.",
+                "Use endpoint security policies for Defender, firewall, ASR, BitLocker, EDR and account protection; test performance impact in a pilot pool.",
+                "Assign through dynamic device groups, separate pilot and production, host pool–specific groups."
+              ]
+            },
+            {
+              "title": "Monitor and troubleshoot Azure Virtual Desktop with Microsoft Intune",
+              "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/04-monitor-troubleshoot-azure-virtual-desktop",
+              "minutes": 10,
+              "points": [
+                "Hosts not checking in → network, enrollment, Entra registration or service communication problems.",
+                "Profile issues: conflicts, unsupported settings, wrong assignment, device/user scope mismatch, connectivity, licensing.",
+                "Enrollment issues: MDM not triggered, outdated AVD agent, multiple MDM providers (loop), **cloned images with existing enrollment** (never supported).",
+                "Disable token roaming through FSLogix; apps should deploy in system context to device groups.",
+                "AVD Insights needs a Log Analytics workspace, data collection rules and diagnostic settings on host pool and session hosts."
+              ]
+            },
+            {
+              "title": "Address governance, licensing, and hybrid scenarios",
+              "url": "https://learn.microsoft.com/training/modules/integrate-azure-virtual-desktop-intune/05-governance-licensing-hybrid",
+              "minutes": 8,
+              "points": [
+                "Hybrid estates mix Entra joined, hybrid joined, AVD, Windows 365, domain-joined and co-managed devices.",
+                "Governance domains: identity (Entra Connect Sync/Cloud Sync, CA, MFA, break-glass), device, security and operational governance.",
+                "Windows 365 Enterprise requires Intune licensing; Intune is included in Microsoft 365 E3/E5, Business Premium and EMS.",
+                "Separate admin roles (identity, endpoint, Azure, security, virtual desktop) with RBAC in Intune and Azure for least privilege.",
+                "Licensing changes over time — validate against official Microsoft licensing documentation."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Windows Enterprise multi-session",
+              "definition": "Windows client edition allowing multiple concurrent user sessions; supported by Intune with per-setting limitations."
+            },
+            {
+              "term": "Device credential enrollment",
+              "definition": "Enrollment method required for hybrid Entra joined multi-session session hosts."
+            },
+            {
+              "term": "Trusted Launch",
+              "definition": "Generation 2 VM security feature providing Secure Boot and vTPM; must be chosen at deployment."
+            },
+            {
+              "term": "Azure Virtual Desktop Insights",
+              "definition": "Azure Monitor/Log Analytics workbooks for session, connection and host performance monitoring."
+            },
+            {
+              "term": "Not applicable",
+              "definition": "Policy status when a setting isn't supported on the platform, common on multi-session hosts."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Intune vs Azure Virtual Desktop Insights",
+              "headers": [
+                "Microsoft Intune",
+                "Azure Virtual Desktop Insights"
+              ],
+              "rows": [
+                [
+                  "Device compliance status",
+                  "User session activity"
+                ],
+                [
+                  "Configuration profile deployment",
+                  "Connection success and failure trends"
+                ],
+                [
+                  "Endpoint security reporting",
+                  "Session host availability"
+                ],
+                [
+                  "Windows Update and policy reporting",
+                  "Latency and connection quality"
+                ],
+                [
+                  "Device health and diagnostics",
+                  "Host CPU, memory and disk utilization"
+                ]
+              ]
+            },
+            {
+              "title": "Windows 365 vs Azure Virtual Desktop licensing",
+              "headers": [
+                "Aspect",
+                "Windows 365",
+                "Azure Virtual Desktop"
+              ],
+              "rows": [
+                [
+                  "Model",
+                  "Per-user subscription",
+                  "Eligible user license + Azure consumption"
+                ],
+                [
+                  "Compute and storage",
+                  "Included",
+                  "Paid separately (VMs, disks, networking, monitoring)"
+                ],
+                [
+                  "Infrastructure",
+                  "Microsoft-managed",
+                  "You design, deploy and optimize"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Windows Server session host won't enroll in Intune → **expected**; manage it with Configuration Manager or Group Policy.",
+            "Updates not deploying to multi-session hosts → you used **update rings**; use the **Settings catalog** instead.",
+            "Compliance on multi-session → **device groups only**; user-targeted compliance isn't supported.",
+            "Session host problem in **device config/compliance** → Intune; slow sessions or **connection failures** → AVD Insights."
+          ],
+          "selfCheck": [
+            {
+              "q": "Compliance requiring Secure Boot reports noncompliant on all existing AVD session hosts. What's the cause and fix?",
+              "a": "The VMs weren't deployed as Generation 2 with Trusted Launch, which can't be enabled afterwards; redeploy hosts with Trusted Launch."
+            },
+            {
+              "q": "Newly deployed session hosts from a cloned, previously enrolled image fail to sync with Intune. Why?",
+              "a": "Cloning already-enrolled devices isn't supported — duplicated enrollment tokens and identities cause failures. Images must not contain enrollment information."
+            },
+            {
+              "q": "Several settings in a profile show Not applicable on pooled hosts. What should you check first?",
+              "a": "Whether those settings are supported on Windows Enterprise multi-session; rebuild the profile in the Settings catalog with the multi-session edition filter."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     }
