@@ -102,6 +102,7 @@ key terms, exam memory hooks and self-check questions, with links back to each L
 |---|---|---|---|---|
 | MD-102 | MD-102T00 | 8 | 34 | ~30 h |
 | MS-102 | MS-102T00 | 9 | 39 | ~29 h |
+| AB-650 (beta) | AB-650T00 | 3 | 17 | ~23 h |
 
 ## Content status
 

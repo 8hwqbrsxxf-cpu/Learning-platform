@@ -17,7 +17,218 @@
           "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/",
           "durationMinutes": 89,
           "updated": "2026-09-21",
-          "learnSummary": "Prepare a Microsoft 365 tenant for a new division by understanding its foundations, delegating administration, verifying a custom domain, configuring branding, and choosing organization settings."
+          "learnSummary": "Prepare a Microsoft 365 tenant for a new division by understanding its foundations, delegating administration, verifying a custom domain, configuring branding, and choosing organization settings.",
+          "tldr": "A Microsoft 365 tenant is the organization's environment, tied to one Microsoft Entra ID directory; a new division or domain does not need a new tenant. You prepare it by delegating least-privilege admin roles, adding and verifying a custom domain, setting two separate kinds of branding, and choosing organization settings.",
+          "objectives": [
+            "Describe the Microsoft 365 tenant and how it's provisioned.",
+            "Assign least-privilege administrator roles for tenant management tasks.",
+            "Add and verify a custom domain for Microsoft 365 services.",
+            "Configure organization branding in the Microsoft 365 admin center and Microsoft Entra sign-in experience.",
+            "Navigate organization information and data locations, and configure organizational settings for privacy, service defaults, release preferences, and notification senders."
+          ],
+          "keyPoints": [
+            "A **tenant** is the organization's Microsoft 365 environment connected to a Microsoft Entra ID directory. Layers: tenant, subscription, service plan, **license**. A new department or domain does not require another tenant.",
+            "**Least privilege** starts from the task: look it up in Microsoft's least-privileged roles by task reference, pick the narrowest role. Privileged Role Administrator assigns Entra roles; PIM gives **eligible, time-bound** access.",
+            "Adding a custom domain has two separate steps: **ownership verification** (TXT record) and **service configuration** (e.g. MX record for mail). A verified domain does not mean email is ready.",
+            "A domain can be removed only if it is **not the default domain** and has **zero references** (users, groups, mailboxes, aliases, admin sign-ins). The onmicrosoft.com domain can't be removed.",
+            "**Organization theme** (Microsoft 365 admin center, signed-in navigation bar, Global Administrator) and **Entra company branding** (sign-in page, Organizational Branding Administrator) are separate settings.",
+            "A tenant has one default theme plus up to **four group themes**, each mapped to up to five Microsoft 365 groups. A user matching multiple group themes sees the **default theme**.",
+            "**Release preferences**: Standard, Targeted release for select users, or Targeted release for everyone. Opting in needs Global Administrator and can take up to 24 hours.",
+            "**Send email notifications from your domain** changes supported system notifications only; user-to-user mail and SharePoint/OneDrive one-time passcodes keep their senders."
+          ],
+          "units": [
+            {
+              "title": "Understand the Microsoft 365 tenant",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/2-understand-microsoft-365-tenant",
+              "minutes": 10,
+              "points": [
+                "The tenant is connected to a Microsoft Entra ID directory (users, groups, devices); signing in proves who you are but doesn't grant access to every mailbox or site.",
+                "Another organization (e.g. Woodgrove Bank) has its own tenant; sharing with it is external collaboration via guest access or cross-tenant collaboration.",
+                "An Azure subscription can use the same directory but is a separate scope for resources, billing and RBAC; a Microsoft 365 admin role doesn't grant Azure management rights.",
+                "A new tenant starts with an initial domain such as relecloud.onmicrosoft.com; adding a custom domain doesn't rename existing accounts.",
+                "The country or region chosen at tenant creation sets the default geography; data location is reviewed under Settings > Org settings > Organization profile > Data location."
+              ]
+            },
+            {
+              "title": "Assign least-privilege administrator roles",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/3-assign-least-privilege-admin-roles",
+              "minutes": 8,
+              "points": [
+                "Method: define the task outcome, find it in the least-privileged roles reference, inspect the role, compare alternatives, assign and verify.",
+                "Role families: identity and directory, workload-specific, security and compliance, licensing and billing, support. The Microsoft 365 admin center shows a subset of the Entra role catalog.",
+                "Domain Name Administrator can add, verify, update and delete domains and read directory objects that reference a domain (read-only); it can't reset passwords or change security policies. It also includes federation-related permissions.",
+                "Privileged Identity Management supports eligible and time-bound assignments, so an admin activates the role only when needed; remove access when no longer needed."
+              ]
+            },
+            {
+              "title": "Add and verify a custom domain",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/4-add-verify-custom-domain",
+              "minutes": 8,
+              "points": [
+                "Start in Settings > Domains > Add domain. Verification uses a TXT record (or a file uploaded to the website); service configuration uses records such as MX.",
+                "Domain Connect (supported registrars) automates records after you authorize at the registrar; otherwise add the records manually at your DNS provider.",
+                "Create the Microsoft 365 users and mailboxes before pointing an existing domain's MX record to Microsoft 365.",
+                "Verifying a domain doesn't make it the default; the default only sets the domain preselected for new users.",
+                "Removal requires: not the default domain and zero references. Least-privileged role: Domain Name Administrator."
+              ]
+            },
+            {
+              "title": "Exercise - Delegate domain administration and add a custom domain",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/5-exercise-delegate-domain-add-domain",
+              "minutes": 12,
+              "points": [
+                "Task 1: with Privileged Role Administrator, open Roles & admins in the Entra admin center and add a Domain Name Administrator assignment.",
+                "Task 2: with that account, add the domain in the Microsoft 365 admin center, choose the TXT record method, add the record at the DNS provider and select Verify.",
+                "Task 3: check that ownership verification is complete; service setup may still show extra DNS work."
+              ]
+            },
+            {
+              "title": "Configure organization branding across two portals",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/6-configure-organization-branding",
+              "minutes": 7,
+              "points": [
+                "Organization theme: top navigation bar for signed-in users, under Settings > Org settings > Organization profile > Custom themes; customizing needs Global Administrator (Global Reader is read-only).",
+                "Entra company branding: sign-in experience, under Entra ID > Custom Branding; needs Organizational Branding Administrator and a license such as Entra ID P1/P2, Microsoft 365 Business Standard or SharePoint Plan 1.",
+                "Up to four group themes, each mapped to up to five Microsoft 365 groups (not security or distribution groups); users in several themes get the default.",
+                "Entra branding has default and language-specific variants; language-specific overrides the default for that browser language."
+              ]
+            },
+            {
+              "title": "Exercise - Configure organization branding",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/7-exercise-configure-branding",
+              "minutes": 12,
+              "points": [
+                "Create a group theme in the Microsoft 365 admin center: name, Microsoft 365 group, logo HTTPS URL (anonymous access for group themes), colors, then Save.",
+                "Configure default sign-in branding in Entra ID > Custom Branding with background, logo and sign-in page text.",
+                "Entra default branding belongs to the whole tenant and isn't scoped to the group selected for the theme."
+              ]
+            },
+            {
+              "title": "Configure organizational settings",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/8-configure-org-settings",
+              "minutes": 8,
+              "points": [
+                "Org settings has three tabs: Security & privacy (password expiration, pronouns), Organization profile (data location, release preferences, custom themes), Services (e.g. Calendar).",
+                "Passwords don't expire by default; the expiration policy applies to cloud-only accounts. Pronouns is off by default and can take up to seven hours.",
+                "Modern release options: Frontier (pre-GA), Standard, Deferred (delays eligible major updates by 30 days); these differ from Standard/Targeted release and from Microsoft 365 Apps update channels.",
+                "Calendar external sharing sets what's allowed; each user still decides whether to share.",
+                "Notification sender domain must be verified and email-ready (SPF, DKIM, DMARC, MX); it can take up to 24 hours."
+              ]
+            },
+            {
+              "title": "Exercise - Configure organizational settings",
+              "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/9-exercise-configure-org-settings",
+              "minutes": 14,
+              "points": [
+                "Set Targeted release for select users and add the five participants; others stay on Standard release.",
+                "Set Send email notifications from your domain to a custom domain with username no-reply.",
+                "A Teams missed-activity notification changes sender; a SharePoint one-time passcode (no-reply@notify.microsoft.com) and user-to-user mail don't."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Microsoft 365 tenant",
+              "definition": "An organization's dedicated Microsoft 365 environment, connected to a Microsoft Entra ID tenant for identity and access."
+            },
+            {
+              "term": "Domain Name Administrator",
+              "definition": "Least-privileged role to add, verify, update and delete custom domains; read-only on referencing directory objects."
+            },
+            {
+              "term": "Ownership verification",
+              "definition": "Proving control of a domain, typically with a TXT record; separate from configuring services such as mail."
+            },
+            {
+              "term": "Organization theme",
+              "definition": "Microsoft 365 admin center setting for the signed-in navigation bar (logo, colors); one default plus up to four group themes."
+            },
+            {
+              "term": "Company branding",
+              "definition": "Microsoft Entra setting that customizes the tenant's sign-in experience."
+            },
+            {
+              "term": "Targeted release",
+              "definition": "Release preference that gives selected users or everyone some service changes earlier than Standard release."
+            },
+            {
+              "term": "Privileged Identity Management (PIM)",
+              "definition": "Entra feature for eligible and time-bound role assignments that are activated when needed."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Two kinds of branding",
+              "headers": [
+                "Setting",
+                "Where employees see it",
+                "Portal and role"
+              ],
+              "rows": [
+                [
+                  "Microsoft 365 organization theme",
+                  "Top navigation bar after sign-in",
+                  "Microsoft 365 admin center, Global Administrator"
+                ],
+                [
+                  "Microsoft Entra company branding",
+                  "Sign-in page",
+                  "Entra admin center, Organizational Branding Administrator"
+                ]
+              ]
+            },
+            {
+              "title": "Domain Name Administrator vs Global Administrator",
+              "headers": [
+                "Task",
+                "Domain Name Administrator",
+                "Global Administrator"
+              ],
+              "rows": [
+                [
+                  "Add, verify, delete custom domains",
+                  "Yes",
+                  "Yes"
+                ],
+                [
+                  "Read directory objects referencing a domain",
+                  "Yes (read-only)",
+                  "Yes"
+                ],
+                [
+                  "Reset user passwords",
+                  "No",
+                  "Yes"
+                ],
+                [
+                  "Read or modify security and compliance policies",
+                  "No",
+                  "Yes"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Logo changed in the navigation bar but not on the sign-in page → **organization theme**, not Entra company branding (and the reverse).",
+            "Domain verified → **ownership proven (TXT)**, not mail routed (MX). Create mailboxes before changing MX.",
+            "Assigning an Entra role → **Privileged Role Administrator**, not Global Administrator; one-time need → **eligible/time-bound** via PIM.",
+            "User in two group themes → sees the **default theme**, not a blend."
+          ],
+          "selfCheck": [
+            {
+              "q": "A colleague must manage custom domains only. Which role do you give them, and which role do you use to assign it?",
+              "a": "Domain Name Administrator for the colleague; assign it with Privileged Role Administrator in the Entra admin center."
+            },
+            {
+              "q": "After TXT verification succeeds, is email for the new domain ready?",
+              "a": "No. Verification only proves ownership; service configuration such as the MX record (after creating mailboxes) is a separate step."
+            },
+            {
+              "q": "Five employees should see service updates early without moving the whole organization. What do you configure?",
+              "a": "Release preferences > Targeted release for select users, adding the five users (Global Administrator; up to 24 hours)."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.license-microsoft-365-ai-services",
@@ -26,7 +237,218 @@
           "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/",
           "durationMinutes": 62,
           "updated": "2026-10-02",
-          "learnSummary": "Assign Microsoft 365 licenses at scale, troubleshoot assignment issues, and distinguish product access, maker permissions, and pay-as-you-go funding for AI services."
+          "learnSummary": "Assign Microsoft 365 licenses at scale, troubleshoot assignment issues, and distinguish product access, maker permissions, and pay-as-you-go funding for AI services.",
+          "tldr": "Licenses are entitlements assigned directly or through groups; verifying that they actually reached people is as important as assigning them. For AI services, keep four questions apart: who can use it (license), who can build (maker authorization), who funds metered use (credits or pay-as-you-go), and who governs it.",
+          "objectives": [
+            "Assign and manage Microsoft 365 licenses directly or through groups, including enabling and disabling service plans within a license.",
+            "Verify license assignments and troubleshoot nested-group limitations, disabled service plans, usage locations, and insufficient licenses.",
+            "Choose the product entitlement, maker permissions, and funding model for Microsoft 365 Copilot, Copilot Chat, Copilot Studio, or Agent 365.",
+            "Describe how Microsoft 365 billing is structured, including billing accounts, billing profiles, invoices, and self-service purchases.",
+            "Configure a pay-as-you-go billing policy that links an Azure subscription to a metered AI service for a specific group.",
+            "Assign the least-privileged administrator role for a given licensing or billing task."
+          ],
+          "keyPoints": [
+            "A license (SKU) is a bundle of **service plans**; Microsoft 365 Copilot is a separate **add-on** that needs a qualifying base license. Assignment alone doesn't prove an app is available.",
+            "Group-based licensing processes **direct members only**; nested groups are not processed, and **All licenses assigned** doesn't mean every nested member is licensed. Verify, don't assume.",
+            "Other failure causes: missing **usage location**, **insufficient licenses**, a **disabled service plan**, and license conflicts. When moving a user between licensed groups, add to the new group first, verify, then remove from the old.",
+            "Least-privilege roles: **License Administrator** for assignment (also Groups or User Administrator), **Billing Administrator** for subscriptions and billing; avoid Global Administrator when a narrower role fits.",
+            "Copilot Studio separates **maker authorization** from **capacity**: Copilot Credits fund consumption but grant no entitlement or maker rights. **Agent 365** is observation, governance and security, not funding.",
+            "Billing objects: **billing account** > **billing profile** (Microsoft Customer Agreement) > **invoice**. **Self-service purchases** don't automatically land on the central billing profile.",
+            "Chat **pay-as-you-go** needs a billing policy (Azure subscription, resource group, region) scoped to a group and **connected to Microsoft Copilot Chat**; until connected it's inactive. Needs a Microsoft 365 role and Azure Owner or Contributor.",
+            "A budget only **alerts**; to stop funding, **disconnect** the policy from Chat (up to two hours). Credit cost depends on **model, context, tools and runtime**, not a flat per-request rate."
+          ],
+          "units": [
+            {
+              "title": "Assign and manage Microsoft 365 licenses",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/2-assign-manage-microsoft-365-licenses",
+              "minutes": 6,
+              "points": [
+                "A license bundles service plans (Exchange Online, SharePoint Online, Teams, Intune...); Microsoft 365 Copilot is a separate add-on that requires a qualifying base license.",
+                "Group-based licensing supports security groups, mail-enabled security groups, Microsoft 365 groups and dynamic groups. Pay-as-you-go is a funding model, not a license assignment.",
+                "Assign via Billing > Licenses > Assign licenses; expand the subscription to toggle apps and services off.",
+                "Roles: Groups Administrator, License Administrator or User Administrator; prefer License Administrator. Billing Administrator for subscriptions and billing."
+              ]
+            },
+            {
+              "title": "Verify and troubleshoot license assignments",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/3-verify-troubleshoot-license-assignments",
+              "minutes": 6,
+              "points": [
+                "Nested group members receive no license from the parent group; no error or warning flags it.",
+                "Verify with the License details page (per-group status), the Errors & issues tab, and the group's membership list.",
+                "Failure modes: usage location not set explicitly, insufficient licenses (add seats), disabled service plan (turn it on), license conflict.",
+                "Moving users: add to the destination group first, confirm the license processed, then remove from the source group to avoid a gap."
+              ]
+            },
+            {
+              "title": "Exercise - Verify group-based license assignments",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/4-exercise-assign-verify-license-assignments",
+              "minutes": 9,
+              "points": [
+                "Build Group1 with Group2 nested inside it, assign a license to Group1, then check who receives it.",
+                "Check the Licenses tab, Errors & issues, and each user's Licenses and apps page.",
+                "A user in Group1 only via Group2 gets nothing from that assignment; if they hold the license, it came from a direct assignment or another group."
+              ]
+            },
+            {
+              "title": "License AI services for the right populations",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/5-license-ai-services",
+              "minutes": 8,
+              "points": [
+                "Four questions: who can use it, who can build with it, who funds metered use, who governs it.",
+                "Microsoft 365 Copilot: eligible base subscription plus the add-on product assignment. Basic Chat is included with an eligible subscription.",
+                "Copilot Studio: maker authorization (user license, author role, Microsoft 365 Copilot license or trial) plus Copilot Credits via purchased capacity or pay-as-you-go.",
+                "Declarative agent with billable grounding for eligible Chat users: pay-as-you-go billing policy connected to Chat; no Copilot product assignment needed.",
+                "Microsoft Agent 365: observation, governance and security of agents; doesn't create agent identity or fund consumption."
+              ]
+            },
+            {
+              "title": "Understand how Microsoft 365 billing is structured",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/6-understand-microsoft-365-billing-structure",
+              "minutes": 8,
+              "points": [
+                "Billing account = purchasing relationship (can be several); billing profile (Microsoft Customer Agreement) holds payment method and invoice; invoice lists charges. Trace in Billing > Bills & payments.",
+                "Self-service purchases and trials can be inventoried and governed with the self-service purchase policy, but aren't moved to the central billing profile.",
+                "Azure pay-as-you-go charges follow Azure subscription and resource group scoping, not the Microsoft 365 billing profile.",
+                "If a credit policy and pay-as-you-go policy both exist for Chat, prepaid credits are used first and pay-as-you-go covers overage; without PAYG, Chat stops when credits run out.",
+                "Check the Microsoft Copilot Agents usage report (about an hour), then Cost Management with the m365copilotchat tag (up to 24 hours)."
+              ]
+            },
+            {
+              "title": "Set up pay-as-you-go billing for AI-service usage",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/7-set-up-pay-as-you-go-billing",
+              "minutes": 6,
+              "points": [
+                "Chat and SharePoint agents use Copilot > Cost management > Classic Billing & usage; newer spending policies cover other services; Copilot Studio uses a Power Platform environment billing policy.",
+                "Roles: Billing Administrator, AI Administrator or Global Administrator, plus Owner or Contributor on the Azure subscription and resource group. License Administrator alone isn't enough.",
+                "Create the policy on the Billing policies tab, scope it to the pilot group (not All users), then connect it under Pay-as-you-go services > Microsoft Copilot Chat.",
+                "An Azure budget only alerts; disconnecting stops funding, taking up to two hours."
+              ]
+            },
+            {
+              "title": "Exercise - Configure pay-as-you-go billing for a Copilot Chat agent pilot",
+              "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/8-exercise-configure-billing-pilot-team",
+              "minutes": 9,
+              "points": [
+                "Create a billing policy scoped to the pilot security group and connect it to Microsoft Copilot Chat.",
+                "Make a published declarative agent available: Agents > All agents > Agent inventory > Users tab, assign to the pilot group.",
+                "Available to controls who can find and install the agent; Deployed to controls administrator deployment.",
+                "Confirm usage in the Agents usage report, then cost with the m365copilotchat tag."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Service plan",
+              "definition": "An individual service inside a license (e.g. Exchange Online) that can be toggled on or off."
+            },
+            {
+              "term": "Group-based licensing",
+              "definition": "Assigning a license to a group so direct members inherit it; nested groups are not processed."
+            },
+            {
+              "term": "Maker authorization",
+              "definition": "Permission to build agents in Copilot Studio; separate from capacity or credits."
+            },
+            {
+              "term": "Copilot Credits",
+              "definition": "Consumption currency funding supported AI services; not a license."
+            },
+            {
+              "term": "Pay-as-you-go billing policy",
+              "definition": "Policy linking covered users and a supported service to an Azure subscription and resource group; inactive until connected to the service."
+            },
+            {
+              "term": "Billing profile",
+              "definition": "Under a Microsoft Customer Agreement, holds payment method and invoice responsibility within a billing account."
+            },
+            {
+              "term": "Microsoft Agent 365",
+              "definition": "Product for observation, governance and security of agents."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which control for which need?",
+              "headers": [
+                "Need",
+                "Control",
+                "Not this"
+              ],
+              "rows": [
+                [
+                  "Use Copilot in Word and Outlook",
+                  "Eligible base subscription plus Microsoft 365 Copilot add-on",
+                  "Pay-as-you-go policy"
+                ],
+                [
+                  "Build agents in Copilot Studio",
+                  "Maker authorization plus Copilot Credits (capacity or pay-as-you-go)",
+                  "Credits alone"
+                ],
+                [
+                  "Grounded declarative agent for eligible Chat users",
+                  "Pay-as-you-go billing policy connected to Chat, scoped to the pilot group",
+                  "Copilot product assignment or maker authorization"
+                ],
+                [
+                  "Observe and govern agents",
+                  "Microsoft Agent 365",
+                  "A funding policy"
+                ]
+              ]
+            },
+            {
+              "title": "License failure modes",
+              "headers": [
+                "Cause",
+                "Fix"
+              ],
+              "rows": [
+                [
+                  "Nested group",
+                  "License the nested group too, or its members directly"
+                ],
+                [
+                  "Usage location not set",
+                  "Set an explicit user location"
+                ],
+                [
+                  "Insufficient licenses",
+                  "Add seats"
+                ],
+                [
+                  "Disabled service plan",
+                  "Turn the service plan back on"
+                ],
+                [
+                  "License conflict",
+                  "Resolve the conflicting product"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "**All licenses assigned** → the operation succeeded for processed users, not proof that nested members are covered.",
+            "Credits fund usage → think **funding**, not entitlement or maker rights.",
+            "Chat pay-as-you-go → **Classic Billing & usage**, policy **connected to Chat**; Copilot Studio → Power Platform environment billing policy.",
+            "Budget alert → **alerts only**; to stop usage, disconnect the policy."
+          ],
+          "selfCheck": [
+            {
+              "q": "A license assigned to Group1 didn't reach the 15 members of nested Group2. Why?",
+              "a": "Group-based licensing processes direct members only; nested groups aren't processed. License Group2 directly or add its members to Group1."
+            },
+            {
+              "q": "A pilot team with eligible Chat access needs a grounded declarative agent billed to their Azure subscription. What do you configure and with which roles?",
+              "a": "A pay-as-you-go billing policy scoped to the pilot group and connected to Microsoft Copilot Chat; Billing, AI or Global Administrator plus Owner or Contributor on the Azure subscription and resource group."
+            },
+            {
+              "q": "A budget alert fires but usage keeps climbing. How do you stop funding?",
+              "a": "Disconnect the billing policy from Chat; the budget only alerts. It can take up to two hours."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.maintain-microsoft-365-tenant-health",
@@ -35,7 +457,203 @@
           "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/",
           "durationMinutes": 85,
           "updated": "2026-09-18",
-          "learnSummary": "Configure Microsoft 365 Backup, monitor service health and network connectivity—including Microsoft Copilot's WebSocket requirements—and use usage reports and Adoption Score to keep a Microsoft 365 tenant resilient, current, and continuously improving."
+          "learnSummary": "Configure Microsoft 365 Backup, monitor service health and network connectivity—including Microsoft Copilot's WebSocket requirements—and use usage reports and Adoption Score to keep a Microsoft 365 tenant resilient, current, and continuously improving.",
+          "tldr": "Keep a tenant resilient with Microsoft 365 Backup (point-in-time restore for OneDrive, SharePoint and Exchange), Service Health for Microsoft-side problems, and Network connectivity for local network problems such as blocked WebSockets for Copilot. Usage reports and Adoption Score show how the tenant is used, and endpoint tools (update channels, Defender for Endpoint, Intune) feed Conditional Access.",
+          "objectives": [
+            "Configure Microsoft 365 Backup policies and select recovery options for OneDrive, SharePoint, and Exchange.",
+            "Monitor service health and configure incident/advisory notifications.",
+            "Diagnose and resolve network connectivity issues—including Microsoft Copilot's WebSocket requirement—affecting Microsoft 365 experiences.",
+            "Interpret Microsoft 365 usage reports and Adoption Score categories, including AI Adoption, to identify and guide organizational improvement actions.",
+            "Describe the client- and endpoint-management surfaces a Microsoft 365 administrator coordinates with—Microsoft 365 Apps update channels, Microsoft Defender for Endpoint, and Microsoft Intune—and how endpoint management relates to authentication, identity, and access."
+          ],
+          "keyPoints": [
+            "**Microsoft 365 Backup** protects nothing until you set it up, activate a policy and add **protection units** (one OneDrive account, SharePoint site or Exchange mailbox). Recovery window: 3 months, 6 months, 1 year (default) or 2 years.",
+            "Setup needs **SharePoint Administrator or Global Administrator** plus Owner/Contributor on the Azure subscription; ongoing policy and restore work needs **Microsoft 365 Backup Administrator**.",
+            "Backup is not **version history**, **legal hold**, **retention** or **disaster recovery**. Full restore can **replace** live content (original URL) or create a **new location**; an active policy is not proof of a completed restore.",
+            "**Service Health** reports Microsoft, third-party and customer infrastructure issues; a clear dashboard does not prove users are fine. Notifications for incidents, advisories or both, up to two email addresses per admin; Service Support or Helpdesk Administrator suffices.",
+            "**Network connectivity** (Health > Network connectivity) finds local network issues. Copilot needs **WSS** to *.office.com, *.cloud.microsoft and copilot.cloud.microsoft; a WSS finding points to proxy, firewall, TLS inspection, timeout and routing.",
+            "An empty Network connectivity dashboard doesn't confirm connectivity: client samples take about 24 hours, a manual **Microsoft 365 Connectivity Test** shows in two to three minutes.",
+            "**Adoption Score**: five people-experience categories (500 points) plus **AI Adoption** (100 points) = 600; uses the previous 28 days and peer benchmarks. Reports Reader can view usage reports and Adoption Score.",
+            "Endpoint chain: **Defender for Endpoint** device risk goes to **Intune** compliance, which gives Entra **Conditional Access** a signal to allow or block access."
+          ],
+          "units": [
+            {
+              "title": "Configure Microsoft 365 Backup for critical workloads",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/2-configure-microsoft-365-backup",
+              "minutes": 9,
+              "points": [
+                "Create a separate policy per workload; after activation, processing takes up to about 60 minutes on average and restore points can take another 60.",
+                "Full OneDrive account or SharePoint site: 10-minute RPO for days 0-14, weekly RPO afterwards; file or folder: roughly daily points, then weekly. RPO is the maximum expected gap, not a snapshot interval.",
+                "Selected-content restore for OneDrive and SharePoint needs the SharePoint Backup Admin role; don't extend it to full restores or Exchange.",
+                "Restore to the original URL replaces live content and metadata; choose a new location to inspect recovered content without replacing it."
+              ]
+            },
+            {
+              "title": "Exercise - Configure Backup for Relecloud's critical workloads",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/3-exercise-configure-backup-critical-workloads",
+              "minutes": 10,
+              "points": [
+                "Settings > Microsoft 365 Backup: set up a policy for a OneDrive account and a SharePoint site, choosing the recovery window.",
+                "Backup is a paid, consumption-based service billed through a linked Azure subscription.",
+                "Full-site restore options: Replace sites with backups vs Create new sites from backups."
+              ]
+            },
+            {
+              "title": "Monitor service health and configure notifications",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/4-monitor-service-health",
+              "minutes": 8,
+              "points": [
+                "Health > Service health: Overview shows current status, Issue history shows past incidents and advisories.",
+                "Three categories: Microsoft infrastructure (Microsoft fixes), third-party infrastructure, customer infrastructure (your organization fixes).",
+                "Email notifications for incidents, advisories or both, scoped to chosen services, up to two addresses per admin.",
+                "Service Support Administrator and Helpdesk Administrator can view Service Health; Global Administrator isn't needed."
+              ]
+            },
+            {
+              "title": "Diagnose network connectivity issues affecting Microsoft Copilot",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/5-diagnose-network-connectivity-copilot",
+              "minutes": 8,
+              "points": [
+                "Reports Reader can read Network connectivity; Service Support Administrator configures locations. Worldwide Commercial and China only, not GCC Moderate, GCC High or DoD.",
+                "Locations need telemetry: Windows Location Services from at least two eligible computers, a matching LAN subnet with an up-to-date OneDrive client, or a manual Connectivity Test.",
+                "Findings: HTTPS, WebSocket (WSS) and TLS interception. Network tests contain no user, device or licensing data.",
+                "Rerun the Microsoft 365 Connectivity Test after a fix; an empty dashboard is not confirmation."
+              ]
+            },
+            {
+              "title": "Exercise - Diagnose Relecloud's satellite-office Microsoft Copilot connectivity failure",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/6-exercise-diagnose-connectivity-failure",
+              "minutes": 12,
+              "points": [
+                "Check Service Health with a custom view for Copilot, Teams, Exchange Online, SharePoint Online and OneDrive; no issue doesn't rule out an office-specific problem.",
+                "A WSS failure for *.cloud.microsoft matches Copilot's documented requirement and points to an organization- or provider-managed path.",
+                "Have the network team check proxy, firewall, TLS inspection, timeout and routing, then retest at connectivity.office.com."
+              ]
+            },
+            {
+              "title": "Monitor Microsoft 365 usage and adoption",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/7-monitor-usage-adoption",
+              "minutes": 9,
+              "points": [
+                "Reports > Usage: Copilot windows of 7, 28, 90 or 180 days; data typically within 24-72 hours. Enabled Users have Copilot licenses; Active Users tried a user-initiated Copilot feature in the window.",
+                "Adoption Score: five people-experience categories (up to 500) plus AI Adoption (up to 100, shown when at least one user is Copilot-enabled); not available in GCC, GCC High or DoD.",
+                "AI Adoption = qualifying active days in the previous 28 days divided by 12 per licensed user, averaged; it doesn't honor people-experience exclusions or opt-out.",
+                "Delayed, absent and zero are different states; treat actions as hypotheses, not proof."
+              ]
+            },
+            {
+              "title": "Exercise - Interpret Relecloud's Microsoft Copilot adoption data",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/8-exercise-interpret-copilot-adoption-data",
+              "minutes": 10,
+              "points": [
+                "Scenario: 20 enabled users, 8 active in 28 days; AI Adoption math 36 / (20 x 12) x 100 is about 15, later 60 / 240 = 25.",
+                "A Teams policy allowing transcription only makes it possible; with 'On with saved transcript required' a participant must still start transcription.",
+                "A saved transcript shows transcription happened, not Copilot use; check the usage report.",
+                "Report improvements as associated with your guidance, not caused by it."
+              ]
+            },
+            {
+              "title": "Recognize the endpoint and client-management ecosystem",
+              "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/9-recognize-endpoint-management-ecosystem",
+              "minutes": 8,
+              "points": [
+                "Microsoft 365 Apps channels: Current Channel (features as ready) and Monthly Enterprise Channel (monthly, second Tuesday). From Version 2606 Semi-Annual Enterprise Channel devices receive Monthly Enterprise Channel updates.",
+                "Defender for Endpoint (Microsoft Defender portal): device onboarding, endpoint security settings and configuration management, vulnerability-management dashboard.",
+                "Intune enrolls and manages devices and apps (MDM and MAM), deploys compliance and configuration policies, and can drive update channels and Defender onboarding.",
+                "Intune compliance state flows to Entra ID; Conditional Access uses it with sign-in risk and location to allow or block access."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Protection unit",
+              "definition": "One OneDrive account, SharePoint site or Exchange mailbox covered by a Microsoft 365 Backup policy."
+            },
+            {
+              "term": "RPO",
+              "definition": "Recovery point objective: the maximum expected time between recoverable states."
+            },
+            {
+              "term": "Service Health",
+              "definition": "Admin center view of Microsoft, third-party and customer infrastructure incidents and advisories."
+            },
+            {
+              "term": "WSS",
+              "definition": "WebSocket Secure; Microsoft Copilot requires WSS connectivity to *.office.com, *.cloud.microsoft and copilot.cloud.microsoft."
+            },
+            {
+              "term": "Adoption Score",
+              "definition": "Benchmarked score: five people-experience categories (500 points) plus AI Adoption (100 points)."
+            },
+            {
+              "term": "Monthly Enterprise Channel",
+              "definition": "Microsoft 365 Apps update channel delivering a predictable monthly batch of features on the second Tuesday."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Restore points by scope",
+              "headers": [
+                "Restore scope",
+                "Days 0-14",
+                "Day 15 to end of recovery window"
+              ],
+              "rows": [
+                [
+                  "Full OneDrive account or SharePoint site",
+                  "10-minute RPO",
+                  "Weekly RPO"
+                ],
+                [
+                  "File or folder",
+                  "Roughly daily points",
+                  "Weekly points"
+                ]
+              ]
+            },
+            {
+              "title": "Who fixes a Service Health issue",
+              "headers": [
+                "Category",
+                "Fixed by"
+              ],
+              "rows": [
+                [
+                  "Microsoft infrastructure incidents and advisories",
+                  "Microsoft"
+                ],
+                [
+                  "Third-party infrastructure incidents",
+                  "The third party"
+                ],
+                [
+                  "Customer infrastructure incidents (DNS, firewall, proxy)",
+                  "Your organization"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Copilot works for some offices only, Service Health clear → check **Network connectivity** and **WSS**, not licenses.",
+            "Roles: setup = **SharePoint/Global Administrator**; ongoing = **Microsoft 365 Backup Administrator**; Service Health = **Service Support or Helpdesk Administrator**; reports = **Reports Reader**.",
+            "Backup → **point-in-time restore**, not version history, retention or legal hold.",
+            "Conditional Access device signal comes from **Intune compliance**, fed by Defender risk."
+          ],
+          "selfCheck": [
+            {
+              "q": "One office reports a WSS failure to *.cloud.microsoft while HTTPS passes and Service Health is clear. Where do you look?",
+              "a": "At the organization- or provider-managed network path: proxy, firewall, TLS inspection, timeouts and routing. Then retest with the Microsoft 365 Connectivity Test."
+            },
+            {
+              "q": "A new location shows no Network connectivity insight an hour after setup. Does that mean connectivity is fine?",
+              "a": "No. Client samples take about 24 hours; run a manual Connectivity Test (results in two to three minutes) from the affected office."
+            },
+            {
+              "q": "Which admin sets up Microsoft 365 Backup, and who runs it afterwards?",
+              "a": "SharePoint Administrator or Global Administrator (plus Owner or Contributor on the Azure subscription) set it up; Microsoft 365 Backup Administrator manages policies and restores."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.configure-exchange-teams",
@@ -44,7 +662,209 @@
           "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/",
           "durationMinutes": 75,
           "updated": "2026-09-21",
-          "learnSummary": "Create and manage user and shared mailboxes with the right conversion, permissions, sizing, and licensing decisions; understand conceptual Exchange Online mail routing; configure Teams channels; and verify transcript-grounded Microsoft Copilot meeting behavior."
+          "learnSummary": "Create and manage user and shared mailboxes with the right conversion, permissions, sizing, and licensing decisions; understand conceptual Exchange Online mail routing; configure Teams channels; and verify transcript-grounded Microsoft Copilot meeting behavior.",
+          "tldr": "Choose the right mailbox type and license (shared mailboxes are free up to 50 GB), delegate access with Full Access, Send As and Send on Behalf, and understand the default mail route. In Teams, pick the right channel type and combine the meeting policy's Transcription and Copilot settings, because Copilot's recap depends on transcription actually being started.",
+          "objectives": [
+            "Create and manage user and shared mailboxes, including permissions, sizing, and licensing requirements.",
+            "Create and manage teams, channels, owners, and members.",
+            "Configure Microsoft Copilot in Teams meetings, including transcription requirements.",
+            "Describe how mail routes through Exchange Online, including accepted domains and connectors at a conceptual level."
+          ],
+          "keyPoints": [
+            "Mailbox types: **user** (licensed person), **shared** (team, one address) and **resource** (room or equipment). Manage via the Microsoft 365 admin center, Exchange admin center or Exchange Online PowerShell.",
+            "A **shared mailbox** needs no license up to **50 GB** primary; Exchange Online **Plan 2** raises it to 100 GB. Archive or litigation hold needs Plan 2, or Plan 1 plus Exchange Online Archiving.",
+            "To convert a user mailbox to shared, it must be **licensed**, and you keep the backing account. Shared access is published at a maximum of **25 users**; use a Microsoft 365 group beyond that.",
+            "**Full Access** opens and manages but cannot send. **Send As** hides the delegate; **Send on Behalf** discloses the delegate. If both exist, **Send As wins**.",
+            "Default route: MX points to Microsoft 365, **EOP** filters, an **accepted domain** (authoritative or internal relay) governs acceptance. A **connector** is needed for on-premises, partner enforced TLS or device/app relay; **message trace** shows where mail went.",
+            "A team is backed by a **Microsoft 365 group** (plus mailbox and SharePoint site). Channels: **standard** (team site), **private** and **shared** (dedicated SharePoint site). External shared channels use **B2B Direct Connect**, not guest accounts.",
+            "Teams supports up to **100 owners** and 1,000 channels per team (private channels included). A private channel that loses its last owner automatically promotes a member.",
+            "Copilot in meetings: policy sets the **default**; only **On with saved transcript required** is **enforced**. The policy allows transcription but **doesn't start it**; participants need a Microsoft 365 Copilot add-on license."
+          ],
+          "units": [
+            {
+              "title": "Create and manage mailboxes",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/2-create-manage-mailboxes",
+              "minutes": 9,
+              "points": [
+                "Assigning a license provisions a user mailbox automatically; common properties: display name and proxy addresses, forwarding, quota, in-place archive, litigation hold (Get-Mailbox, Set-Mailbox).",
+                "Shared mailbox: 50 GB without license, Plan 2 for 100 GB; at the limit it first cannot send, later stops receiving and returns nondelivery reports.",
+                "Conversion order: keep the license, wait for the mailbox, convert, then remove the license only if under 50 GB and no archive or hold needed.",
+                "Each delegate needs their own licensed Exchange Online mailbox."
+              ]
+            },
+            {
+              "title": "Delegate mailbox access: Full Access, Send As, and Send on Behalf",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/3-delegate-mailbox-access",
+              "minutes": 8,
+              "points": [
+                "Full Access (Add-MailboxPermission) opens and manages the mailbox but grants no sending right.",
+                "Send As (Add-RecipientPermission) sends as the mailbox with no delegate shown; Send on Behalf (Set-Mailbox -GrantSendOnBehalfTo) shows 'delegate on behalf of mailbox'.",
+                "Delegate with both: Send As takes precedence; remove it to show the delegate.",
+                "The same permissions apply to user mailboxes, e.g. an assistant with Send on Behalf for a manager."
+              ]
+            },
+            {
+              "title": "Exercise - Configure Relecloud shared mailboxes and delegate access",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/4-exercise-configure-shared-mailbox-delegate-access",
+              "minutes": 12,
+              "points": [
+                "Set the primary SMTP address in the Exchange admin center, then convert the licensed user mailbox to shared; block direct sign-in of the backing account.",
+                "At most 50 GB without archive or hold: remove the license; 50 to 100 GB: assign or keep Exchange Online Plan 2.",
+                "Delegation tab: add agents to Read and manage (Full Access) and Send As; roles are Exchange Administrator and User Administrator."
+              ]
+            },
+            {
+              "title": "Understand how mail routes through Exchange Online",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/5-understand-mail-routing",
+              "minutes": 5,
+              "points": [
+                "Cloud-only route: MX record to Microsoft 365, Exchange Online Protection filters inbound and outbound; no connector needed by default.",
+                "Authoritative accepted domain: every valid address has a recipient object, unknown recipients are rejected. Internal relay domain: some recipients live on another mail system, needing an outbound connector.",
+                "Connectors handle on-premises mailboxes, partner enforced TLS and device or app relay; accepted domains and connectors sit under mail flow in the Exchange admin center."
+              ]
+            },
+            {
+              "title": "Create and manage teams, channels, owners, and members",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/6-create-manage-teams-channels",
+              "minutes": 9,
+              "points": [
+                "A team provisions a Microsoft 365 group, a mailbox (hidden from Exchange clients by default) and a SharePoint site; Planner and OneNote are available.",
+                "Standard channel: all members, folder in team library. Private: selected host-team members, own SharePoint site. Shared: people inside or outside the host team, own SharePoint site.",
+                "External shared-channel participants use Entra B2B Direct Connect with reciprocal cross-tenant access; guest access must be enabled for the invitation.",
+                "At least one owner, up to 100; a team owner who isn't a private-channel member sees only its name under Manage team."
+              ]
+            },
+            {
+              "title": "Configure Microsoft Copilot in Teams meetings",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/7-configure-copilot-teams-meetings",
+              "minutes": 9,
+              "points": [
+                "Teams admin center > Meetings > Meeting policies > Recording & transcription: Transcription (allow) and Copilot (four values).",
+                "Only during the meeting uses temporary speech-to-text and needs no saved transcript; During and after needs a started transcript.",
+                "PowerShell: Set-CsTeamsMeetingPolicy -AllowTranscription and -Copilot (Disabled, Enabled, EnabledWithTranscript, EnabledWithTranscriptDefaultOn); EnabledWithTranscript is the default for new policies.",
+                "Needs a Microsoft 365 Copilot add-on license, supported Teams client, meeting hosted in the organization, no end-to-end encryption."
+              ]
+            },
+            {
+              "title": "Exercise - Build a Microsoft Copilot-ready team for Relecloud's account managers",
+              "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/8-exercise-build-copilot-ready-team",
+              "minutes": 12,
+              "points": [
+                "Create a private team and a private channel with only the deal's account managers, plus an extra team owner who isn't a channel member.",
+                "New-CsTeamsMeetingPolicy with -AllowTranscription $true and -Copilot EnabledWithTranscript; assign with Grant-CsTeamsMeetingPolicy and verify with Get-CsUserPolicyAssignment.",
+                "Verify in a real meeting: start transcription, use Copilot, then check the recap and saved transcript."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Shared mailbox",
+              "definition": "A mailbox for a team using one address; unlicensed up to 50 GB primary, Plan 2 for 100 GB."
+            },
+            {
+              "term": "Send As / Send on Behalf",
+              "definition": "Sending rights: Send As hides the delegate, Send on Behalf discloses them."
+            },
+            {
+              "term": "Accepted domain",
+              "definition": "Defines which domains Exchange Online accepts mail for; authoritative or internal relay."
+            },
+            {
+              "term": "Connector",
+              "definition": "Configurable mail-flow control for routes that don't fit the default path (on-premises, partner TLS, device relay)."
+            },
+            {
+              "term": "Private vs shared channel",
+              "definition": "Private: selected host-team members. Shared: people inside or outside the host team, via B2B Direct Connect for external users."
+            },
+            {
+              "term": "EnabledWithTranscript",
+              "definition": "Copilot meeting policy value that enforces During and after the meeting; organizers can't change it."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Mailbox permissions",
+              "headers": [
+                "Permission",
+                "Grants",
+                "Recipient sees"
+              ],
+              "rows": [
+                [
+                  "Full Access",
+                  "Open, read and manage the mailbox, no sending",
+                  "No change to From"
+                ],
+                [
+                  "Send As",
+                  "Send as the mailbox itself",
+                  "Mailbox identity only"
+                ],
+                [
+                  "Send on Behalf",
+                  "Send as a disclosed delegate",
+                  "Delegate on behalf of the mailbox"
+                ]
+              ]
+            },
+            {
+              "title": "Teams meeting policy: Copilot values",
+              "headers": [
+                "Admin center value",
+                "PowerShell -Copilot",
+                "Organizer default",
+                "Enforced?"
+              ],
+              "rows": [
+                [
+                  "Off",
+                  "Disabled",
+                  "Off",
+                  "No"
+                ],
+                [
+                  "On",
+                  "Enabled",
+                  "Only during the meeting",
+                  "No"
+                ],
+                [
+                  "On with saved transcript required",
+                  "EnabledWithTranscript",
+                  "During and after",
+                  "Yes"
+                ],
+                [
+                  "On with transcript saved by default",
+                  "EnabledWithTranscriptDefaultOn",
+                  "During and after",
+                  "No"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Reply must look like the team → **Send As**; disclose who typed it → **Send on Behalf**. Full Access alone can't send.",
+            "Shared mailbox over **50 GB** primary → **Exchange Online Plan 2**; Plan 1 plus Archiving covers archive or hold but not the 100 GB limit.",
+            "No Copilot recap → check whether **transcription was actually started**, not only the policy values.",
+            "Only **EnabledWithTranscript** is enforced; the other three values are defaults organizers can override."
+          ],
+          "selfCheck": [
+            {
+              "q": "An 84-GB user mailbox is converted to shared. What license does it need?",
+              "a": "Exchange Online Plan 2, because its primary mailbox exceeds the unlicensed 50-GB limit."
+            },
+            {
+              "q": "A rep has Full Access and both Send As and Send on Behalf, but customers never see the rep's name. Why?",
+              "a": "Send As takes precedence over Send on Behalf; remove Send As to disclose the delegate."
+            },
+            {
+              "q": "The meeting policy has -AllowTranscription $true and -Copilot EnabledWithTranscript, but no recap was produced. What is the likely cause?",
+              "a": "Nobody started transcription during the meeting; the policy only allows it."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.govern-sharepoint-onedrive-copilot",
@@ -53,7 +873,226 @@
           "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/",
           "durationMinutes": 96,
           "updated": "2026-09-21",
-          "learnSummary": "Configure SharePoint sites, permissions, and sharing settings, apply Restricted Content Discovery and Restricted Access Control, and explain how legacy Restricted SharePoint Search affects organization-wide discovery."
+          "learnSummary": "Configure SharePoint sites, permissions, and sharing settings, apply Restricted Content Discovery and Restricted Access Control, and explain how legacy Restricted SharePoint Search affects organization-wide discovery.",
+          "tldr": "Microsoft Copilot only surfaces what a user's existing permissions already allow, so governance starts with site permissions and sharing settings. Reports find overshared sites; Restricted Content Discovery limits broad discovery without changing access, Restricted Access Control enforces who can open content, and Restricted SharePoint Search is legacy only.",
+          "objectives": [
+            "Create and manage SharePoint sites, including site permissions (owners, members, and visitors; permission levels; and site sharing).",
+            "Configure SharePoint and OneDrive external sharing settings that set the governance ceiling for what Microsoft Copilot can surface.",
+            "Identify overshared or high-risk SharePoint content using data access governance reports.",
+            "Apply Restricted Content Discovery and Restricted Access Control, and explain how legacy Restricted SharePoint Search affects organization-wide discovery.",
+            "Select the appropriate content-governance control based on a given oversharing or discoverability requirement."
+          ],
+          "keyPoints": [
+            "**Copilot respects existing permissions** through Microsoft Graph; it never expands what a user can reach. A discovery restriction does not repair an overly broad permission.",
+            "**Team site** = Microsoft 365 group-connected co-authoring (manage via the group); **communication site** = broadcast, no group, permissions via Owners, Members, Visitors. Roles map to Full Control, Edit and Read.",
+            "Turning off direct site creation (SharePoint admin center > Settings > Site creation) does **not** stop sites created through Microsoft 365 groups or Teams; use the separate group-creation setting.",
+            "The org-level sharing setting is a **ceiling**: Anyone, New and existing guests, Existing guests, Only people in your organization. A site can be equal or stricter, never looser; **OneDrive can't be more permissive than SharePoint**.",
+            "**Snapshot** data access governance reports show current exposure; **activity** reports cover the last 28 days (sharing links, shared with Everyone except external users). Full reporting needs **SharePoint Advanced Management**.",
+            "**Restricted Content Discovery (RCD)**: per-site, limits organization-wide search and Copilot but leaves permissions, direct URLs and site search intact. Not supported for OneDrive; propagation can take time.",
+            "**Restricted Access Control (RAC)**: up to 10 allowed groups; a user needs allowed-group membership **and** an underlying permission, otherwise blocked. Channel sites are configured separately.",
+            "**Restricted SharePoint Search (RSS)** is legacy: tenant-wide allow list of up to 100 sites; new enablement blocked since July 31, 2026. Use RCD for new discovery needs."
+          ],
+          "units": [
+            {
+              "title": "Create and manage SharePoint sites",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/2-create-manage-sharepoint-sites",
+              "minutes": 9,
+              "points": [
+                "Team site: group-connected collaboration; communication site: broad-audience publishing with no Microsoft 365 group.",
+                "Owners = Full Control, Members = Edit, Visitors = Read; grant access to users or groups, not item by item.",
+                "Site creation settings control direct SharePoint site creation, but creating a group or team also creates a site; limit that with the Microsoft 365 group-creation setting."
+              ]
+            },
+            {
+              "title": "Set the boundary: SharePoint and OneDrive sharing settings",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/3-configure-sharing-copilot-boundary",
+              "minutes": 9,
+              "points": [
+                "Copilot grounds only on content the user can already reach via Microsoft Graph; review memberships and sharing links together.",
+                "Four org-level options, separately for SharePoint and OneDrive; site setting can match or be stricter than the org ceiling.",
+                "OneDrive's setting can be equal or more restrictive than SharePoint's, never more permissive.",
+                "Granular controls: Anyone link expiration and default permission, domain allow and block lists, guest access expiration."
+              ]
+            },
+            {
+              "title": "Find overshared sites before Microsoft Copilot does",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/4-find-overshared-sites-reports",
+              "minutes": 9,
+              "points": [
+                "Snapshot reports: site permissions, site permissions for users, sensitivity label for files.",
+                "Activity reports (last 28 days): sharing links, shared with Everyone except external users.",
+                "Microsoft 365 E5 without SharePoint Advanced Management: limited activity reports for up to 10,000 sites, no snapshots or remedial actions. With SAM (via Copilot licensing, SAM Plan 1 add-on or Microsoft 365 E7): snapshot and activity reports.",
+                "Not available in Microsoft 365 operated by 21Vianet."
+              ]
+            },
+            {
+              "title": "Exercise - Set up a safe Finance lab site and audit sharing",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/5-exercise-setup-audit-governed-site",
+              "minutes": 12,
+              "points": [
+                "Create a private team site, add contributors as members of the Microsoft 365 group and the read-only colleague as a site visitor.",
+                "Set the site to Only people in your organization under More sharing settings.",
+                "Run the site permissions report (Reports > Data access governance); first report can take up to five days; compare number of users and Anyone link count with the intended audience."
+              ]
+            },
+            {
+              "title": "Limit broad discovery, not access: Restricted Content Discovery",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/6-restricted-content-discovery",
+              "minutes": 9,
+              "points": [
+                "Four boundaries: access, editing, external sharing, discovery. RCD only affects discovery in organization-wide search and Copilot, and removes AI entry points from the site.",
+                "Doesn't affect search within the site, content the user owns or recently interacted with, Feed and Recommendations, open-document experiences, Purview eDiscovery and auto-labeling, or direct URLs.",
+                "Requires an eligible base subscription, Microsoft 365 Copilot licensing and SharePoint Advanced Management; Microsoft 365 E5 alone is insufficient.",
+                "Enable per site via Restrict content from Microsoft Copilot or Set-SPOSite -RestrictContentOrgWideSearch $true; large sites may take over a week."
+              ]
+            },
+            {
+              "title": "Enforce access with Restricted Access Control",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/7-restricted-access-control",
+              "minutes": 9,
+              "points": [
+                "Up to 10 Microsoft 365 groups or Entra security groups; user needs group membership plus underlying SharePoint permission.",
+                "Blocks outside-group users even with Full Control or old sharing links; doesn't clean up those permissions or links.",
+                "Enable at tenant level under Policies > Access control > Site-level access restriction (up to one hour), then per site under Restricted site access.",
+                "Shared and private channel sites don't inherit RAC from the parent team site."
+              ]
+            },
+            {
+              "title": "Troubleshoot legacy Restricted SharePoint Search",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/8-restricted-sharepoint-search",
+              "minutes": 8,
+              "points": [
+                "Retiring: since July 31, 2026, tenants without RSS can't enable it.",
+                "Allow list of up to 100 sites (a hub site uses one slot); not a security boundary and site-scoped search is unaffected.",
+                "Documented exceptions: OneDrive files, chats, email, calendars, frequently visited sites, files shared directly, files the user viewed, edited or created (last 2,000 entities).",
+                "An outside-list file in results is an expected exception, not proof of failure."
+              ]
+            },
+            {
+              "title": "Choose the right control for the job",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/9-choose-right-control",
+              "minutes": 10,
+              "points": [
+                "Keep direct access but limit broad discovery during a review: RCD.",
+                "Only a defined population may open the content: RAC.",
+                "RSS: legacy troubleshooting only; never propose new enablement.",
+                "Interim controls don't replace the permanent fix: review permissions and sharing."
+              ]
+            },
+            {
+              "title": "Exercise - Apply and verify Restricted Content Discovery",
+              "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/10-exercise-remediate-finance-site-choose-control",
+              "minutes": 10,
+              "points": [
+                "Choose RCD for a site-level, discovery-only restriction; reject RAC (no group-based access restriction asked) and RSS (tenant-wide legacy).",
+                "Turn on Restrict content from Microsoft Copilot in the site's Settings and verify it is on.",
+                "Direct links and site-scoped search still work; if a group must no longer open the reports, review permissions and consider RAC."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Restricted Content Discovery (RCD)",
+              "definition": "Per-site control that limits organization-wide search and Copilot discovery without changing access."
+            },
+            {
+              "term": "Restricted Access Control (RAC)",
+              "definition": "Limits a site to up to 10 groups; users need group membership and underlying permission."
+            },
+            {
+              "term": "Restricted SharePoint Search (RSS)",
+              "definition": "Legacy tenant-wide allow list of up to 100 sites for search and Copilot; new enablement blocked."
+            },
+            {
+              "term": "SharePoint Advanced Management (SAM)",
+              "definition": "Capabilities prerequisite for data access governance reports, RCD and RAC."
+            },
+            {
+              "term": "Data access governance reports",
+              "definition": "Snapshot and activity reports that find overshared or sensitive SharePoint and OneDrive content."
+            },
+            {
+              "term": "Sharing ceiling",
+              "definition": "The org-level external sharing level; sites can be equal or stricter, never looser."
+            }
+          ],
+          "tables": [
+            {
+              "title": "RCD vs RAC vs RSS",
+              "headers": [
+                "Control",
+                "Scope",
+                "Effect on access",
+                "Current use"
+              ],
+              "rows": [
+                [
+                  "Restricted Content Discovery",
+                  "One SharePoint site",
+                  "None; direct access and permissions unchanged, limits org-wide search and Copilot",
+                  "Interim discovery control"
+                ],
+                [
+                  "Restricted Access Control",
+                  "One site or OneDrive, up to 10 groups",
+                  "Enforces group membership plus permission; blocks others",
+                  "Use when access must be enforced"
+                ],
+                [
+                  "Restricted SharePoint Search",
+                  "Tenant-wide allow list, up to 100 sites",
+                  "None; limits broad discovery with exceptions",
+                  "Legacy troubleshooting only"
+                ]
+              ]
+            },
+            {
+              "title": "Sharing options (most to least permissive)",
+              "headers": [
+                "Option",
+                "Meaning"
+              ],
+              "rows": [
+                [
+                  "Anyone",
+                  "Anyone with a link, no sign-in"
+                ],
+                [
+                  "New and existing guests",
+                  "Recipients sign in or create a guest account"
+                ],
+                [
+                  "Existing guests",
+                  "Only guests already in the directory"
+                ],
+                [
+                  "Only people in your organization",
+                  "No external sharing"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Hide from org-wide search and Copilot but keep direct access → **RCD**, not RAC.",
+            "Block people who have old permissions or links → **RAC** (group plus permission), not RCD.",
+            "RCD still shows content to **owners and recent interactors**; a Copilot hit right after enabling is not proof of failure.",
+            "OneDrive sharing can be **stricter** than SharePoint, never looser; sites can't exceed the org ceiling."
+          ],
+          "selfCheck": [
+            {
+              "q": "During a permissions review, authorized users must keep direct URL access, but the Finance site should leave org-wide search and Copilot. Which control?",
+              "a": "Restricted Content Discovery on that site; the owner still has to fix permissions and sharing."
+            },
+            {
+              "q": "A user has Full Control on a RAC-protected site but isn't in any allowed group. Can they open it?",
+              "a": "No. RAC requires allowed-group membership and an underlying permission."
+            },
+            {
+              "q": "Which reports show new broad sharing from the last month versus an old, unchanged broad permission?",
+              "a": "Activity reports (sharing links, shared with Everyone except external users; 28 days) for new sharing; snapshot reports such as the site permissions report for old exposure."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     },
@@ -71,7 +1110,224 @@
           "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/",
           "durationMinutes": 100,
           "updated": "2026-09-18",
-          "learnSummary": "Provision and govern users, guests, groups, and privileged roles in Microsoft Entra using least-privilege administrative units, Privileged Identity Management, and Microsoft Graph PowerShell."
+          "learnSummary": "Provision and govern users, guests, groups, and privileged roles in Microsoft Entra using least-privilege administrative units, Privileged Identity Management, and Microsoft Graph PowerShell.",
+          "tldr": "Identity governance in Microsoft Entra covers the whole life of users, guests and groups, plus least-privilege delegation. Administrative units scope where a role applies, and Privileged Identity Management (PIM) turns standing admin access into just-in-time access.",
+          "objectives": [
+            "Manage the full user and contact lifecycle, and govern guest and external collaboration.",
+            "Create and govern groups, including Microsoft 365 groups, naming policy, and expiration policy.",
+            "Assign and govern administrative roles using role groups and Privileged Identity Management (PIM).",
+            "Scope delegated administration with administrative units and perform bulk management using Microsoft Graph PowerShell.",
+            "Recognize directory synchronization, custom-role, and multitenant Organization options."
+          ],
+          "keyPoints": [
+            "A deleted user is **soft-deleted for 30 days** and can be restored from **Users > Deleted users** in the Microsoft Entra admin center, including licenses assigned at deletion. After 30 days it is permanent.",
+            "A **mail contact** is for someone who only needs to be emailed and never signs in. Create it in the Exchange admin center (`New-MailContact`); Microsoft Graph doesn't manage mail contacts.",
+            "A **synchronized account is mastered on-premises**: deleting it in the cloud can be undone by the next sync cycle, so the fix belongs on-premises.",
+            "Guest **invitation, redemption and resource access are separate**. **Guest Inviter** only authorizes the invitation; the resource owner grants and later revokes access.",
+            "Nesting is **feature-specific**: Conditional Access and SSPR (one selected group) honor nested groups, group-based licensing does not (first-level users only).",
+            "An administrative unit scopes a role to the **directly added users**; adding a group brings in the group object, not its members. A dynamic AU holds one object type only and cannot hold groups.",
+            "PIM **eligible** assignments must be activated (MFA, justification, approval); **active** ones apply immediately. With no named approver, only *active* Privileged Role Administrators or Global Administrators can approve.",
+            "Three PIM durations differ: **activation maximum duration** (one activation), **expiration of eligible assignments** and **expiration of active assignments**."
+          ],
+          "units": [
+            {
+              "title": "Manage the user and contact lifecycle",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/2-manage-user-contact-lifecycle",
+              "minutes": 8,
+              "points": [
+                "Lifecycle: create (single or CSV Bulk create), edit attributes, assign or remove licenses, block sign-in, delete.",
+                "Microsoft 365 admin center is the daily surface; the Microsoft Entra admin center owns identity-object detail and the Deleted users list.",
+                "Delete = suspended for 30 days and restorable; restored licenses can temporarily put the organization out of license compliance.",
+                "Sync tools: Microsoft Entra Connect Sync (sync server), Cloud Sync (agent-based, multiple disconnected forests), Connect Health (monitoring), IdFix (fixes attribute errors before first sync)."
+              ]
+            },
+            {
+              "title": "Perform bulk identity management with Microsoft Graph PowerShell",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/3-bulk-identity-management-graph",
+              "minutes": 9,
+              "points": [
+                "Start with `Connect-MgGraph -Scopes`, then loop `Import-Csv` rows into `New-MgUser`; a script is repeatable.",
+                "Least-privileged delegated permissions: create `User.Create`, update `User.ReadUpdate.All`, read `User.ReadBasic.All`, delete `User.ReadWrite.All`.",
+                "Delegated delete also needs at least User Administrator or Privileged Authentication Administrator; some properties (phone, mail, password profile) have their own permissions.",
+                "Reconnect with a different scope per operation; Graph doesn't manage mail contacts."
+              ]
+            },
+            {
+              "title": "Exercise - Bulk-provision Relecloud's new-hire users with Microsoft Graph PowerShell",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/4-exercise-bulk-provision-graph-powershell",
+              "minutes": 12,
+              "points": [
+                "Validate the CSV shape first, then create accounts with `ForceChangePasswordNextSignIn` and keep a row-linked result per request.",
+                "Verify by reconnecting with `User.ReadBasic.All`; `User.Create` does not grant read access.",
+                "Update `department` with `User.ReadUpdate.All`; delete a duplicate with `User.ReadWrite.All` plus a suitable role.",
+                "A successful delete moves the account to the 30-day deleted state."
+              ]
+            },
+            {
+              "title": "Manage guests and external collaboration",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/5-manage-guests-external-collaboration",
+              "minutes": 9,
+              "points": [
+                "A B2B invitation creates a guest user object; redeeming it connects the guest's own identity but grants no access to a Teams team or SharePoint site.",
+                "Controls: guest permission levels (directory visibility only), allow/deny domain lists, cross-tenant access settings, guest self-service sign-up.",
+                "Guest Inviter is the least-privileged role to invite; default user permissions and collaboration settings also affect who can invite.",
+                "A multitenant organization fits tenants owned by the same organization, not an independent partner tenant."
+              ]
+            },
+            {
+              "title": "Create and manage groups, naming policy, and expiration policy",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/6-create-manage-groups-policies",
+              "minutes": 9,
+              "points": [
+                "Security group: access to resources, can contain users, devices and service principals. Microsoft 365 group: collaboration, users only. Membership is assigned or dynamic (rule-based).",
+                "Nesting: Conditional Access and SSPR work; group-based licensing does not. Security groups nest in security groups; Microsoft 365 groups can't nest.",
+                "Naming policy enforces prefix/suffix and a blocked-word list on self-service groups (Entra ID P1).",
+                "Expiration policy covers Microsoft 365 groups: one per tenant, applied to All or Selected groups, owners are notified, active groups auto-renew, deleted groups are restorable for 30 days (P1/P2)."
+              ]
+            },
+            {
+              "title": "Scope delegated administration with administrative units",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/7-scope-administrative-units",
+              "minutes": 9,
+              "points": [
+                "Effective permission = role capability x AU object membership x assignment scope; an AU never adds capabilities the role lacks.",
+                "An AU-scoped Helpdesk Administrator can't reset passwords of users who hold an administrator role.",
+                "AUs scope management, not visibility. Adding a group to an AU does not bring its members into scope; add users directly or use dynamic membership.",
+                "A dynamic AU supports exactly one object type (users or devices) and can't hold groups. AU-scoped admins need Entra ID P1; a restricted management AU is a different, immutable control."
+              ]
+            },
+            {
+              "title": "Exercise - Scope Relecloud's regional HR admin with an administrative unit",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/8-exercise-scope-administrative-unit",
+              "minutes": 12,
+              "points": [
+                "Create an AU with assigned membership, add the user directly, then add the Helpdesk Administrator assignment inside the AU.",
+                "Privileged Role Administrator is the least-privileged role that can assign an AU-scoped role.",
+                "Resetting a member's password succeeds; resetting a non-member's is denied, although the user is still visible in search."
+              ]
+            },
+            {
+              "title": "Govern roles with role groups and Privileged Identity Management",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/9-govern-roles-role-groups-privileged-identity-management",
+              "minutes": 9,
+              "points": [
+                "Entra built-in roles are assigned at a scope; Exchange, Microsoft Purview and Microsoft Defender use their own role groups.",
+                "PIM: active = immediate; eligible = must activate (MFA, justification, approval). Never convert an emergency access account.",
+                "Empty approver list falls back to active Privileged Role Administrators/Global Administrators; if all are eligible-only, nobody can approve (lockout risk). Keep two or more cloud-only emergency access accounts.",
+                "Use a custom role when a built-in role is too broad and nothing narrower exists."
+              ]
+            },
+            {
+              "title": "Exercise - Configure a PIM approval workflow for Relecloud privileged role",
+              "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/10-exercise-configure-privileged-identity-management-approval-workflow",
+              "minutes": 12,
+              "points": [
+                "Add an eligible assignment, set activation maximum (4 hours), require MFA, justification and approval, and name approvers.",
+                "PIM role settings apply to every assignment of that role; PIM needs Entra ID P2, Governance or Suite licensing.",
+                "An approver can't approve their own request; the first named approver's response resolves it.",
+                "Correlate audit events with `roleAssignmentRequestId`; deactivation leaves the user eligible."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Soft delete",
+              "definition": "A deleted Entra user is kept for 30 days in Deleted users and can be restored with licenses and data."
+            },
+            {
+              "term": "Mail contact",
+              "definition": "A recipient object with an external email address that appears in the address book and never signs in."
+            },
+            {
+              "term": "Administrative unit (AU)",
+              "definition": "A directory container that limits a role assignment to the objects it directly contains."
+            },
+            {
+              "term": "Eligible assignment",
+              "definition": "A PIM assignment that grants nothing until the user activates the role."
+            },
+            {
+              "term": "Active assignment",
+              "definition": "A PIM or direct assignment whose permissions apply immediately."
+            },
+            {
+              "term": "Guest Inviter",
+              "definition": "The least-privileged Entra role for inviting external guests; it doesn't grant resource access."
+            },
+            {
+              "term": "Role group",
+              "definition": "A named collection of workload roles (Exchange, Purview, Defender) assigned as one unit."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Nested group behavior by feature",
+              "headers": [
+                "Feature",
+                "Nested groups honored?"
+              ],
+              "rows": [
+                [
+                  "Conditional Access",
+                  "Yes, applies to nested users and groups"
+                ],
+                [
+                  "Group-based licensing",
+                  "No, first-level users only"
+                ],
+                [
+                  "SSPR",
+                  "Yes, when enabled for one selected group"
+                ],
+                [
+                  "Administrative unit",
+                  "No, a group in an AU doesn't bring in its members"
+                ]
+              ]
+            },
+            {
+              "title": "PIM duration settings",
+              "headers": [
+                "Setting",
+                "Controls"
+              ],
+              "rows": [
+                [
+                  "Activation maximum duration",
+                  "How long one approved activation lasts"
+                ],
+                [
+                  "Expiration of eligible assignments",
+                  "How long the user can activate the role at all"
+                ],
+                [
+                  "Expiration of active assignments",
+                  "How long a standing active assignment lasts before removal"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Vendor contact who only receives email → think **mail contact (Exchange admin center)**, not a guest or a Graph-created user.",
+            "Group in an AU → the **group object** is scoped, not its members; add the users themselves.",
+            "How long is someone admin after approval → **activation maximum duration**, not either expiration setting.",
+            "Guest redeemed the invitation → that says nothing about resource access; **check the resource's permissions**."
+          ],
+          "selfCheck": [
+            {
+              "q": "An admin deleted a cloud-only user this morning by mistake. What is the fix?",
+              "a": "Restore the account from Users > Deleted users in the Microsoft Entra admin center; it is restorable for 30 days."
+            },
+            {
+              "q": "New hires sit in a group nested inside 'All Engineering', which carries a Conditional Access policy and licenses. What do they receive?",
+              "a": "The Conditional Access policy (it honors nesting) but not the licenses, because group-based licensing only applies to first-level users."
+            },
+            {
+              "q": "A role requires approval with no approvers named, and all Global Administrators are eligible-only. What happens?",
+              "a": "No default approver exists, so activation requests can't be approved and admins may be locked out."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.implement-authentication-access-entra",
@@ -80,7 +1336,226 @@
           "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/",
           "durationMinutes": 89,
           "updated": "2026-09-21",
-          "learnSummary": "Configure authentication methods, Password Protection, self-service password reset, and Conditional Access policies that respond to sign-in risk, user risk, and device compliance, and investigate authentication issues using the Sign-in logs, Sign-in diagnostic, and What If tool."
+          "learnSummary": "Configure authentication methods, Password Protection, self-service password reset, and Conditional Access policies that respond to sign-in risk, user risk, and device compliance, and investigate authentication issues using the Sign-in logs, Sign-in diagnostic, and What If tool.",
+          "tldr": "Authentication in Microsoft Entra is layered: the Authentication methods policy decides which methods are available, Password Protection and smart lockout harden passwords, and SSPR needs scope plus enough registered methods. Conditional Access decides what is required, and you verify outcomes with Sign-in logs, Sign-in diagnostic and What If.",
+          "objectives": [
+            "Evaluate the Microsoft Entra authentication method catalog and configure the unified Authentication methods policy to scope methods to a target group.",
+            "Enforce Microsoft Entra Password Protection with the global and custom banned password lists and smart lockout for cloud accounts.",
+            "Enable and troubleshoot self-service password reset (SSPR) registration, method requirements, and enablement scope.",
+            "Evaluate multiple interacting Conditional Access policies, including client app conditions, to determine sign-in outcomes.",
+            "Investigate and resolve authentication issues using the Sign-in logs, the Sign-in diagnostic, and the Conditional Access What If tool.",
+            "Design Conditional Access policies that respond to sign-in risk, user risk, and device compliance state."
+          ],
+          "keyPoints": [
+            "The **Authentication methods policy** controls which methods users *can* use; **Conditional Access** controls what they *must* use. Include/Exclude targeting per method: **Exclude wins** when a user is in both.",
+            "Strength order: **phishing-resistant** (FIDO2/passkeys, Windows Hello for Business, certificate-based MFA), then passwordless Authenticator, then traditional MFA (push, SMS/voice, OATH, email OTP). **Temporary Access Pass** is for onboarding and recovery.",
+            "**Password Protection**: the global banned list is always on; the custom list holds up to 1,000 terms (4-16 characters). A password needs **at least 5 points**; each banned term counts one point. Cloud accounts have no audit-only mode.",
+            "**Smart lockout** defaults to 10 failed attempts (3 in Azure US Government) with a 60-second initial lockout; settings are tenant-wide and need P1 or higher to customize.",
+            "SSPR failures have three separate causes to check: **scope** (`UserNotMemberOfScopedAccessGroup`), **method readiness** (registered methods vs. required number) and a **24-hour temporary verification block**.",
+            "Multiple Conditional Access policies combine with **AND**, and a single **Block** overrides every grant. Legacy authentication clients can't present MFA or device claims, so they are blocked by such policies.",
+            "**What If** and **report-only** only predict; only a real pilot sign-in in the Sign-in logs proves enforcement. Always exclude **emergency access accounts** before enabling.",
+            "Use **separate policies** for sign-in risk (medium/high, MFA strength) and user risk (high, Require risk remediation). Risk features need Entra ID P2 or Entra Suite."
+          ],
+          "units": [
+            {
+              "title": "Evaluate and scope the authentication method catalog",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/2-evaluate-scope-authentication-methods",
+              "minutes": 9,
+              "points": [
+                "Microsoft Authenticator: push with number matching, phone sign-in, TOTP fallback; third-party TOTP apps are software OATH tokens without push or passwordless.",
+                "Windows Hello for Business is deployed through Intune or Group Policy; system-preferred authentication steers users to their strongest method.",
+                "Scope Passkey (FIDO2) to a security group under Protection > Authentication methods > Policies; AAGUIDs and attestation restrict accepted credentials.",
+                "Users register at aka.ms/mysecurityinfo; a Registration Campaign prompts SMS/voice users to add Authenticator.",
+                "Legacy MFA/SSPR method policies were retired on September 30, 2025; managing the unified policy needs Authentication Policy Administrator."
+              ]
+            },
+            {
+              "title": "Enforce Password Protection for cloud accounts",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/3-enforce-password-protection",
+              "minutes": 9,
+              "points": [
+                "Custom list: enable Enforce custom list, up to 1,000 terms of 4-16 characters, case-insensitive with common substitutions; needs Entra ID P1/P2.",
+                "Users' first name, last name and the tenant name are checked automatically; these name checks can reject a password regardless of score.",
+                "Scoring: normalization, fuzzy matching (edit distance one), then points; each banned term is one point, each other character one point, 5 needed to pass.",
+                "Custom-list updates can take several hours to propagate.",
+                "Smart lockout is configured on the same page; troubleshoot password changes in the Microsoft Entra audit logs."
+              ]
+            },
+            {
+              "title": "Enable and troubleshoot self-service password reset",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/4-enable-troubleshoot-self-service-password-reset",
+              "minutes": 9,
+              "points": [
+                "SSPR supports nested groups when enabled for one group, so nested members are in scope.",
+                "A user is registered only when they have at least the number of methods in 'Number of methods required to reset'; raising it can leave users unable to reset.",
+                "A policy change doesn't automatically re-prompt registration.",
+                "Block: 5 failed identity proofs in 24 hours (phone, authenticator, security questions: 5 in 1 hour; email: 10 in 10 minutes) leads to a 24-hour block."
+              ]
+            },
+            {
+              "title": "Exercise - Scope authentication methods and enable SSPR for Relecloud's engineering team",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/5-exercise-scope-methods-self-service-password-reset",
+              "minutes": 12,
+              "points": [
+                "Enable Passkey (FIDO2) with Include set to Select groups; other methods keep their own targeting.",
+                "Set SSPR to Selected for the group and Number of methods required to reset to 2; passkeys are not an SSPR verification method.",
+                "Registration report (Authentication methods > Activity > Registration; needs P1/P2) shows SSPR Enabled, Registered and Capable columns.",
+                "Enabled but not registered needs another method registered; capable but failing needs the reset error investigated."
+              ]
+            },
+            {
+              "title": "Evaluate Conditional Access policies and client app conditions",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/6-evaluate-conditional-access-client-apps",
+              "minutes": 9,
+              "points": [
+                "All applicable policies must be satisfied (AND); any Block takes precedence.",
+                "Client apps condition separates modern from legacy authentication clients (e.g. Exchange ActiveSync).",
+                "A legacy client hitting a policy that needs MFA or a compliant device is blocked; if the policy doesn't select that client category it is Not applied.",
+                "A missing MFA prompt isn't proof of bypass: a token claim, session or other policy can explain it."
+              ]
+            },
+            {
+              "title": "Investigate and resolve authentication issues",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/7-investigate-resolve-authentication-issues",
+              "minutes": 9,
+              "points": [
+                "Sign-in logs: record IDs, user, resource, client app, per-policy results, Authentication Details and Device Info.",
+                "Sign-in diagnostic (Troubleshoot Event) is guidance, not proof; a Report-only result projects without enforcing.",
+                "What If needs the identity, exact target resource App ID, platform and client app; omitted conditions count as none, and it never executes authentication.",
+                "Safe rollout: diagnose, What If, report-only, exclude emergency access accounts, pilot group and one resource, verify with a real sign-in."
+              ]
+            },
+            {
+              "title": "Resolve sign-in risk and device compliance in Conditional Access",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/8-resolve-risk-device-compliance",
+              "minutes": 9,
+              "points": [
+                "Intune shows the administrative compliance state; Device Info shows what Entra received. A blank device ID usually means the browser didn't pass device identity.",
+                "Browser needs: Edge 85+ signed in to the profile; Chrome 111+ with CloudApAuthEnabled or the Microsoft Single Sign On extension; Firefox 91+ with Windows SSO enabled; no private browsing or disabled cookies.",
+                "Sign-in risk policy: medium/high, MFA strength, sign-in frequency Every time. User risk policy: high, Require risk remediation.",
+                "Password users remediate via MFA then secure password change; passwordless users get sessions revoked and re-authenticate."
+              ]
+            },
+            {
+              "title": "Exercise - Design and verify Conditional Access pilot policies",
+              "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/9-exercise-conditional-access-risk-device-compliance",
+              "minutes": 12,
+              "points": [
+                "Build a report-only policy for SharePoint: MFA and compliant device with Require all the selected controls, excluding emergency access accounts.",
+                "Read the per-policy result (Report-only: Success/Failure/User action required/Not applied) in the sign-in event.",
+                "Create separate report-only policies for sign-in risk and user risk targeting All resources.",
+                "Policy changes can take up to a day to take effect (usually within two hours); enable only after confirming emergency access still works."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Authentication methods policy",
+              "definition": "The unified policy that defines which sign-in methods are available to which groups; it doesn't force their use."
+            },
+            {
+              "term": "Temporary Access Pass (TAP)",
+              "definition": "A time-limited passcode for onboarding and account recovery, not for everyday sign-in."
+            },
+            {
+              "term": "Global / custom banned password list",
+              "definition": "Microsoft-maintained always-on list, plus your own list of up to 1,000 organization-specific terms."
+            },
+            {
+              "term": "Smart lockout",
+              "definition": "Tenant-wide protection that locks sign-in after repeated failed attempts, with growing lockout duration."
+            },
+            {
+              "term": "Report-only mode",
+              "definition": "A Conditional Access state that projects results without enforcing grant or session controls."
+            },
+            {
+              "term": "What If tool",
+              "definition": "Predicts which Conditional Access policies apply for stated inputs; it executes no authentication."
+            },
+            {
+              "term": "Require risk remediation",
+              "definition": "Grant control for user-risk policies: MFA plus secure password change, or session revocation for passwordless users."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Sign-in risk vs. user risk policy",
+              "headers": [
+                "Aspect",
+                "Sign-in risk",
+                "User risk"
+              ],
+              "rows": [
+                [
+                  "Condition",
+                  "Medium or high",
+                  "High"
+                ],
+                [
+                  "Control",
+                  "Built-in Multifactor authentication strength",
+                  "Require risk remediation"
+                ],
+                [
+                  "Sign-in frequency",
+                  "Every time",
+                  "Every time (applied automatically)"
+                ],
+                [
+                  "Meaning",
+                  "One authentication request looks suspicious",
+                  "The account may be compromised"
+                ]
+              ]
+            },
+            {
+              "title": "Banned list: global vs. custom",
+              "headers": [
+                "Attribute",
+                "Global",
+                "Custom"
+              ],
+              "rows": [
+                [
+                  "Maintained by",
+                  "Microsoft",
+                  "You"
+                ],
+                [
+                  "Always on",
+                  "Yes, can't view, edit or disable",
+                  "Optional (Enforce custom list)"
+                ],
+                [
+                  "Contents",
+                  "Common attacked passwords and variants",
+                  "Up to 1,000 terms, 4-16 characters"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Method **available** → Authentication methods policy; method **required** → Conditional Access.",
+            "User in both Include and Exclude → **Exclude wins**; one Block among applicable policies beats all grants.",
+            "What If or report-only says 'applies' → only a real pilot sign-in **proves enforcement**.",
+            "Intune says compliant but Device Info is blank → check the **browser prerequisites**, not the compliance policy."
+          ],
+          "selfCheck": [
+            {
+              "q": "A new hire has no registered method and needs to bootstrap a phishing-resistant credential. What do you issue?",
+              "a": "A Temporary Access Pass with a limited validity window."
+            },
+            {
+              "q": "Which password does a user's scoring fail: 'Relecloud12' with 'relecloud' on the banned list?",
+              "a": "It scores 3 points (banned term 1 plus 2 remaining characters), below the required 5, so it is rejected."
+            },
+            {
+              "q": "Edge sign-ins show a compliant device but Chrome sign-ins show no device ID. What do you verify?",
+              "a": "The Chrome prerequisites: version 111+, CloudApAuthEnabled or the Microsoft Single Sign On extension, signed-in profile, cookies and non-private mode."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.secure-email-collaboration-defender-office365",
@@ -89,7 +1564,197 @@
           "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/",
           "durationMinutes": 64,
           "updated": "2026-09-21",
-          "learnSummary": "Defend email and collaboration workloads using Microsoft Defender for Office 365—configure threat protection policies, manage alerts, investigate and respond to threats, and run attack simulation training—and understand how it fits the broader Microsoft Defender security estate."
+          "learnSummary": "Defend email and collaboration workloads using Microsoft Defender for Office 365—configure threat protection policies, manage alerts, investigate and respond to threats, and run attack simulation training—and understand how it fits the broader Microsoft Defender security estate.",
+          "tldr": "Defender for Office 365 protection is evaluated per feature (anti-spam, anti-phishing, Safe Links, and so on), with presets ahead of custom policies, and the settings inside the winning policy must actually cover the threat. You then triage alerts, investigate with Threat Explorer, approve AIR actions, train users, and see how it fits Defender XDR.",
+          "objectives": [
+            "Manage the Microsoft Defender for Office 365 alert queue, including updating alert status.",
+            "Configure threat protection policies and their per-policy settings, and scope custom policies correctly around presets.",
+            "Investigate and respond to email and collaboration threats using Threat Explorer, the Email entity page, and automated investigation and response (AIR).",
+            "Configure and manage attack simulation training, including training campaigns.",
+            "Describe how Microsoft Defender for Office 365 fits within the broader Microsoft Defender security estate."
+          ],
+          "keyPoints": [
+            "**Precedence is per protection feature**: Strict preset, Standard preset, evaluation policies (anti-phishing, Safe Links, Safe Attachments), custom policies by priority, then built-in/default. Only the first applicable policy of a feature applies; settings don't merge.",
+            "**Priority 0** is highest only among custom policies of the same feature; it doesn't outrank a preset. To let a custom policy govern a team, **except them from preset coverage** for that feature.",
+            "**Spoofing and impersonation are anti-phishing settings** (Users/Domains to protect, mailbox intelligence, spoof intelligence), not anti-spam. Preset policies can't be tuned; custom ones can.",
+            "Quarantine: malware and **high confidence phishing** can never be self-released, even if the policy grants PermissionToRelease; users can only request release.",
+            "Collaboration protection has separate controls: Safe Attachments global toggle for SharePoint/OneDrive/Teams, a Safe Links policy with Teams protection for URLs, and `DisallowInfectedFileDownload` to block downloads of malicious files.",
+            "Alert **status** (New, In progress, Resolved) and **classification** (Not Set, True positive, Informational/expected activity, False positive) answer different questions.",
+            "The status report shows **trends**; **Threat Explorer** finds one message; the **Email entity page Timeline** shows its full delivery and post-delivery history.",
+            "AIR remediation such as **soft delete** is only a recommendation until SecOps approves it (pending actions time out after one week); it is independent from ZAP. A Training campaign assigns training without a simulation."
+          ],
+          "units": [
+            {
+              "title": "Configure threat policies: presets, custom policies, and precedence",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/2-preset-custom-policy-precedence",
+              "minutes": 6,
+              "points": [
+                "Five decisions: feature, source/type, recipient scope, priority, settings.",
+                "Order for a feature: Strict, Standard, evaluation policies, custom by priority (lower number wins), built-in/default.",
+                "Strict and Standard presets support recipient inclusions and exceptions but their settings are Microsoft-managed.",
+                "Connection filtering (IP allow/block lists) isn't recipient-scoped and stays outside recipient precedence."
+              ]
+            },
+            {
+              "title": "Configure the settings inside each threat policy",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/3-configure-threat-policy-settings",
+              "minutes": 6,
+              "points": [
+                "Anti-phishing: Users to protect (display name plus address), Domains to protect (lookalikes), mailbox intelligence and spoof intelligence (both on by default), configured action such as quarantine.",
+                "Anti-spam: inbound thresholds, allow/block lists; outbound sending limits and automatic-forwarding controls.",
+                "Anti-malware: common attachments filter (.exe, .scr, .vbs, .jar by default) rejects with NDR or quarantines; malware uses AdminOnlyAccessPolicy by default.",
+                "Quarantine policies: PermissionToRelease vs. PermissionToRequestRelease, overridden for malware and high confidence phishing."
+              ]
+            },
+            {
+              "title": "Extend protection to Teams, SharePoint, and OneDrive",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/4-extend-protection-teams-sharepoint-onedrive",
+              "minutes": 4,
+              "points": [
+                "Safe Attachments > Global settings: turn on Defender for Office 365 for SharePoint, OneDrive, and Microsoft Teams; files are scanned and detonated asynchronously, not all files are scanned.",
+                "Malicious files can't be opened, copied, moved or shared but can be deleted and, by default, downloaded.",
+                "Safe Links validates Teams URLs at time of click only for users in an active policy with Teams protection on; it doesn't scan files.",
+                "`Set-SPOTenant -DisallowInfectedFileDownload $true` blocks downloads tenant-wide; ZAP for Teams can retroactively quarantine messages."
+              ]
+            },
+            {
+              "title": "Exercise - Configure and scope threat protection for Relecloud's finance team",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/5-exercise-configure-scope-finance-team-protection",
+              "minutes": 7,
+              "points": [
+                "Check Preset security policies first for inclusions and exceptions; a preset takes precedence for its features.",
+                "Scope a custom anti-spam policy, set priority, and confirm it is On; a disabled policy doesn't apply regardless of priority.",
+                "Add the vendor domain under Domains to protect and contact identities under Users to protect; scope stays the finance team.",
+                "Verify with `Get-AtpPolicyForO365` (EnableATPForSPOTeamsODB) and `Get-SPOTenant`; features need Defender for Office 365 Plan 1 or 2."
+              ]
+            },
+            {
+              "title": "Manage alerts and investigate threats",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/6-manage-alerts-investigate-threats",
+              "minutes": 6,
+              "points": [
+                "Status model: New (default), In progress, Resolved; there is no Active status. Classification defaults to Not Set.",
+                "Assign alerts and add comments; accurate classification helps tune future detections.",
+                "Threat protection status report gives aggregate counts and trends, not a message search.",
+                "Threat Explorer (All email, Malware, Phish views) filters by subject or sender and offers Take action; the Email entity Timeline shows pre-delivery, delivery and post-delivery events (ZAP, manual remediation, Dynamic Delivery)."
+              ]
+            },
+            {
+              "title": "Remediate and reduce human risk: AIR and attack simulation training",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/7-remediate-air-attack-simulation-training",
+              "minutes": 4,
+              "points": [
+                "AIR can recommend soft delete (recoverable) for malware, malicious URL and phishing clusters, and time-of-click URL blocking; nothing runs until SecOps approves.",
+                "Stages: recommendation, pending action, approval or rejection, completed result.",
+                "A Training campaign assigns modules without a prior simulation.",
+                "Training threshold is tenant-wide, default 90 days; 0 removes the reassignment interval."
+              ]
+            },
+            {
+              "title": "Exercise - Investigate a threat and reduce human risk with attack simulation training",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/8-exercise-investigate-threat-attack-simulation-training",
+              "minutes": 15,
+              "points": [
+                "Simulation reports need the Attack Simulation Administrator role; a simulation click creates no real alert or incident.",
+                "Trace a real message in Explorer via its Timeline and Network Message ID, then link alert and incident (Defender XDR correlates alerts into incidents).",
+                "A pending AIR soft delete covering two messages is approved as one action, so verify the verdict of both first.",
+                "Draft training campaigns: target users, modules, notification, schedule; without an end date there are no reminders; use Save and close to keep it a draft."
+              ]
+            },
+            {
+              "title": "Coordinate with the broader Microsoft Defender security estate",
+              "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/9-broader-microsoft-defender-security-estate",
+              "minutes": 6,
+              "points": [
+                "Microsoft Defender XDR correlates Endpoint, Identity, Office 365 and Cloud Apps signals into one incident queue.",
+                "Microsoft Defender for Cloud Apps discovers shadow IT and governs SaaS apps and sessions.",
+                "Security Copilot summarizes and accelerates investigation; you recognize it rather than operate it.",
+                "Posture trio: Security Exposure Management, Threat Intelligence and Microsoft Secure Score measure exposure before incidents."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Preset security policies",
+              "definition": "Strict and Standard bundles of Microsoft-managed settings; you only choose recipient inclusions and exceptions."
+            },
+            {
+              "term": "Impersonation protection",
+              "definition": "Anti-phishing feature that protects chosen users (display name plus address) and domains from lookalikes."
+            },
+            {
+              "term": "Threat Explorer",
+              "definition": "Search tool for finding and acting on individual messages by subject, sender and other properties."
+            },
+            {
+              "term": "Zero-hour auto purge (ZAP)",
+              "definition": "Retroactive removal of delivered email or Teams messages later found to be high-confidence phishing or malware."
+            },
+            {
+              "term": "Automated investigation and response (AIR)",
+              "definition": "Recommends remediation (e.g. soft delete) that SecOps must approve."
+            },
+            {
+              "term": "Training threshold",
+              "definition": "Tenant-wide Attack simulation training setting preventing reassignment of the same module within an interval (default 90 days)."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which Defender for Office 365 tool for which job?",
+              "headers": [
+                "Need",
+                "Tool"
+              ],
+              "rows": [
+                [
+                  "Trends: how many threats were blocked",
+                  "Threat protection status report"
+                ],
+                [
+                  "Find one specific message",
+                  "Threat Explorer"
+                ],
+                [
+                  "Full delivery and post-delivery history of a message",
+                  "Email entity page Timeline"
+                ],
+                [
+                  "Check a URL in a Teams message at click",
+                  "Safe Links policy with Teams protection"
+                ],
+                [
+                  "Scan files in SharePoint, OneDrive, Teams",
+                  "Safe Attachments global toggle"
+                ],
+                [
+                  "Block download of identified malicious files",
+                  "`DisallowInfectedFileDownload`"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Custom policy ignored → the **preset** still covers the recipients for that feature; priority only orders custom policies.",
+            "Display-name or domain spoofing → think **anti-phishing**, not anti-spam.",
+            "AIR recommendation shown → it is **pending, not done**; and ZAP is a separate path.",
+            "Alert status is New, In progress, Resolved; what you found goes in **classification**."
+          ],
+          "selfCheck": [
+            {
+              "q": "The finance group is covered by Standard preset and a priority 0 custom anti-spam policy. Which settings apply?",
+              "a": "The Standard preset's, because presets are evaluated before custom policies for that feature. Except the group from preset coverage to let the custom policy apply."
+            },
+            {
+              "q": "A user has PermissionToRelease in the quarantine policy. Can they release a message quarantined as high confidence phishing?",
+              "a": "No. They can only request release; an admin must approve it."
+            },
+            {
+              "q": "You need one reported message found by subject and its full event history. Which tools?",
+              "a": "Search in Threat Explorer, then open its Email entity page and read the Timeline."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.protect-information-purview",
@@ -98,7 +1763,199 @@
           "url": "https://learn.microsoft.com/training/modules/protect-information-purview/",
           "durationMinutes": 80,
           "updated": "2026-09-18",
-          "learnSummary": "Specify information-protection requirements for sensitive content, choose the right classification technique for a given data shape, and verify Microsoft Copilot grounding against known label, encryption, and Teams-chat limitations."
+          "learnSummary": "Specify information-protection requirements for sensitive content, choose the right classification technique for a given data shape, and verify Microsoft Copilot grounding against known label, encryption, and Teams-chat limitations.",
+          "tldr": "Pick the classification technique that fits the data shape (SIT, EDM or trainable classifier), scope sensitivity labels to items or containers, and publish them through label policies where conflicting settings resolve by policy priority. Then verify with Content explorer and Activity explorer, and know where Microsoft Copilot grounding has gaps.",
+          "objectives": [
+            "Identify requirements for information protection, including sensitive information types, sensitivity labels, and sensitivity label policies.",
+            "Choose the appropriate classification technique (sensitive information type, exact data match, or trainable classifier) to meet a requirement while minimizing false positives.",
+            "Recognize how Microsoft Purview reporting verifies that classification is being applied as specified.",
+            "Verify that classification and labeling support safe Microsoft Copilot grounding."
+          ],
+          "keyPoints": [
+            "**SIT** detects a predictable *shape* (regex, keywords, proximity, checksum). **EDM** matches against a hashed reference table (up to 100 million rows, daily refresh). A **trainable classifier** learns from examples for free-form content.",
+            "SITs, trainable classifiers, EDM SITs and document fingerprinting can all drive **auto-labeling**; combining a classifier with a custom SIT can sharpen precision.",
+            "**Item scope** (Files & other data assets, Emails, Meetings) protects the content wherever it goes. **Groups & sites** scope protects the container only and doesn't label or encrypt the items inside.",
+            "A label scoped only to Groups & sites isn't shown in Office apps. **Container labeling must be enabled** tenant-wide before its settings can be configured. Meetings scope needs Files & other data assets.",
+            "Overlapping label policies give the **union of labels**, but conflicting **settings** resolve to the single highest-priority policy (highest order number); they never merge.",
+            "Two orderings: **label-policy priority** (which settings win) vs. **label-list priority** (ranking for downgrade detection and auto-labeling match resolution).",
+            "**Content explorer** = what is classified now (encrypted labels don't show for SharePoint/OneDrive). **Activity explorer** = changes over time, up to 30 days. Viewing the tab and viewing content need different permissions.",
+            "Copilot needs **VIEW and EXTRACT** rights, inherits the highest-ranked label, can't use **DKE** content, and has gaps for Teams meeting/channel chat labels and container labels."
+          ],
+          "units": [
+            {
+              "title": "Choose a classification technique for a data shape",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/2-choose-classification-technique",
+              "minutes": 9,
+              "points": [
+                "SIT: consistently formatted data; confirms shape, not that a value belongs to a real record.",
+                "EDM: fixed enumerable list such as an account roster; hashed table, not shared with anyone including Microsoft; precision still depends on schema and validation.",
+                "Trainable classifier: varied free-form content such as case files, learned from examples.",
+                "EDM SITs support service-side (SharePoint, OneDrive, Exchange Online) and client-side auto-labeling."
+              ]
+            },
+            {
+              "title": "Exercise - Create a custom sensitive information type for Woodgrove's transaction pattern",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/3-exercise-create-custom-sit-transaction-pattern",
+              "minutes": 12,
+              "points": [
+                "Create under Information Protection > Classifiers > Sensitive info types with a regular expression primary element at Low confidence.",
+                "A supporting element such as a nearby keyword helps before moving to a higher confidence level.",
+                "Test with the SIT tester, one unencrypted file at a time: one file that should match, one with near-misses."
+              ]
+            },
+            {
+              "title": "Design what a sensitivity label protects",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/4-design-label-scope",
+              "minutes": 9,
+              "points": [
+                "Item scopes: Files & other data assets (default), Emails (with attachments), Meetings (calendar events, Teams meeting options, chat).",
+                "Groups & sites controls privacy, external sharing, unmanaged device access, discoverability and shared channels.",
+                "A single label can carry both item and container scope, but that is a deliberate choice.",
+                "Container settings are grayed out until container labeling is turned on."
+              ]
+            },
+            {
+              "title": "Publish label policies and resolve conflicting settings",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/5-publish-label-policy-resolve-conflicts",
+              "minutes": 9,
+              "points": [
+                "A label reaches users only through a published label policy (labels shown, default label, mandatory labeling, justification on removal/downgrade).",
+                "Ways to apply: manual, default, mandatory (a requirement, not a selection), recommended, automatic (service-side supports SharePoint, OneDrive, Exchange Online).",
+                "Conflicting settings: only the highest-priority policy applies; fix by reordering with Move up / Move down.",
+                "Policy priority is set on the Label policies page; label-list priority on the Labels page."
+              ]
+            },
+            {
+              "title": "Exercise - Configure and publish a sensitivity label policy, then verify priority resolution",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/6-exercise-publish-label-policy-verify-priority",
+              "minutes": 12,
+              "points": [
+                "Create an item-scoped label with encryption and a content marking footer; needs Sensitivity Label Administrator or Information Protection Admins.",
+                "Publish with justification on downgrade, mandatory labeling and a default label.",
+                "A second lower-priority policy doesn't override those settings, but both labels stay on the Sensitivity menu.",
+                "Allow about 24 hours (24-48 for new groups) before troubleshooting; verify in Word, Excel or PowerPoint, not Outlook, for the Files scope."
+              ]
+            },
+            {
+              "title": "Verify classification is working with Purview reporting",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/7-verify-classification-reporting",
+              "minutes": 9,
+              "points": [
+                "Content explorer: current snapshot of items with sensitivity labels, retention labels or matching SITs across Exchange, SharePoint, OneDrive and Teams.",
+                "Activity explorer: label applied, changed (upgraded, downgraded, removed) and DLP match events, up to 30 days from the unified audit logs.",
+                "Tab access (Compliance Administrator, Security Administrator, Compliance Data Administrator, or Information Protection roles) differs from permission to view item contents."
+              ]
+            },
+            {
+              "title": "Verify classification supports safe Microsoft Copilot grounding",
+              "url": "https://learn.microsoft.com/training/modules/protect-information-purview/8-verify-copilot-grounding",
+              "minutes": 9,
+              "points": [
+                "Copilot only respects existing protection: VIEW to open encrypted content, plus EXTRACT to use it in a response.",
+                "It displays and inherits the highest-priority label by label rank (least restrictive at top of list), not by policy order.",
+                "DKE-protected content isn't accessible to Copilot or agents.",
+                "Gaps: Teams meeting and channel chat labels aren't recognized (invites and calendar events are fine); container labels aren't inherited by items."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Sensitive information type (SIT)",
+              "definition": "Pattern-based detector using regex, keywords, proximity and checksum to produce a confidence level."
+            },
+            {
+              "term": "Exact data match (EDM)",
+              "definition": "Classification against a securely hashed table of known values, narrowing matches to those values."
+            },
+            {
+              "term": "Trainable classifier",
+              "definition": "Machine-learning classifier trained on examples to recognize free-form content."
+            },
+            {
+              "term": "Item scope vs. container scope",
+              "definition": "Item scope protects files, emails and meetings; Groups & sites scope protects the Microsoft 365 group, team or site."
+            },
+            {
+              "term": "Label policy priority",
+              "definition": "Order that decides which policy's settings win when several apply to a user."
+            },
+            {
+              "term": "Double Key Encryption (DKE)",
+              "definition": "Encryption whose content Copilot and agents can't access."
+            },
+            {
+              "term": "EXTRACT usage right",
+              "definition": "Right Copilot needs, in addition to VIEW, to use encrypted content in a response."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Choosing a classification technique",
+              "headers": [
+                "Technique",
+                "Detects",
+                "Best for"
+              ],
+              "rows": [
+                [
+                  "Sensitive information type",
+                  "A predictable shape (regex, keywords, proximity, checksum)",
+                  "Consistently formatted data such as a transaction reference"
+                ],
+                [
+                  "Exact data match",
+                  "Values present in a hashed reference table",
+                  "A known, fixed list such as an account roster"
+                ],
+                [
+                  "Trainable classifier",
+                  "Patterns learned from examples",
+                  "Free-form, varied content such as case files"
+                ]
+              ]
+            },
+            {
+              "title": "Two priority orders",
+              "headers": [
+                "Ordering",
+                "Governs",
+                "Set on"
+              ],
+              "rows": [
+                [
+                  "Label-policy priority",
+                  "Which policy's settings win for a user",
+                  "Label policies page"
+                ],
+                [
+                  "Label-list priority",
+                  "Label ranking for downgrade detection and auto-labeling match resolution; also Copilot label inheritance (rank)",
+                  "Labels page"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Fixed list of known values → think **EDM**; free-form prose → **trainable classifier**; predictable format → **SIT**.",
+            "Container label (Groups & sites) → protects the **space**, not the files inside it, and isn't inherited by items in Copilot.",
+            "Overlapping policies → **union of labels**, but **settings come from the one highest-priority policy**.",
+            "Copilot and encrypted content → **VIEW is not enough**, it also needs EXTRACT; DKE is never available."
+          ],
+          "selfCheck": [
+            {
+              "q": "Which technique reduces matches against invented numbers that look like valid account numbers from a known roster?",
+              "a": "Exact data match against a hashed reference table."
+            },
+            {
+              "q": "Policy A requires downgrade justification; higher-priority Policy B doesn't. A user is in both. What happens?",
+              "a": "Policy B's setting applies, so no justification is required; settings don't merge. The user still sees labels from both policies."
+            },
+            {
+              "q": "A user can open an encrypted file but Copilot can't use it in a response. Why might that be?",
+              "a": "The label's usage rights include VIEW but not EXTRACT, which Copilot also needs (or the file uses DKE, which Copilot can't access)."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.prevent-data-loss-lifecycle-purview",
@@ -107,7 +1964,230 @@
           "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/",
           "durationMinutes": 101,
           "updated": "2026-09-21",
-          "learnSummary": "Specify data loss prevention requirements across Microsoft 365 workloads and Microsoft Copilot, respond to DLP alerts, specify data lifecycle management requirements, and monitor AI activity using Data Security Posture Management (DSPM) for AI."
+          "learnSummary": "Specify data loss prevention requirements across Microsoft 365 workloads and Microsoft Copilot, respond to DLP alerts, specify data lifecycle management requirements, and monitor AI activity using Data Security Posture Management (DSPM) for AI.",
+          "tldr": "DLP requirements always name a location, a condition and an action, and Copilot and Agent 365 are covered by separate controls. You respond to alerts in Microsoft Defender XDR or Purview, specify retention with policies, labels and label policies, and use DSPM to monitor AI activity and SharePoint oversharing.",
+          "objectives": [
+            "Identify requirements for DLP policies across Exchange, SharePoint, OneDrive, Teams, endpoints, and Microsoft Copilot.",
+            "Review and respond to DLP alerts, including alerts correlated in Microsoft Defender.",
+            "Identify requirements for data lifecycle management, including retention labels, retention label policies, and retention policies.",
+            "Monitor and secure AI activity by using Data Security Posture Management (DSPM) for AI.",
+            "Recognize the broader Microsoft Purview governance surface, including reporting and alerting, insider risk management, and auditing."
+          ],
+          "keyPoints": [
+            "Every DLP requirement = **location + condition + action**. Endpoints (Windows 10/11 and recent macOS) need **device onboarding** to Purview first.",
+            "The **Copilot and Microsoft Copilot Chat** location is **Custom template only** and disables all other locations in that policy; use a separate policy for Exchange. It doesn't support administrative units; updates can take up to 4 hours.",
+            "Prompt-SIT blocking evaluates **only text typed in the prompt**, not uploaded file contents; **simulation mode logs but never blocks**. Sensitivity labels and SITs can't be combined in one rule.",
+            "A DLP alert needs **scope, detection type and workload/activity** to line up; a matching SIT alone isn't enough. Copilot policies don't cover Agent 365 interactions, which are scoped by agent instance.",
+            "Alert, incident, classification/status/tag and **remediation** are different things; setting an incident to Resolved doesn't fix the user, file or device. Defender incident history is six months; Purview DLP alerts dashboard 30 days.",
+            "**Retention policy** = container default; **retention label** = item exception; **retention label policy** = publish (manual) or auto-apply. Retain beats delete, the **longest retain** sets the floor, and a label's delete action takes precedence over policy delete actions.",
+            "**Preservation Lock** is irreversible, blocks even Global Administrators from relaxing the policy, doesn't support adaptive scopes, and label policies must contain only regulatory-record labels.",
+            "Current **DSPM**: AI observability (what exists), Activity explorer (what happened), data risk assessments (where oversharing sits). Also recognize Insider Risk Management and Purview Audit."
+          ],
+          "units": [
+            {
+              "title": "Specify DLP requirements across Microsoft 365 locations",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/2-specify-data-loss-prevention-requirements",
+              "minutes": 9,
+              "points": [
+                "Exchange: outbound mail; SharePoint/OneDrive: block guest access while internal access continues; Teams: chat and channel messages; Endpoints: device activities such as USB copy.",
+                "Copilot conditions/actions: sensitivity label, SIT in prompts, SIT in web search, external email; action Prevent Copilot from processing content (prompts action in preview).",
+                "Label action stops Copilot using the content but the item may still appear in citations; external email is excluded from grounding (only sender metadata evaluated).",
+                "Microsoft Agent 365 DLP uses separate workload-bound controls."
+              ]
+            },
+            {
+              "title": "Exercise - Create a DLP policy for Microsoft Copilot",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/3-exercise-data-loss-prevention-copilot-policy",
+              "minutes": 12,
+              "points": [
+                "Data loss prevention > Policies > Custom policy; keep Full directory and select the Copilot location, scoped to a pilot group.",
+                "Rule: content contains a SIT, action Restrict/Prevent Copilot from processing content > Processing prompts, Block.",
+                "Run in simulation mode first, then switch to On; allow up to four hours each time.",
+                "Needs E5 or E5 Compliance licensing and a role such as Purview Data Security AI Admin or Compliance Administrator."
+              ]
+            },
+            {
+              "title": "Attribute DLP alerts across AI apps and agents",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/4-attribute-data-loss-prevention-alerts-ai-agents",
+              "minutes": 9,
+              "points": [
+                "Read an alert as scope, detection type and workload/activity; policy mode and alert configuration must also align.",
+                "Agent 365: an agent instance is scoped like a user (directly or via a security group); supported interactions are agent-to-human and human-to-agent in Teams, OneDrive/SharePoint and email.",
+                "The Copilot prompt policy doesn't evaluate an Agent 365 interaction; only an Agent 365 policy can."
+              ]
+            },
+            {
+              "title": "Respond to DLP alerts in Microsoft Defender XDR",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/5-respond-data-loss-prevention-alerts-defender-xdr",
+              "minutes": 9,
+              "points": [
+                "Defender XDR unified incident queue gives cross-solution context; Purview DLP alerts dashboard and Activity explorer give DLP-specific detail.",
+                "Filter Incidents & alerts > Incidents by service source Microsoft Data Loss Prevention; tags document handling only.",
+                "In-place remediation on users, files and devices (e.g. apply retention label, remove risky share, disable account); some actions need another console.",
+                "Advanced Hunting can combine compliance and security signals."
+              ]
+            },
+            {
+              "title": "Exercise - Review a DLP alert in Microsoft Defender XDR",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/6-exercise-review-data-loss-prevention-defender-xdr",
+              "minutes": 12,
+              "points": [
+                "Read Alert story and Sensitive info types tabs: policy, rule, user, file, workload, SIT, severity.",
+                "Choose proportionate remediation; use Go hunt when more context is needed.",
+                "Keep status In progress until work is complete; classification and status are documentation only.",
+                "Defender XDR alert-tuning rule reclassifies DLP signals as behaviors from early October 2026; check Alert tuning if alerts stop appearing."
+              ]
+            },
+            {
+              "title": "Specify data lifecycle management requirements",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/7-specify-data-lifecycle-retention",
+              "minutes": 9,
+              "points": [
+                "Example: three-year site retention policy plus a seven-year retention label for regulated case records; auto-apply can use a SIT, keyword or trainable classifier.",
+                "Principles: retention wins over deletion; longest retain action is the floor; label delete action takes precedence over policy deletes; adaptive or specific-instance scopes beat organization-wide scopes before shortest delete period.",
+                "A disposition review only occurs when a label is configured to start one; physical deletion can lag (timer jobs, Recycle Bin).",
+                "Preservation Lock needs validation by records, legal and compliance owners before applying."
+              ]
+            },
+            {
+              "title": "Monitor AI activity and oversharing risk with Data Security Posture Management",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/8-monitor-ai-activity-dspm",
+              "minutes": 9,
+              "points": [
+                "AI observability inventories observed apps and agents (including Agent 365); start there for an unfamiliar agent.",
+                "Activity explorer: Copilot experiences and agents, Enterprise AI apps, Other AI apps; viewing prompts and responses needs an extra content-viewer permission.",
+                "Data risk assessments: default Microsoft 365 assessment runs weekly on the top 100 SharePoint sites by usage (first results up to four days); custom ones need at least 48 hours and don't refresh.",
+                "Third-party AI coverage depends on the integration; don't confuse current DSPM with DSPM for AI (classic)."
+              ]
+            },
+            {
+              "title": "Exercise - Review a data risk assessment in Data Security Posture Management",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/9-exercise-review-dspm-ai-data-risk-assessment",
+              "minutes": 12,
+              "points": [
+                "Open DSPM > Discover > Data risk assessments; note default vs. custom, scope, status and last run.",
+                "Compare access (users, groups, Anyone or organization-wide links) with who actually needs it.",
+                "Next actions: tighten sharing, apply a sensitivity label, or escalate to the site owner."
+              ]
+            },
+            {
+              "title": "Recognize the broader Microsoft Purview governance surface",
+              "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/10-recognize-purview-governance-surface",
+              "minutes": 9,
+              "points": [
+                "Reporting and alerting: Information Protection, DLP and custom posture reports (in preview) show trends, not proof of control effectiveness.",
+                "Insider Risk Management correlates behavior patterns, pseudonymizes users by default, and has Risky AI usage and agent (Copilot Studio, Microsoft Foundry) templates; custom policies are specialist work.",
+                "Purview Audit gives searchable, retained records of user and admin operations, including supported Copilot and AI activity; it supports, not proves, an investigation."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Location, condition, action",
+              "definition": "The three-part model every DLP requirement must name."
+            },
+            {
+              "term": "Retention policy",
+              "definition": "Container-level retention applied to a location such as all of SharePoint or a site."
+            },
+            {
+              "term": "Retention label",
+              "definition": "Item-level retention used as the exception to a container default."
+            },
+            {
+              "term": "Retention label policy",
+              "definition": "Publishes a retention label for manual use or auto-applies it based on a SIT, keyword or trainable classifier."
+            },
+            {
+              "term": "Preservation Lock",
+              "definition": "Irreversible lock preventing anyone from disabling or weakening a retention policy."
+            },
+            {
+              "term": "DSPM data risk assessment",
+              "definition": "Scan of SharePoint sites for oversharing, over-permissioned or newly exposed content."
+            },
+            {
+              "term": "Insider Risk Management",
+              "definition": "Purview solution correlating user and agent signals to surface insider risk, pseudonymized by default."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Where to look for which DSPM question",
+              "headers": [
+                "Question",
+                "Capability"
+              ],
+              "rows": [
+                [
+                  "What AI apps and agents exist and how risky are they?",
+                  "AI observability"
+                ],
+                [
+                  "What happened in this interaction?",
+                  "Activity explorer (extra permission for prompt/response content)"
+                ],
+                [
+                  "Where is SharePoint oversharing concentrated?",
+                  "Data risk assessments"
+                ],
+                [
+                  "Is a risky behavior pattern building?",
+                  "Insider Risk Management"
+                ],
+                [
+                  "Who did what, and when?",
+                  "Purview Audit"
+                ]
+              ]
+            },
+            {
+              "title": "Purview DLP alerts vs. Defender XDR incidents",
+              "headers": [
+                "Aspect",
+                "Purview DLP alerts dashboard / Activity explorer",
+                "Defender XDR incidents"
+              ],
+              "rows": [
+                [
+                  "Shows",
+                  "DLP alerts and activity records",
+                  "Alerts and supported correlation"
+                ],
+                [
+                  "Strength",
+                  "DLP-focused investigation",
+                  "Cross-solution investigation and in-place actions"
+                ],
+                [
+                  "Retention of history",
+                  "Alerts dashboard 30 days",
+                  "Incident history six months"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Copilot location chosen in a policy → **all other locations are disabled**; use a second policy for Exchange.",
+            "Container default vs. item exception → **retention policy vs. retention label**; the longest retain action wins over a shorter delete.",
+            "Marking an incident Resolved → **not remediation**.",
+            "Unfamiliar agent in the logs → **AI observability**; SharePoint oversharing → **data risk assessment**; who-did-what → **Audit**."
+          ],
+          "selfCheck": [
+            {
+              "q": "Relecloud wants to block sensitive text in Copilot prompts and keep Exchange DLP. What design?",
+              "a": "A custom Copilot-only policy plus a separate Exchange DLP policy, because the Copilot location disables all other locations in its policy."
+            },
+            {
+              "q": "A document has a five-year retain-then-delete policy and a three-year retain-then-delete label. What happens at year three?",
+              "a": "The label's delete action becomes due but permanent deletion waits until the five-year retain action ends."
+            },
+            {
+              "q": "A Copilot prompt policy in simulation mode matched a prompt. Was the prompt blocked?",
+              "a": "No. Simulation only records the match; blocking needs enforcement mode and the preview action enabled, plus time to reach Copilot."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     },
