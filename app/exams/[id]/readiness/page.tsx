@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getExam } from "@/lib/content";
 import { sessions } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
-import { Bar, ExamTabs, Stat, scoreColor } from "@/components/ui";
+import { Bar, Stat, scoreColor } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

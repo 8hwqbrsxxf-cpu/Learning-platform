@@ -31,7 +31,7 @@ for (const file of files) {
   const wMax = exam.domains.reduce((s, d) => s + d.weightMax, 0);
   if (wMin > 100 || wMax < 100) e(`domain weights ${wMin}-${wMax}% do not bracket 100%`);
 
-  if (exam.roadmap.length !== 6) e(`roadmap must have 6 phases, has ${exam.roadmap.length}`);
+  if (exam.modules.length > 0 && exam.roadmap.length !== 6) e(`roadmap must have 6 phases, has ${exam.roadmap.length}`);
   for (const p of exam.roadmap) {
     for (const m of p.moduleIds) if (!moduleIds.has(m)) e(`roadmap phase ${p.phase}: unknown module ${m}`);
     for (const l of p.labIds) if (!labIds.has(l)) e(`roadmap phase ${p.phase}: unknown lab ${l}`);

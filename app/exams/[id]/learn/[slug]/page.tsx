@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getExam, getLearningPaths } from "@/lib/content";
 import { completedModules } from "@/lib/db";
 import StudiedToggle from "@/components/StudiedToggle";
-import { Callout, ExamTabs, Markdown } from "@/components/ui";
+import { Callout, Markdown } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

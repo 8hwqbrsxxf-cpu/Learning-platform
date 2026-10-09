@@ -1,0 +1,77 @@
+{
+  "id": "ab-650",
+  "code": "AB-650",
+  "title": "Administering Microsoft 365 and AI Services",
+  "certification": "Microsoft 365 Certified: Microsoft 365 and AI Services Administrator Associate (beta)",
+  "level": "Associate",
+  "difficulty": 3,
+  "estimatedStudyHours": 23,
+  "passingScore": 700,
+  "beta": true,
+  "prerequisites": [
+    "No prerequisite certification: AB-650 is the only exam required for the Associate certification.",
+    "Experience with Microsoft 365 workloads and Microsoft Entra ID, an understanding of Defender XDR capabilities, and familiarity with Microsoft Graph PowerShell (study guide)."
+  ],
+  "audience": "Administrators who configure, manage, secure and govern Microsoft 365 tenants, workloads and AI services, including Microsoft 365 Copilot, agents and connected AI capabilities, and who enable secure, compliant and scalable productivity by governing data access and protecting information. Replaces the MS-102 course (MS-102T00 retires on 30 November 2026).",
+  "studyGuideUrl": "https://learn.microsoft.com/credentials/certifications/resources/study-guides/ab-650",
+  "lastReviewed": "2026-10-09",
+  "domains": [
+    {
+      "id": "ab650-d1",
+      "name": "Configure and manage Microsoft 365 tenants and workloads",
+      "weightMin": 20,
+      "weightMax": 25,
+      "skills": [
+        "Tenant: branding, domains, organization settings, licences (including AI licences for Copilot, Agent 365 and Copilot Studio), Microsoft 365 Backup, network connectivity insights, service health",
+        "Workloads: mailboxes and shared mailboxes, Teams, channels and members, Copilot in Teams meetings, SharePoint sites and permissions, SharePoint and OneDrive readiness for Copilot (SharePoint Advanced Management, search, site exclusions)"
+      ],
+      "learnPaths": [
+        {
+          "title": "Configure and manage Microsoft 365 tenants and workloads",
+          "url": "https://learn.microsoft.com/training/paths/configure-manage-microsoft-365-tenants-workloads/"
+        }
+      ]
+    },
+    {
+      "id": "ab650-d2",
+      "name": "Govern and secure Microsoft 365 tenants and workloads",
+      "weightMin": 40,
+      "weightMax": 45,
+      "skills": [
+        "Identities in Microsoft Entra: users, guests and external access, groups, roles and Privileged Identity Management, administrative units, contacts, bulk management with Microsoft Graph PowerShell",
+        "Authentication and access: authentication methods, Password Protection, SSPR, troubleshooting sign-ins, Conditional Access, ID Protection and MFA",
+        "Defender for Office 365: alerts, threat policies and rules, investigation and response, attack simulation and training",
+        "Microsoft Purview: DLP requirements (Exchange, SharePoint, OneDrive, Teams, endpoints, Copilot), sensitivity labels and sensitive information types, retention, DLP alerts, Data Security Posture Management for AI activity"
+      ],
+      "learnPaths": [
+        {
+          "title": "Govern and secure Microsoft 365 tenants and workloads",
+          "url": "https://learn.microsoft.com/training/paths/govern-secure-microsoft-365-tenants-workloads/"
+        }
+      ]
+    },
+    {
+      "id": "ab650-d3",
+      "name": "Manage and secure AI services in Microsoft 365",
+      "weightMin": 35,
+      "weightMax": 40,
+      "skills": [
+        "Copilot: tenant readiness, fixing data oversharing and compliance issues, web search, Microsoft 365 Copilot Search, tenant settings, user experiences, Copilot Cowork, third-party AI providers, connectors",
+        "Agents: agent identity lifecycle with Microsoft Entra Agent ID, secure agent access, owners, agent settings, the agent registry (discover, review, publish, block, upload custom agents), tools in Agent 365",
+        "Securing and governing agents with Agent 365: activity monitoring, sensitive data protection, compliance gaps",
+        "Monitoring AI services: costs, Copilot usage and adoption reports, Copilot Control System, service health"
+      ],
+      "learnPaths": [
+        {
+          "title": "Manage and secure Microsoft 365 AI services",
+          "url": "https://learn.microsoft.com/training/paths/manage-secure-microsoft-365-ai-services/"
+        }
+      ]
+    }
+  ],
+  "roadmap": [],
+  "modules": [],
+  "questions": [],
+  "flashcards": [],
+  "labs": []
+}

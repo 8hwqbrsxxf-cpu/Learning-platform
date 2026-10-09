@@ -4019,7 +4019,7 @@
   ],
   "retirement": {
     "date": "2026-11-30",
-    "successor": "AB-650: Administering Microsoft 365 and AI Services",
+    "successor": "AB-650: Administering Microsoft 365 and AI Services (replaces the MS-102 course; Associate-level certification, currently in beta)",
     "url": "https://learn.microsoft.com/en-us/credentials/support/retired-certification-exams"
   }
 }

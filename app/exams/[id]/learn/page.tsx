@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getExam, getLearningPaths } from "@/lib/content";
 import { completedModules } from "@/lib/db";
-import { Bar, ExamTabs, RetirementBanner } from "@/components/ui";
+import { Bar, RetirementBanner } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

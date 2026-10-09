@@ -1,0 +1,187 @@
+{
+  "examId": "ab-650",
+  "course": "AB-650T00",
+  "retrieved": "2026-10-09",
+  "paths": [
+    {
+      "uid": "learn.wwl.configure-manage-m365-tenants-workloads",
+      "title": "Configure and manage Microsoft 365 tenants and workloads",
+      "url": "https://learn.microsoft.com/training/paths/configure-manage-microsoft-365-tenants-workloads/",
+      "summary": "Configure and manage an existing Microsoft 365 tenant, from domains and licensing to resilience, workload settings, and content access for Microsoft Copilot.",
+      "durationMinutes": 407,
+      "modules": [
+        {
+          "uid": "learn.wwl.provision-brand-microsoft-365-tenant",
+          "slug": "provision-brand-microsoft-365-tenant",
+          "title": "Provision and brand a Microsoft 365 tenant",
+          "url": "https://learn.microsoft.com/training/modules/provision-brand-microsoft-365-tenant/",
+          "durationMinutes": 89,
+          "updated": "2026-09-21",
+          "learnSummary": "Prepare a Microsoft 365 tenant for a new division by understanding its foundations, delegating administration, verifying a custom domain, configuring branding, and choosing organization settings."
+        },
+        {
+          "uid": "learn.wwl.license-microsoft-365-ai-services",
+          "slug": "license-microsoft-365-ai-services",
+          "title": "License Microsoft 365 and AI services at scale",
+          "url": "https://learn.microsoft.com/training/modules/license-microsoft-365-ai-services/",
+          "durationMinutes": 62,
+          "updated": "2026-10-02",
+          "learnSummary": "Assign Microsoft 365 licenses at scale, troubleshoot assignment issues, and distinguish product access, maker permissions, and pay-as-you-go funding for AI services."
+        },
+        {
+          "uid": "learn.wwl.maintain-microsoft-365-tenant-health",
+          "slug": "maintain-microsoft-365-tenant-health",
+          "title": "Keep a Microsoft 365 tenant resilient and healthy",
+          "url": "https://learn.microsoft.com/training/modules/maintain-microsoft-365-tenant-health/",
+          "durationMinutes": 85,
+          "updated": "2026-09-18",
+          "learnSummary": "Configure Microsoft 365 Backup, monitor service health and network connectivity—including Microsoft Copilot's WebSocket requirements—and use usage reports and Adoption Score to keep a Microsoft 365 tenant resilient, current, and continuously improving."
+        },
+        {
+          "uid": "learn.wwl.configure-exchange-teams",
+          "slug": "configure-exchange-teams",
+          "title": "Configure Exchange Online and Microsoft Teams workloads",
+          "url": "https://learn.microsoft.com/training/modules/configure-exchange-teams/",
+          "durationMinutes": 75,
+          "updated": "2026-09-21",
+          "learnSummary": "Create and manage user and shared mailboxes with the right conversion, permissions, sizing, and licensing decisions; understand conceptual Exchange Online mail routing; configure Teams channels; and verify transcript-grounded Microsoft Copilot meeting behavior."
+        },
+        {
+          "uid": "learn.wwl.govern-sharepoint-onedrive-copilot",
+          "slug": "govern-sharepoint-onedrive-copilot",
+          "title": "Govern SharePoint and OneDrive for Microsoft Copilot",
+          "url": "https://learn.microsoft.com/training/modules/govern-sharepoint-onedrive-copilot/",
+          "durationMinutes": 96,
+          "updated": "2026-09-21",
+          "learnSummary": "Configure SharePoint sites, permissions, and sharing settings, apply Restricted Content Discovery and Restricted Access Control, and explain how legacy Restricted SharePoint Search affects organization-wide discovery."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.govern-secure-microsoft-365-tenants-workloads",
+      "title": "Govern and secure Microsoft 365 tenants and workloads",
+      "url": "https://learn.microsoft.com/training/paths/govern-secure-microsoft-365-tenants-workloads/",
+      "summary": "Govern and secure a Microsoft 365 tenant: manage identities, configure authentication and access, protect collaboration from threats, and specify information-protection and data-loss-prevention requirements for Microsoft Copilot and AI agents.",
+      "durationMinutes": 434,
+      "modules": [
+        {
+          "uid": "learn.wwl.provision-govern-identities-entra",
+          "slug": "provision-govern-identities-entra",
+          "title": "Provision and govern identities in Microsoft Entra",
+          "url": "https://learn.microsoft.com/training/modules/provision-govern-identities-entra/",
+          "durationMinutes": 100,
+          "updated": "2026-09-18",
+          "learnSummary": "Provision and govern users, guests, groups, and privileged roles in Microsoft Entra using least-privilege administrative units, Privileged Identity Management, and Microsoft Graph PowerShell."
+        },
+        {
+          "uid": "learn.wwl.implement-authentication-access-entra",
+          "slug": "implement-authentication-access-entra",
+          "title": "Implement authentication and access in Microsoft Entra",
+          "url": "https://learn.microsoft.com/training/modules/implement-authentication-access-entra/",
+          "durationMinutes": 89,
+          "updated": "2026-09-21",
+          "learnSummary": "Configure authentication methods, Password Protection, self-service password reset, and Conditional Access policies that respond to sign-in risk, user risk, and device compliance, and investigate authentication issues using the Sign-in logs, Sign-in diagnostic, and What If tool."
+        },
+        {
+          "uid": "learn.wwl.secure-email-collaboration-defender-office365",
+          "slug": "secure-email-collaboration-defender-office365",
+          "title": "Secure email and collaboration with Microsoft Defender for Office 365",
+          "url": "https://learn.microsoft.com/training/modules/secure-email-collaboration-defender-office365/",
+          "durationMinutes": 64,
+          "updated": "2026-09-21",
+          "learnSummary": "Defend email and collaboration workloads using Microsoft Defender for Office 365—configure threat protection policies, manage alerts, investigate and respond to threats, and run attack simulation training—and understand how it fits the broader Microsoft Defender security estate."
+        },
+        {
+          "uid": "learn.wwl.protect-information-purview",
+          "slug": "protect-information-purview",
+          "title": "Protect information with Microsoft Purview information protection",
+          "url": "https://learn.microsoft.com/training/modules/protect-information-purview/",
+          "durationMinutes": 80,
+          "updated": "2026-09-18",
+          "learnSummary": "Specify information-protection requirements for sensitive content, choose the right classification technique for a given data shape, and verify Microsoft Copilot grounding against known label, encryption, and Teams-chat limitations."
+        },
+        {
+          "uid": "learn.wwl.prevent-data-loss-lifecycle-purview",
+          "slug": "prevent-data-loss-lifecycle-purview",
+          "title": "Prevent data loss and govern the data lifecycle with Microsoft Purview",
+          "url": "https://learn.microsoft.com/training/modules/prevent-data-loss-lifecycle-purview/",
+          "durationMinutes": 101,
+          "updated": "2026-09-21",
+          "learnSummary": "Specify data loss prevention requirements across Microsoft 365 workloads and Microsoft Copilot, respond to DLP alerts, specify data lifecycle management requirements, and monitor AI activity using Data Security Posture Management (DSPM) for AI."
+        }
+      ]
+    },
+    {
+      "uid": "learn.wwl.manage-secure-microsoft-365-ai-services",
+      "title": "Manage and secure Microsoft 365 AI services",
+      "url": "https://learn.microsoft.com/training/paths/manage-secure-microsoft-365-ai-services/",
+      "summary": "Roll out, secure, and monitor Microsoft Copilot and agents across a growing tenant—enable Copilot safely, establish and govern agent identities, curate the agent catalog, monitor and govern agents in production, and keep AI services cost-effective and healthy.",
+      "durationMinutes": 518,
+      "modules": [
+        {
+          "uid": "learn.wwl.enable-manage-microsoft-365-copilot",
+          "slug": "enable-manage-microsoft-365-copilot",
+          "title": "Assess readiness and roll out Microsoft Copilot",
+          "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/",
+          "durationMinutes": 74,
+          "updated": "2026-09-18",
+          "learnSummary": "Assess tenant and data readiness for Microsoft Copilot—including the Copilot Readiness Report and update channels—identify and address oversharing and compliance risks, and plan a phased rollout across your organization."
+        },
+        {
+          "uid": "learn.wwl.configure-copilot-settings-extensibility",
+          "slug": "configure-copilot-settings-extensibility",
+          "title": "Configure Microsoft Copilot settings and extensibility",
+          "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/",
+          "durationMinutes": 82,
+          "updated": "2026-10-02",
+          "learnSummary": "Configure the Microsoft Copilot tenant-settings catalog, manage web search and Cowork administration, set up Copilot Search, and extend Copilot with Copilot Connectors and third-party AI providers."
+        },
+        {
+          "uid": "learn.wwl.establish-agent-identities-entra-agent-id",
+          "slug": "establish-agent-identities-entra-agent-id",
+          "title": "Establish agent identities and secure access with Microsoft Entra Agent ID",
+          "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/",
+          "durationMinutes": 65,
+          "updated": "2026-09-21",
+          "learnSummary": "Establish governed identities for AI agents using Microsoft Entra Agent ID—assign sponsors and Microsoft Entra owners, automate sponsor-transfer lifecycle transitions, and apply Conditional Access to secure agent access."
+        },
+        {
+          "uid": "learn.wwl.curate-control-agents-registry-tools",
+          "slug": "curate-control-agents-registry-tools",
+          "title": "Curate and control agents with the Agent Registry and Agent 365 tools",
+          "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/",
+          "durationMinutes": 58,
+          "updated": "2026-09-21",
+          "learnSummary": "Govern what agents can invoke using Agent 365 tools, including MCP servers, and curate the ongoing agent estate using Registry actions beyond initial onboarding."
+        },
+        {
+          "uid": "learn-bizapps.agent-365-monitor-manage",
+          "slug": "agent-365-monitor-manage",
+          "title": "Monitor and manage agents with Microsoft Agent 365",
+          "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/",
+          "durationMinutes": 71,
+          "updated": "2026-08-12",
+          "learnSummary": "Learn how to monitor using real-time visibility into all agents to detect sprawl, understand usage."
+        },
+        {
+          "uid": "learn-bizapps.agent-365-govern",
+          "slug": "agent-365-govern",
+          "title": "Govern agents using Agent 365",
+          "url": "https://learn.microsoft.com/training/modules/agent-365-govern/",
+          "durationMinutes": 86,
+          "updated": "2026-08-20",
+          "learnSummary": "Learn how to set up policies and permissions to govern and secure agents."
+        },
+        {
+          "uid": "learn.wwl.monitor-optimize-m365-ai-services",
+          "slug": "monitor-optimize-m365-ai-services",
+          "title": "Monitor and optimize Microsoft 365 AI services",
+          "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/",
+          "durationMinutes": 82,
+          "updated": "2026-09-22",
+          "learnSummary": "Learn why Microsoft 365 offers several Microsoft Copilot and agent report sources, choose the right one for a given question, reconcile Microsoft 365 and Microsoft Foundry costs without double-counting, and use Microsoft 365 Service Health and Copilot controls to diagnose AI-service issues honestly."
+        }
+      ]
+    }
+  ]
+}

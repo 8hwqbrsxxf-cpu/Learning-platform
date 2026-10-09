@@ -4,7 +4,8 @@ import { getExam } from "@/lib/content";
 import { cardStates } from "@/lib/db";
 import { bucket, isDue } from "@/lib/srs";
 import FlashcardReview from "@/components/FlashcardReview";
-import { ExamTabs, Stat } from "@/components/ui";
+import { Stat } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

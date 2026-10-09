@@ -5,7 +5,7 @@ import type { Question } from "@/lib/content-types";
 import { latestAttempts, sessions } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
 import Quiz, { type QuizQuestion } from "@/components/Quiz";
-import { ExamTabs } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 
@@ -47,7 +47,7 @@ export default async function Practice({ params, searchParams }: { params: Promi
     selection = shuffle(exam.questions).slice(0, n);
     title = `Full practice exam (${n} questions)`;
     examMode = true;
-    timeLimit = Math.round((exam.durationMinutes * n) / 50);
+    timeLimit = exam.durationMinutes ? Math.round((exam.durationMinutes * n) / 50) : undefined;
     mode = "full";
   } else if (sp.mode === "diagnostic") {
     // A few questions per domain to seed the readiness model.

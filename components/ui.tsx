@@ -1,4 +1,3 @@
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -50,25 +49,17 @@ export function Callout({ kind, title, items }: { kind: "tip" | "warn" | "lab" |
   );
 }
 
-const TABS = [
-  ["/learn", "Learning paths"],
-  ["", "Overview"],
-  ["/plan", "Study plan"],
-  ["/practice", "Practice exam"],
-  ["/flashcards", "Flashcards"],
-  ["/labs", "Labs"],
-  ["/readiness", "Readiness"],
-] as const;
-
-export function ExamTabs({ examId, active }: { examId: string; active: (typeof TABS)[number][0] }) {
+export function BetaBanner({ code, beta }: { code: string; beta?: boolean }) {
+  if (!beta) return null;
   return (
-    <nav className="tabs">
-      {TABS.map(([path, label]) => (
-        <Link key={path} href={`/exams/${examId}${path}`} className={path === active ? "active" : ""}>
-          {label}
-        </Link>
-      ))}
-    </nav>
+    <div className="callout warn small">
+      <strong>{code} is currently a beta exam.</strong> Microsoft scores beta exams later, the practice assessment is not available yet, and the
+      skills measured or the Learn content can still change. Check the{" "}
+      <a href="https://learn.microsoft.com/credentials/support/about-beta-exams" target="_blank" rel="noreferrer">
+        beta exam rules
+      </a>{" "}
+      before you book.
+    </div>
   );
 }
 

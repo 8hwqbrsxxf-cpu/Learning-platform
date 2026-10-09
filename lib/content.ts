@@ -52,7 +52,7 @@ const CATALOG: Omit<CatalogEntry, "available">[] = [
   { code: "MD-102", title: "Endpoint Administrator", level: "Associate", track: "Microsoft 365" },
   { code: "MS-102", title: "Microsoft 365 Administrator", level: "Expert", track: "Microsoft 365" },
   { code: "AB-900", title: "Microsoft 365 Copilot and Agent Administration Fundamentals", level: "Fundamentals", track: "Microsoft 365" },
-  { code: "AB-650", title: "Administering Microsoft 365 and AI Services (MS-102 successor)", level: "Associate", track: "Microsoft 365" },
+  { code: "AB-650", title: "Administering Microsoft 365 and AI Services (beta, replaces the MS-102 course)", level: "Associate", track: "Microsoft 365" },
   { code: "AZ-104", title: "Azure Administrator", level: "Associate", track: "Azure" },
   { code: "AZ-500", title: "Azure Security Engineer", level: "Associate", track: "Security" },
   { code: "SC-300", title: "Identity and Access Administrator", level: "Associate", track: "Security" },

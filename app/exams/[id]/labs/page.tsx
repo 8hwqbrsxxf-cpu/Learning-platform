@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getExam } from "@/lib/content";
 import { labProgress } from "@/lib/db";
-import { Bar, ExamTabs, LevelBadge, Stat } from "@/components/ui";
+import { Bar, LevelBadge, Stat } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

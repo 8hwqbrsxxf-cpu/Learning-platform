@@ -107,7 +107,8 @@ export interface Exam {
   difficulty: 1 | 2 | 3 | 4 | 5;
   estimatedStudyHours: number;
   passingScore: number; // 700 of 1000
-  durationMinutes: number;
+  durationMinutes?: number; // only when Microsoft publishes it
+  beta?: boolean; // exam is still in beta on Microsoft Learn
   prerequisites: string[];
   audience: string;
   studyGuideUrl: string;

@@ -4,7 +4,7 @@ const PATHS = [
   {
     role: "Helpdesk / Service desk → Modern Workplace engineer",
     steps: ["MS-900", "MD-102", "AB-650", "SC-300"],
-    why: "Start from the user and device, then grow into tenant-wide administration and identity. This is the most common path inside an MSP. AB-650 succeeds MS-102, which retires on 30 November 2026.",
+    why: "Start from the user and device, then grow into tenant-wide administration and identity. This is the most common path inside an MSP. AB-650 replaces the MS-102 course (MS-102 retires on 30 November 2026) and earns its own Associate certification.",
     jobs: "Modern Workplace Engineer, Intune Engineer, M365 Administrator",
   },
   {

@@ -5,7 +5,8 @@ import { getProfile } from "@/lib/db";
 import { generatePlan } from "@/lib/planner";
 import { computeReadiness } from "@/lib/readiness";
 import StudyProfileForm from "@/components/StudyProfileForm";
-import { ExamTabs, RetirementBanner } from "@/components/ui";
+import { RetirementBanner } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

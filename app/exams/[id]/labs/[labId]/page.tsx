@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import { getExam } from "@/lib/content";
 import { labProgress } from "@/lib/db";
 import LabTracker from "@/components/LabTracker";
-import { Callout, ExamTabs, LevelBadge, Markdown } from "@/components/ui";
+import { Callout, LevelBadge, Markdown } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { domainWeight, getExam } from "@/lib/content";
+import { domainWeight, getExam, getLearningPaths } from "@/lib/content";
 import { completedModules, labProgress } from "@/lib/db";
 import { computeReadiness } from "@/lib/readiness";
-import { Bar, ExamTabs, LevelBadge, RetirementBanner, Stat } from "@/components/ui";
+import { Bar, BetaBanner, LevelBadge, RetirementBanner, Stat } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,8 @@ export default async function ExamOverview({ params }: { params: Promise<{ id: s
   const exam = getExam(id);
   if (!exam) notFound();
   const r = computeReadiness(exam);
+  const hasPractice = exam.questions.length > 0;
+  const lp = getLearningPaths(exam.id);
   const done = completedModules(exam.id);
   const labs = labProgress(exam.id);
 
@@ -23,12 +26,20 @@ export default async function ExamOverview({ params }: { params: Promise<{ id: s
       <p className="muted">{exam.certification}</p>
       <ExamTabs examId={exam.id} active="" />
       <RetirementBanner code={exam.code} retirement={exam.retirement} />
+      <BetaBanner code={exam.code} beta={exam.beta} />
 
       <div className="grid grid-4">
-        <Stat value={`${r.overall}%`} label="Exam readiness" />
+        {hasPractice ? (
+          <Stat value={`${r.overall}%`} label="Exam readiness" />
+        ) : (
+          <Stat
+            value={`${lp ? lp.paths.flatMap((p) => p.modules).filter((m) => done.has(m.uid)).length : 0}/${lp ? lp.paths.flatMap((p) => p.modules).length : 0}`}
+            label="Learn modules studied"
+          />
+        )}
         <Stat value={"★".repeat(exam.difficulty) + "☆".repeat(5 - exam.difficulty)} label="Difficulty" />
-        <Stat value={`~${exam.estimatedStudyHours} h`} label="Estimated study time" />
-        <Stat value={`${exam.passingScore}/1000`} label={`Passing score · ${exam.durationMinutes} min`} />
+        <Stat value={`~${exam.estimatedStudyHours} h`} label={exam.modules.length ? "Estimated study time" : "Microsoft Learn learning-path time"} />
+        <Stat value={`${exam.passingScore}/1000`} label={exam.durationMinutes ? `Passing score · ${exam.durationMinutes} min` : "Passing score"} />
       </div>
 
       <div className="grid grid-2" style={{ marginTop: 16 }}>
@@ -55,14 +66,22 @@ export default async function ExamOverview({ params }: { params: Promise<{ id: s
                 <span>
                   {d.name} <span className="muted small">({d.weightMin}–{d.weightMax}%)</span>
                 </span>
-                <Bar value={dr.score} />
-                <strong>{dr.score}%</strong>
+                {hasPractice ? (
+                  <Bar value={dr.score} />
+                ) : (
+                  <div className="bar">
+                    <div style={{ width: `${Math.min(100, domainWeight(d) * 2)}%`, background: "var(--accent)" }} />
+                  </div>
+                )}
+                <strong>{hasPractice ? `${dr.score}%` : `${d.weightMin}–${d.weightMax}%`}</strong>
               </div>
             );
           })}
         </div>
       </div>
 
+      {exam.roadmap.length > 0 && (
+        <>
       <h2>Learning roadmap</h2>
       <div className="grid">
         {[...exam.roadmap]
@@ -130,8 +149,10 @@ export default async function ExamOverview({ params }: { params: Promise<{ id: s
             </div>
           ))}
       </div>
+        </>
+      )}
 
-      <h2>Microsoft Learn</h2>
+      <h2>{exam.modules.length ? "Microsoft Learn" : "Skills measured and Microsoft Learn"}</h2>
       <div className="grid grid-2">
         {exam.domains.map((d) => (
           <div key={d.id} className="card">

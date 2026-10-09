@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getExam } from "@/lib/content";
 import { completedModules } from "@/lib/db";
-import { Callout, ExamTabs, LevelBadge, Markdown } from "@/components/ui";
+import { Callout, LevelBadge, Markdown } from "@/components/ui";
+import ExamTabs from "@/components/ExamTabs";
 import ModuleCompleteToggle from "@/components/ModuleCompleteToggle";
 
 export const dynamic = "force-dynamic";
