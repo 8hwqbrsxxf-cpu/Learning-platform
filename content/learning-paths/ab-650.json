@@ -161,7 +161,193 @@
           "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/",
           "durationMinutes": 71,
           "updated": "2026-08-12",
-          "learnSummary": "Learn how to monitor using real-time visibility into all agents to detect sprawl, understand usage."
+          "learnSummary": "Learn how to monitor using real-time visibility into all agents to detect sprawl, understand usage.",
+          "tldr": "Microsoft Agent 365 gives admins one place in the Microsoft 365 admin center to see every agent in the tenant: the Overview page for trends and top actions, the Registry for the inventory, and the Agent Map for a visual view by platform. Every agent gets a Microsoft Entra Agent ID identity, and you use these views to spot risk, missing owners and exceptions, then act.",
+          "objectives": [
+            "Explore the agents in your organization",
+            "Monitor usage, performance and agent effectiveness",
+            "Monitor agents using the registry and agent map",
+            "View the security risks associated with the agents"
+          ],
+          "keyPoints": [
+            "**Microsoft Entra Agent ID** gives each agent a unique, persistent identity, distinct from human users and generic app registrations, so agents can be authenticated, authorized, governed and monitored.",
+            "Agents built on **Copilot Studio, Agent 365 Builder, Azure AI Foundry or SharePoint** are registered automatically; agents from **Amazon Bedrock or Google Vertex AI** can be registered in the Agent Registry.",
+            "The **Overview** page (Agents > Overview) is the control plane: totals, active users, agent run time, connected platforms, **Top actions for you** and agent analytics.",
+            "**Active users** = unique users who interacted with at least one agent in the last 30 days; **agent run time** = total agent-assisted hours in the last 30 days.",
+            "The **Registry** (Agents > All agents) is the inventory with per-agent tabs; the **Map** clusters agents by platform, status, publisher type, channel or data source and defaults to platform view.",
+            "On the registry, watch **agents at risk, agents without owners, unmanaged agents** and connected platforms; exceptions are fixed by assigning an owner, blocking, or deleting the agent.",
+            "**Connected platforms** import external agents into the registry for visibility, but the agents stay managed in the external platform; scheduled sync runs every 24 hours (or use Sync now).",
+            "Needed: an **Agent 365 license** and the **AI Administrator** role in the Microsoft 365 admin center."
+          ],
+          "units": [
+            {
+              "title": "Introduction to Microsoft Entra Agent ID",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/introduction-agent-identity",
+              "minutes": 5,
+              "points": [
+                "Microsoft Entra Agent ID extends Entra identity, access protection, governance and compliance to AI agents (non-human identities).",
+                "When you create an agent, the Agent 365 Registry registers it and assigns a unique agent identity.",
+                "Microsoft-built platforms (Copilot Studio, Agent 365 Builder, Azure AI Foundry, SharePoint) integrate automatically; non-Microsoft platforms such as Amazon Bedrock or Google Vertex AI can register agents to get an identity."
+              ]
+            },
+            {
+              "title": "Monitor and manage agents",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/monitor-agent",
+              "minutes": 10,
+              "points": [
+                "Three capabilities: Agent 365 Overview, Agent Registry and Agent Map.",
+                "Overview covers Microsoft-created agents and agents detected on connected non-Microsoft platforms; Top actions let you approve requests, block risky agents, assign owners and address exceptions.",
+                "Agent analytics: agents by creators, top platforms used to build agents, active users over time and trending agents (last 30 days).",
+                "Registry counts Microsoft-built, partner-built and custom agents; the Map shows them as clusters by creation platform.",
+                "Drill into an agent to see identity, permissions, data access, activity history and applied controls."
+              ]
+            },
+            {
+              "title": "Scenario",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/observe-agents-scenarios",
+              "minutes": 5,
+              "points": [
+                "Fictitious company Zava wants IT to view all agents, monitor and govern them, track adoption and remediate governance gaps.",
+                "Personas: Reed Smith (AI Administrator) and Oscar Ward (Global Administrator), who grants Reed the AI Administrator role."
+              ]
+            },
+            {
+              "title": "Exercise – Monitor agents from the overview page",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-view-agent-overview",
+              "minutes": 7,
+              "points": [
+                "Path: Microsoft 365 admin center > Agents > Overview.",
+                "Summary tiles: total agents, unique active users (30 days), agent run time (sum of each session's end minus start) and connected platforms.",
+                "Top actions: pending requests to approve and activate, agents with security risks, agents pending owner assignment, agents with exceptions or errors.",
+                "Prerequisites: Agent 365 license, AI Administrator role, and Microsoft or partner agents deployed in the tenant."
+              ]
+            },
+            {
+              "title": "Exercise - Monitor agents inventory in registry",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-explore-agents-inventory",
+              "minutes": 8,
+              "points": [
+                "Agents > All agents opens the Registry tab with total agents, agents at risk, agents without owners, unmanaged agents (created outside Agent 365) and connected platforms.",
+                "Filters include creators, availability, channel, platform and acquired; per agent you see active users, sessions, exception rate, assisted hours and last updated.",
+                "Per-agent tabs: Details, Users, Data & tools (knowledge sources and MCP servers), Security (Purview, Entra ID Protection, Defender policies), Permissions, Activity, Computer Use and Connected agents.",
+                "Knowledge sources are the most critical metadata because they determine how data is protected."
+              ]
+            },
+            {
+              "title": "Exercise - Monitor agents using the agent map",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-explore-agents-map",
+              "minutes": 8,
+              "points": [
+                "Agents > All agents > Map tab: clusters by status, publisher type, platform, channel and data source (default: platform).",
+                "Risk indicators: orange highlights and red or gray connection lines (red = exception between connected agents, gray = connected to other agents).",
+                "Investigate large clusters of agents from unknown publishers; use Activity tab spikes in exceptions as a risk signal, then Security tab, then block.",
+                "Retire or quarantine policy violators and approve agents by applying baseline policies."
+              ]
+            },
+            {
+              "title": "Exercise - View agents with exceptions and take action",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-view-exceptions-delete",
+              "minutes": 5,
+              "points": [
+                "Exceptions can be missing information, security risks or agents that are not required.",
+                "Resolve by assigning an owner and platform, blocking an agent with a security risk, or deleting an agent that is not needed.",
+                "Start at Agents > Overview > Top actions for you > Agents with exceptions > View details."
+              ]
+            },
+            {
+              "title": "Exercise - Measure agent effectiveness",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-measure-effectiveness",
+              "minutes": 5,
+              "points": [
+                "Use the Agent analytics section on the Overview page to review adoption and performance metrics.",
+                "Identify who creates most agents, which build platform is most used, active-user trends and the most actively used agents."
+              ]
+            },
+            {
+              "title": "Exercise – Monitor connected platforms",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-monitor-manage/exercise-view-connected-platforms",
+              "minutes": 5,
+              "points": [
+                "Connected platforms securely connect external AI agent environments (Amazon Bedrock, Google Vertex AI) and sync agents into the registry.",
+                "Imported agents appear in the admin center but are managed in the external platform.",
+                "Add via + Connect a platform: name, platform, region, auto-import choice, credentials, then Verify authentication and Save changes.",
+                "Sync now forces a sync; otherwise it runs on the 24-hour schedule."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Microsoft Entra Agent ID",
+              "definition": "Identity and security framework that gives AI agents a unique enterprise identity with authentication, permissions, roles and governance."
+            },
+            {
+              "term": "Agent Registry",
+              "definition": "Central inventory of all agents in the tenant (Microsoft, partner and custom) with per-agent details, risks and owners."
+            },
+            {
+              "term": "Agent Map",
+              "definition": "Interactive visual view of registry agents clustered by platform, status, publisher type, channel or data source."
+            },
+            {
+              "term": "Unmanaged agents",
+              "definition": "Agents created or managed outside Agent 365, without its risk protection and observability."
+            },
+            {
+              "term": "Connected platforms",
+              "definition": "Connections to external agent environments (Amazon Bedrock, Google Vertex AI) that sync agents into the registry."
+            },
+            {
+              "term": "Agent run time",
+              "definition": "Total hours worked by agents in the last 30 days, summed from session durations."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which Agent 365 view?",
+              "headers": [
+                "View",
+                "Shows",
+                "Use it to"
+              ],
+              "rows": [
+                [
+                  "Overview",
+                  "Totals, active users, run time, Top actions, agent analytics",
+                  "Spot trends and decide where to act first"
+                ],
+                [
+                  "Registry (All agents)",
+                  "Inventory table, filters, per-agent tabs",
+                  "Check owners, risks, metadata and activity per agent"
+                ],
+                [
+                  "Map",
+                  "Clusters by platform, status, publisher, channel, data source",
+                  "See distribution and connections, find risky clusters"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Agents built in Copilot Studio, Agent 365 Builder, Foundry or SharePoint → **auto-registered**; Bedrock or Vertex AI → **connect the platform or register** them.",
+            "Imported external agents are **visible in Agent 365 but managed in the external platform**.",
+            "Active users and run time are **30-day** figures; the platform sync runs **every 24 hours**."
+          ],
+          "selfCheck": [
+            {
+              "q": "You want to see which build platform is used most and which agents gained the most users over the past 30 days. Where do you look?",
+              "a": "Agents > Overview, in the Agent analytics section (top platforms and trending agents by active users)."
+            },
+            {
+              "q": "An agent shows a spike in exceptions and a red line to a connected agent on the Map. What next?",
+              "a": "Open its Activity and Security tabs to investigate, then block it (or assign an owner or delete it if the exception is missing info or the agent is not required)."
+            },
+            {
+              "q": "Your company builds agents in Google Vertex AI. How do they show up in Agent 365?",
+              "a": "Add Google Vertex AI under Connected platforms (or register the agents) so they sync into the registry; they remain managed in Vertex AI."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn-bizapps.agent-365-govern",
@@ -170,7 +356,228 @@
           "url": "https://learn.microsoft.com/training/modules/agent-365-govern/",
           "durationMinutes": 86,
           "updated": "2026-08-20",
-          "learnSummary": "Learn how to set up policies and permissions to govern and secure agents."
+          "learnSummary": "Learn how to set up policies and permissions to govern and secure agents.",
+          "tldr": "Agent 365 governance covers the whole agent lifecycle: tenant settings that control who can use and share which agent types, policy templates and access packages for security and permissions, approval of publish and activation requests, owner assignment, blocking, rules and tool control. Purview audit logs provide traceability.",
+          "objectives": [
+            "Understand governance policies",
+            "Set up policies, tenant settings, and permissions for the agents",
+            "Perform agent lifecycle management tasks such as activate agents in a governed manner, assign owners, block agents, and use rules to govern agent usage"
+          ],
+          "keyPoints": [
+            "**Agent settings** (Agents > Settings) control allowed agent types (Microsoft, your organization, external publishers), **user access** and **sharing** for all users, no users, or specific users and groups.",
+            "**Policy templates** apply Entra, Purview, Defender and SharePoint controls in one step; default templates exist, and **custom templates** can add Conditional Access, access packages and custom security attributes.",
+            "**Access packages** in Microsoft Entra govern which resources an agent identity can access, with approvals, time-bound access, reviews and least privilege.",
+            "Requests move through **Pending review** (publish), **Pending activation** and **Pending update**; admins **publish to store** to scope the audience and **activate** to let users create instances.",
+            "**Blocking** an agent turns off all its instances until you unblock it; **assigning owners** prevents sprawl, and the creator is the default owner.",
+            "**Agent management rules** act in bulk: install Microsoft agents, reassign ownerless Agent Builder agents to the manager, block confirmed-compromised agents.",
+            "**Tools** (MCP servers and plugins) are controlled in Agents > Tools through Registry and Requests; admins can approve, block or unblock them.",
+            "**Microsoft Purview audit** shows who created, changed, published, approved or deleted an agent and what it accessed."
+          ],
+          "units": [
+            {
+              "title": "Govern agents scenarios",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/govern-agents-scenarios",
+              "minutes": 5,
+              "points": [
+                "Zava IT must manage the agent lifecycle, set governance policies up front and use auditing for traceability.",
+                "Personas: Oscar Ward (Global Administrator), Reed Smith (AI Administrator) and Hannah Travis (agent maker); the maker role depends on where the agent is built (for example Foundry maker, Copilot Studio maker)."
+              ]
+            },
+            {
+              "title": "Exercise – Set up agent settings and access",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-agent-settings",
+              "minutes": 5,
+              "points": [
+                "Agents > Settings > Allowed agent types: allow agents built by Microsoft, by your organization, and/or by external publishers.",
+                "User access: all users, no users or specific users and groups, enabling a staged rollout by security group; restricted users cannot see or use any agents in the store.",
+                "Sharing: controls who can share agents; restricted users can still share with individuals. Only Agent Builder agents can be shared.",
+                "Settings apply automatically when an agent is activated or published."
+              ]
+            },
+            {
+              "title": "Security and governance policies",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/security-governance-policies",
+              "minutes": 5,
+              "points": [
+                "Templates bundle predefined policies from Microsoft Entra, Purview, Defender and SharePoint to standardize governance and cut manual configuration.",
+                "Custom templates can include Conditional Access, access packages and custom security attributes.",
+                "Conditional Access for agents has assignments, target resources, conditions (such as sign-in risk), grant or block controls and a state of On, Off or Report only."
+              ]
+            },
+            {
+              "title": "Exercise – Set up policy template",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-set-up-policy-template",
+              "minutes": 5,
+              "points": [
+                "Path: Agents > Settings > Policy template > Add a new policy template.",
+                "Policies must already exist in Microsoft Entra to be selectable; custom security attributes need the Attribute Assignment Administrator role.",
+                "The AI Administrator can create and apply access packages but lacks privileges for Conditional Access and custom security attributes.",
+                "Templates are chosen from a dropdown (custom plus default) when an agent is activated or published."
+              ]
+            },
+            {
+              "title": "Exercise – Set up permissions using access packages",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-set-up-permissions",
+              "minutes": 5,
+              "points": [
+                "Templates apply security and compliance policies; access packages manage the agent's access to SharePoint sites, Teams, apps and APIs.",
+                "Access packages support time-bound access, approvals and periodic access reviews.",
+                "Configure in the Microsoft Entra admin center: Agents > Agent identities > the agent > Policies & ID Governance > Access packages."
+              ]
+            },
+            {
+              "title": "Exercise – Onboard an agent",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-set-up-policies",
+              "minutes": 5,
+              "points": [
+                "Agent templates are preconfigured definitions of capabilities, identity and compliance settings; users discover approved templates and onboard agents.",
+                "A user requests the agent (for example in Teams > Apps > Agents for your team), admin approval is required, then the user creates and configures it.",
+                "Prerequisite: a Microsoft Agent 365 Frontier subscription (25 users) enabled by the tenant admin for autonomous agents."
+              ]
+            },
+            {
+              "title": "Exercise – Deploy and activate agents",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-deploy-agents",
+              "minutes": 8,
+              "points": [
+                "Requests tab states: Pending review (publish), Pending activation (users can create instances) and Pending update.",
+                "Before approving, review the Details, Data & Tools, Security and Permissions tabs (least privilege).",
+                "Publish to store: scope to specific users or groups or the whole tenant, choose optional pre-install users, apply a template and review permissions.",
+                "Activate: approve the user request (Approve request and activate) and choose who can create instances."
+              ]
+            },
+            {
+              "title": "Exercise - Assign owners to agents to prevent agent sprawl",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-assign-owners-agents",
+              "minutes": 5,
+              "points": [
+                "Owners can edit, publish and manage settings of the agent; the creator is the default owner.",
+                "Reassignment of shared agents is supported only for Agent Builder and Copilot Studio agents.",
+                "Use Top actions > Assign owners, or All agents with the Agents without owners filter."
+              ]
+            },
+            {
+              "title": "Exercise - Block agents with security risks",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-block-agent",
+              "minutes": 7,
+              "points": [
+                "Blocking turns off all instances created under the agent; they stay inactive until you unblock it.",
+                "Start from Overview > Agents at risk > View agents, or from the Map; open the Security tab to review risk signals.",
+                "Select Block, enter a reason and description, then Save."
+              ]
+            },
+            {
+              "title": "Exercise – Use rules and automate agent management",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-use-rules",
+              "minutes": 5,
+              "points": [
+                "Agent management rules apply bulk governance and lifecycle actions at scale (Agents > Settings > Agent management rules).",
+                "Default rules: install Microsoft agents; reassign ownerless Agent Builder agents to manager; block agents confirmed compromised.",
+                "Review the Pending agents tab, select Run, then check Processed agents."
+              ]
+            },
+            {
+              "title": "Manage tools",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/manage-tools",
+              "minutes": 5,
+              "points": [
+                "Agent tools include AI-powered tools and Model Context Protocol (MCP) servers; plugins package skills and MCP connectors.",
+                "Use common MCP servers or bring your own (BYO) remote MCP server (preview) and register it with Agent 365.",
+                "Unmanaged tools risk unauthorized data access, excessive permissions, unapproved third-party integrations and compliance violations.",
+                "Registry tab: view tools and publishers, block or unblock; Requests tab: review, approve or reject user requests."
+              ]
+            },
+            {
+              "title": "Exercise - Activate and manage tools",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-manage-tools",
+              "minutes": 8,
+              "points": [
+                "Agents > Tools: the Registry shows tool, plugin and MCP server totals; an MCP server has Overview, Tools and Policies tabs.",
+                "Policies can be enabled or disabled for Path Access, Query Limits, Collection Limits and Mutations.",
+                "Approving a requested MCP server is followed by consenting to its Microsoft Entra permissions; only then is it available to agent building surfaces.",
+                "Blocking an MCP server or plugin stops agents using it; a blocked plugin stays registered and visible."
+              ]
+            },
+            {
+              "title": "View audit logs",
+              "url": "https://learn.microsoft.com/training/modules/agent-365-govern/exercise-view-audit-logs",
+              "minutes": 5,
+              "points": [
+                "Microsoft Purview audit records show who approved an agent, what it accessed and how it behaved, similar to user auditing.",
+                "Uses: monitor who creates, changes or deletes agents; prove compliance; investigate incidents; set alerts on agent events.",
+                "Path: agent > Security tab > Microsoft Purview protections > Review, then in the Microsoft Purview portal Audit > Search with a date range and search name."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Policy template",
+              "definition": "A bundle of Entra, Purview, Defender and SharePoint policies applied to an agent at activation or publication; default or custom."
+            },
+            {
+              "term": "Access package",
+              "definition": "Microsoft Entra entitlement that grants an agent identity access to resources with approvals, time limits and access reviews."
+            },
+            {
+              "term": "Publish to store vs. activate",
+              "definition": "Publishing makes an agent available in the store for chosen users; activating approves users to create instances of it."
+            },
+            {
+              "term": "Agent management rules",
+              "definition": "Prebuilt rules that apply governance actions in bulk, such as reassigning ownerless agents or blocking compromised ones."
+            },
+            {
+              "term": "MCP server",
+              "definition": "Model Context Protocol server giving agents a standard interface to data, actions and business logic; governed in Agents > Tools."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Request states in the Requests tab",
+              "headers": [
+                "State",
+                "Meaning",
+                "Admin decision"
+              ],
+              "rows": [
+                [
+                  "Pending review",
+                  "Waiting for admin review before publishing to the store",
+                  "Publish or reject"
+                ],
+                [
+                  "Pending activation",
+                  "Waiting for approval before users can create instances",
+                  "Approve and activate or reject"
+                ],
+                [
+                  "Pending update",
+                  "An update awaits review before being published",
+                  "Publish or reject the update"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Policy **templates** secure the agent; **access packages** control what resources its identity can reach.",
+            "**Block** = all instances off until unblocked; **delete** = agent not required; **assign owner** = missing information.",
+            "AI Administrator can use access packages but needs more roles for **Conditional Access** (and **Attribute Assignment Administrator** for custom security attributes)."
+          ],
+          "selfCheck": [
+            {
+              "q": "You want only the Procurement team to see and use agents in the store during a pilot. Which setting?",
+              "a": "Agents > Settings > User access, set to Specific users and groups and add the Procurement group."
+            },
+            {
+              "q": "Dozens of agents built with Agent Builder have no owner. How can you fix this at scale?",
+              "a": "Run the Agent management rule that reassigns ownerless Agent Builder agents to the manager (review Pending agents, then Run)."
+            },
+            {
+              "q": "A user requested a BYO MCP server. After you approve it, what is still needed before agents can use it?",
+              "a": "Consent to the Microsoft Entra permissions the MCP server requires; it is available to agent building surfaces only after consent."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.monitor-optimize-m365-ai-services",
@@ -179,7 +586,225 @@
           "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/",
           "durationMinutes": 82,
           "updated": "2026-09-22",
-          "learnSummary": "Learn why Microsoft 365 offers several Microsoft Copilot and agent report sources, choose the right one for a given question, reconcile Microsoft 365 and Microsoft Foundry costs without double-counting, and use Microsoft 365 Service Health and Copilot controls to diagnose AI-service issues honestly."
+          "learnSummary": "Learn why Microsoft 365 offers several Microsoft Copilot and agent report sources, choose the right one for a given question, reconcile Microsoft 365 and Microsoft Foundry costs without double-counting, and use Microsoft 365 Service Health and Copilot controls to diagnose AI-service issues honestly.",
+          "tldr": "Microsoft 365 splits Copilot and agent reporting across several surfaces, so you must pick the right report, state its population and freshness, and never treat usage counts as ROI. The module also covers reconciling Microsoft 365 and Foundry costs without double-counting, AI FinOps optimization, and using Service Health with the Copilot Control System pillars to diagnose issues.",
+          "objectives": [
+            "Select the correct report source to answer a specific Microsoft Copilot or agent adoption, productivity, or ROI question.",
+            "Read the Copilot usage report and the separate Agent usage report to distinguish licensed access from actual adoption.",
+            "Reconcile Microsoft 365 AI services costs across the Microsoft 365 admin center and Microsoft Cost Management.",
+            "Apply AI FinOps practices—workload selection, model cost tiers, consumption reduction, and cost attribution—to optimize Microsoft 365 AI spend.",
+            "Use Microsoft 365 Service Health and the Copilot Control System's three-pillar governance model to monitor AI-service health and recommend admin actions that improve adoption."
+          ],
+          "keyPoints": [
+            "**Route by question**: admin center for licensing and basic activity, Copilot Dashboard or Viva Insights for adoption and work patterns, Purview Audit for events, Copilot Studio and Foundry for their own agents; Agent 365 for the agent estate.",
+            "**Enabled users** is a licensing figure; **active users** tried a user-initiated Copilot feature. Active divided by enabled is the active users rate.",
+            "The **Copilot Agents usage report** replaces the deprecated agent report: licensed and unlicensed users, about 1 hour latency; SharePoint agents used in Teams are excluded.",
+            "Usage counts are **not** productivity, value or ROI; work-pattern comparisons are **impact indicators**, not proof of causation.",
+            "**Cost systems differ**: Microsoft 365 uses credits and policies; Foundry uses Azure meters. The same tagged charge (such as `m365copilotchat`) seen in both is booked **once**.",
+            "**AI FinOps**: manage spend, optimize value, allocate deliberately. Cheapest saving is not automating at all; deterministic work needs no model; match **basic, standard, premium** model tiers to the task.",
+            "Heavy consumers are not automatically a problem: check for **proportionate value** before restricting; attribute spend with group-scoped policies, named cost owners, showback or chargeback.",
+            "**Service Health** is incident evidence only; Copilot controls have three pillars: security and governance, management controls, measurement and reporting."
+          ],
+          "units": [
+            {
+              "title": "Pick the right report source for a Microsoft Copilot adoption question",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/2-pick-right-report-source",
+              "minutes": 6,
+              "points": [
+                "Two valid numbers can differ because platforms, populations, periods or freshness windows differ; state those premises first.",
+                "Copilot Studio agents, Foundry deployments and other \"agents\" report through different surfaces despite the shared name.",
+                "Roles: AI Administrator views Copilot reports; Insights Analyst plus Viva Insights licensing for Advanced Insights; Audit Reader or Audit Manager for Purview Audit.",
+                "Dashboard day-level metrics can trail up to 2 days and week-level up to 6; Copilot-assisted hours and value are estimates.",
+                "Copilot audit records use RecordType and Operation CopilotInteraction; they don't guarantee verbatim prompt text and appear within about 30 minutes to 2 hours."
+              ]
+            },
+            {
+              "title": "Exercise - Pick the right report source",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/3-exercise-pick-right-report-source",
+              "minutes": 10,
+              "points": [
+                "Active users over 28 days: Reports > Usage > Microsoft Copilot (AI Administrator).",
+                "Work-pattern change: Copilot Dashboard in Viva Insights; align data-through dates and name alternative explanations.",
+                "Who did what, when, in which app: Purview Audit (CopilotInteraction); an empty result means no matching event for those filters only.",
+                "Copilot Studio agent analytics versus Foundry usage and cost (Monitoring Reader, Cost Management Reader) are different reports."
+              ]
+            },
+            {
+              "title": "Read the Microsoft Copilot usage report and the Agent usage report",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/4-read-copilot-agent-usage-reports",
+              "minutes": 8,
+              "points": [
+                "Copilot usage report is typically available within 48 hours after the UTC day ends; timeframes 7, 30, 90 or 180 days; the previous 3 days are revalidated and can shift slightly.",
+                "Enabled Users counts licensed people; Active Users counts those who used a feature; total prompts submitted covers Copilot Chat.",
+                "\"Edit with Word\" counts toward chat prompts but Excel and PowerPoint equivalents don't, so per-app prompt counts aren't directly comparable.",
+                "Current Copilot Agents usage report (Reports > Usage > Copilot > Agents): declarative, SharePoint and custom engine agents, about 1 hour latency; Reports Reader is enough."
+              ]
+            },
+            {
+              "title": "Exercise - Read the Microsoft Copilot usage report and the Agent usage report",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/5-exercise-read-copilot-agent-usage-reports",
+              "minutes": 10,
+              "points": [
+                "Gap calculation: 20 enabled minus 11 active = 9 licensed users inactive (55% active rate); a starting point, not a cause.",
+                "Per-app breakdown shows where adoption is strongest or weakest; app counts overlap.",
+                "Agent report offers 7 and 30 day windows (the 28-day Copilot window isn't compatible); compare only when definitions, population, UTC bounds and filters line up.",
+                "An empty report means no in-scope usage visible, not zero consumption or cost."
+              ]
+            },
+            {
+              "title": "Reconcile Microsoft Copilot and agent costs across surfaces",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/6-reconcile-copilot-agent-costs",
+              "minutes": 7,
+              "points": [
+                "Microsoft 365 Copilot > Cost Management: AI Administrator or License Administrator manage policies and limits; Global or Billing Administrator set billing methods.",
+                "A limited spending policy stops access to governed services for the rest of the month and resets on the first of the next month; it doesn't reserve credits.",
+                "Funding order: capacity packs, then P3 prepaid credits, then pay-as-you-go; overview refreshes every 4 hours; billed amounts update daily.",
+                "Foundry costs come from Azure Cost Management (Cost Management Reader); don't mix actual and amortized cost; Azure budgets notify, they don't stop resources.",
+                "Book duplicate views of the same tagged charge once; allocate shared cost by project tag or an agreed basis totaling 100%; use tokens per accepted work as an efficiency indicator."
+              ]
+            },
+            {
+              "title": "Exercise - Reconcile Microsoft Copilot and agent costs across surfaces",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/7-exercise-reconcile-copilot-agent-costs",
+              "minutes": 10,
+              "points": [
+                "Confirm period, currency and actual cost basis match before combining.",
+                "Scenario: USD 120 Microsoft 365 charge (seen twice, booked once) plus USD 100 Foundry (80 model + 20 storage) = USD 220; double-counting would give USD 340.",
+                "Unattributed USD 25 split by accepted summaries 60/40 (USD 15 and USD 10).",
+                "A worse tokens-per-accepted-summary ratio is something to investigate, not proof of inefficiency."
+              ]
+            },
+            {
+              "title": "Optimize AI spend across Microsoft 365 AI services",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/7a-optimize-ai-spend",
+              "minutes": 12,
+              "points": [
+                "AI FinOps stages: manage spend, optimize value, allocate deliberately.",
+                "Score use cases 1 to 5 on business impact, technical feasibility and user desirability; deterministic work should use conventional logic; pilot the hardest step first.",
+                "Credit cost depends on model, context, tools and runtime; Copilot Studio rates are basic, standard and premium, and reasoning models trigger an extra premium generative AI tools charge.",
+                "Govern environments (exploration, test, funded production) and audit the estate to retire unused agents.",
+                "Study heavy users' value before restricting; scope policies to groups, use separate subscriptions or resource groups, name cost owners; showback reports, chargeback bills."
+              ]
+            },
+            {
+              "title": "Assess AI-service health with the Copilot Control System",
+              "url": "https://learn.microsoft.com/training/modules/monitor-optimize-m365-ai-services/8-assess-ai-service-health-copilot-control-system",
+              "minutes": 8,
+              "points": [
+                "Health > Service health (Service Support Administrator or Helpdesk Administrator); history covers 30 days; planned maintenance is in Message center; no posted issue doesn't prove health.",
+                "Three pillars: security and governance; management controls (licensing, agent lifecycle, spending limits); measurement and reporting.",
+                "Diagnose before acting: state metric and data-through time, name at least two explanations, check Service Health, then pick one scoped action with a follow-up metric.",
+                "An organizational message fixes only an awareness gap, not license, incident, latency, workflow or quality problems."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Active users rate",
+              "definition": "Active Users divided by Enabled Users in the Copilot usage report; shows what share of paid seats is actually used."
+            },
+            {
+              "term": "Impact indicator",
+              "definition": "An observed relationship in work-pattern data that does not prove Copilot caused the change."
+            },
+            {
+              "term": "AI FinOps",
+              "definition": "Practice of connecting what AI costs to what it produces and acting on the gap: manage spend, optimize value, allocate deliberately."
+            },
+            {
+              "term": "Showback / chargeback",
+              "definition": "Showback reports each team's consumption without moving money; chargeback bills it to the team's own subscription."
+            },
+            {
+              "term": "Service Health",
+              "definition": "Admin center view of Microsoft incidents and advisories relevant to the tenant; evidence of incidents only."
+            },
+            {
+              "term": "Copilot Control System",
+              "definition": "Governance model with three pillars: security and governance, management controls, measurement and reporting."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which report answers the question?",
+              "headers": [
+                "Question",
+                "Source"
+              ],
+              "rows": [
+                [
+                  "License readiness and basic Copilot activity",
+                  "Microsoft 365 admin center Copilot reports"
+                ],
+                [
+                  "Adoption or work-pattern comparison",
+                  "Copilot Dashboard or Viva Insights Advanced Insights"
+                ],
+                [
+                  "Compliance event investigation",
+                  "Microsoft Purview Audit"
+                ],
+                [
+                  "Copilot Studio agent analytics",
+                  "Power Platform and Copilot Studio"
+                ],
+                [
+                  "Foundry workload use and cost",
+                  "Foundry monitoring and Azure Cost Management"
+                ],
+                [
+                  "Agent inventory, lifecycle, risk, governance",
+                  "Agent 365 Overview, Registry or Map"
+                ]
+              ]
+            },
+            {
+              "title": "Model cost tiers",
+              "headers": [
+                "Tier",
+                "Fits",
+                "Trade-off"
+              ],
+              "rows": [
+                [
+                  "Basic",
+                  "Summarization, extraction, classification, routine drafting",
+                  "Lowest cost, fastest, less headroom"
+                ],
+                [
+                  "Standard",
+                  "Advanced content creation, document and image processing",
+                  "Balanced capability and cost"
+                ],
+                [
+                  "Premium",
+                  "Deep reasoning, planning, multistep analysis",
+                  "Highest cost, stricter rate limits"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Enabled users = **licenses**, active users = **behavior**; neither proves value or ROI.",
+            "Same tagged charge in Microsoft 365 and Azure → **one charge, book once**.",
+            "Deterministic task (lookup, rule) → **no model at all**; routine task → basic tier, not premium.",
+            "No Service Health issue posted → **absence of evidence**, not proof the service is healthy."
+          ],
+          "selfCheck": [
+            {
+              "q": "A compliance investigator needs to know who triggered one Copilot interaction and in which app. Which source?",
+              "a": "Microsoft Purview Audit (CopilotInteraction record), with an Audit Reader or Audit Manager role."
+            },
+            {
+              "q": "A small group of users consumes most Copilot credits. What is the best first step?",
+              "a": "Check whether they produce proportionate value; if so spread their practices, otherwise coach them or apply a targeted limit, not a blanket restriction."
+            },
+            {
+              "q": "Copilot adoption looks flat this month. What should you do before sending an organizational message?",
+              "a": "Diagnose: note the metric and data-through time, check Service Health, license eligibility and latency, name at least two explanations, then choose a scoped action with a follow-up metric."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     }
