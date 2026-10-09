@@ -91,6 +91,18 @@ Design choices:
 - **Microsoft Learn as the single source of truth.** Content may only cite learn.microsoft.com (`npm run validate` enforces it, `npm run check-links` checks every link is live), and the AI coach looks up facts live through the public [Microsoft Learn MCP server](https://learn.microsoft.com/training/support/mcp) via the Claude API MCP connector, citing the Learn pages it used.
 - **Claude API for the coach** (`claude-opus-5-5`, streaming, prompt-cached system prompt, server-side refusal fallback). The stable coach prompt is in `lib/coach.ts`; learner context is appended per request.
 
+## Learning paths
+
+Every exam starts with the official Microsoft Learn learning paths of its course, summarized module by module from the
+Learn units themselves: an "in one glance" summary, the key points to remember, comparison tables, unit-by-unit notes,
+key terms, exam memory hooks and self-check questions, with links back to each Learn unit. Data lives in
+`content/learning-paths/<exam>.json`; review notes are in `content/verification/learning-paths-notes.md`.
+
+| Exam | Course | Paths | Modules | Learn time |
+|---|---|---|---|---|
+| MD-102 | MD-102T00 | 8 | 34 | ~30 h |
+| MS-102 | MS-102T00 | 9 | 39 | ~29 h |
+
 ## Content status
 
 | Exam | Domains | Modules | Questions | Flashcards | Labs | Notes |
