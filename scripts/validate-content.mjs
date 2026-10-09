@@ -75,6 +75,37 @@ for (const file of files) {
       `${exam.flashcards.length} flashcards, ${exam.labs.length} labs`,
   );
 }
+// Learning-path summaries
+const lpDir = path.resolve("content/learning-paths");
+if (fs.existsSync(lpDir)) {
+  for (const file of fs.readdirSync(lpDir).filter((f) => f.endsWith(".json"))) {
+    const lp = JSON.parse(fs.readFileSync(path.join(lpDir, file), "utf8"));
+    const e = (m) => err(`learning-paths/${file}`, m);
+    const isLearn = (u) => /^https:\/\/learn\.microsoft\.com\//.test(u ?? "");
+    let total = 0;
+    let done = 0;
+    const slugs = new Set();
+    for (const p of lp.paths) {
+      if (!isLearn(p.url)) e(`path ${p.uid}: non-Learn url`);
+      for (const m of p.modules) {
+        total++;
+        if (slugs.has(m.slug)) e(`duplicate module slug ${m.slug}`);
+        slugs.add(m.slug);
+        if (!isLearn(m.url)) e(`module ${m.uid}: non-Learn url`);
+        if (!m.tldr) continue;
+        done++;
+        for (const k of ["keyPoints", "units", "keyTerms", "selfCheck"]) if (!m[k]?.length) e(`module ${m.uid}: missing ${k}`);
+        for (const u of m.units ?? []) {
+          if (!isLearn(u.url) || !u.url.startsWith(m.url)) e(`module ${m.uid}: unit url ${u.url} is not a unit of this module`);
+          if (!u.points?.length) e(`module ${m.uid}: unit "${u.title}" has no points`);
+        }
+        for (const t of m.tables ?? []) for (const r of t.rows) if (r.length !== t.headers.length) e(`module ${m.uid}: table "${t.title}" row width`);
+      }
+    }
+    console.log(`✓ learning-paths/${file}: ${lp.paths.length} paths, ${done}/${total} modules summarized`);
+  }
+}
+
 if (errors) {
   console.error(`\n${errors} error(s)`);
   process.exit(1);

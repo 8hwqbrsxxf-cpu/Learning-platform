@@ -23,6 +23,20 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith(".json"))) {
   for (const q of e.questions) collect(file, q.id, q.reference);
 }
 
+const lpDir = path.resolve("content/learning-paths");
+if (fs.existsSync(lpDir)) {
+  for (const file of fs.readdirSync(lpDir).filter((f) => f.endsWith(".json"))) {
+    const lp = JSON.parse(fs.readFileSync(path.join(lpDir, file), "utf8"));
+    for (const p of lp.paths) {
+      collect(file, p.uid, p);
+      for (const m of p.modules) {
+        collect(file, m.uid, m);
+        for (const u of m.units ?? []) collect(file, m.uid, u);
+      }
+    }
+  }
+}
+
 const bad = [];
 const queue = [...urls.keys()];
 async function worker() {
