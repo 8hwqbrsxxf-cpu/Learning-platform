@@ -125,7 +125,169 @@
           "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/",
           "durationMinutes": 74,
           "updated": "2026-09-18",
-          "learnSummary": "Assess tenant and data readiness for Microsoft Copilot—including the Copilot Readiness Report and update channels—identify and address oversharing and compliance risks, and plan a phased rollout across your organization."
+          "learnSummary": "Assess tenant and data readiness for Microsoft Copilot—including the Copilot Readiness Report and update channels—identify and address oversharing and compliance risks, and plan a phased rollout across your organization.",
+          "tldr": "Before rolling out Microsoft Copilot you check two separate things: tenant readiness (licenses, update channel, app activity) and data readiness (do existing permissions match the intended audience?). You then expand in phases — pilot, validate, expand — and only move on when named evidence passes a go/no-go gate.",
+          "objectives": [
+            "Assess tenant readiness for a Microsoft Copilot rollout, including the Copilot Readiness Report and update channels.",
+            "Identify and address data readiness issues—data leaks, oversharing, and compliance gaps—before a rollout.",
+            "Plan a phased rollout of Microsoft Copilot across the organization."
+          ],
+          "keyPoints": [
+            "The **Copilot readiness report** (Reports > Usage > Copilot > Readiness tab) covers 28 days, can lag up to 72 hours, and shows license, update-channel and app-activity values — **no composite 'ready' status**.",
+            "Microsoft 365 Apps needs **Current Channel or Monthly Enterprise Channel** for Copilot. Treat **Uses eligible update channel** as the authoritative value; if it is No, check config.office.com > Inventory.",
+            "**Suggested candidate for Copilot** = top 25% of unlicensed users by app usage, re-evaluated weekly. It is a prioritization signal, not an employee ranking or access control.",
+            "Copilot **respects existing permissions** and never grants new access, but it makes authorized content easier to **discover**. Oversharing (for example an EEEU grant) becomes visible after rollout.",
+            "Use **separate evidence sources** (site permissions snapshot, EEEU activity report, Content Management Assessment, DSPM data risk assessment) — each has its own population, freshness and limits.",
+            "Handle risk in three steps: **identify, protect on an interim basis, remediate**. RCD hides a site from org-wide search and Copilot discovery; RAC denies users outside control groups; neither replaces removing the broad grant.",
+            "Rollout runs **pilot, validate, expand**. A clean pilot proves only what it tested; expansion needs named evidence and measurable thresholds, and a failed or missing check is a **no-go (hold)**.",
+            "Assigning a Copilot license changes **availability, not SharePoint permissions**."
+          ],
+          "units": [
+            {
+              "title": "Assess tenant readiness for a Microsoft Copilot rollout",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/2-assess-tenant-readiness",
+              "minutes": 9,
+              "points": [
+                "Report location: Reports > Usage > Copilot > Copilot > Readiness. Four summary charts: Total Prerequisite Licenses, Users on an eligible update channel, Assigned Licenses, Available Licenses.",
+                "Roles that can open it include AI Administrator, Global Administrator, Reports Reader and others; Usage Summary Reports Reader sees it without user details. A License Administrator or User Administrator assigns seats.",
+                "Activity columns (Teams meetings/chat, Outlook email, Office docs) are adoption signals, not access controls.",
+                "Wider checklist: test environment, pilot, communication plan, Conditional Access review, SharePoint governance and data readiness review, network validation."
+              ]
+            },
+            {
+              "title": "Exercise - Run and interpret the Microsoft Copilot readiness report",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/3-exercise-run-interpret-readiness-report",
+              "minutes": 12,
+              "points": [
+                "Readiness is not available in GCC, GCC High, DoD or Microsoft 365 operated by 21Vianet.",
+                "Separate technical conditions (license, channel) from adoption signals (activity) when deciding on a row.",
+                "Assigning a license does not change a device's update channel; browser-based access and desktop-app readiness are different checks.",
+                "The export is not a complete entitlement inventory and does not prove SharePoint authorization is appropriate."
+              ]
+            },
+            {
+              "title": "Identify and resolve data readiness issues",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/4-identify-resolve-data-readiness",
+              "minutes": 9,
+              "points": [
+                "Data leaks, oversharing and compliance gaps concern both permission (can open) and discoverability (can find).",
+                "Evidence sources: Site permissions snapshot (baseline, CSV up to 1 million sites, run at most every 30 days), EEEU activity report (top 100 sites, last 28 days), Content Management Assessment, DSPM data risk assessment (weekly default, top 100 sites).",
+                "Controls: RCD (temporary, discovery only, no OneDrive), DLP (name the exact condition and action), site access review (workflow, not proof), RAC (needs normal permission plus control-group membership, up to 10 groups per site).",
+                "Disabling EEEU for future selection does not remove existing grants; remove them explicitly and test. Purview Audit is monitoring, not remediation."
+              ]
+            },
+            {
+              "title": "Exercise - Remediate an oversharing risk before rollout",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/5-exercise-remediate-oversharing-risk",
+              "minutes": 12,
+              "points": [
+                "Find the exposure in SharePoint admin center > Reports > Site permissions for your organization; EEEU is potential exposure, not proof of access.",
+                "Remove the EEEU grant (keeps the intended Finance group) or constrain with RAC (Active sites > Settings > Restricted site access).",
+                "Confirm with Check Permissions for an allowed and a non-member user; another grant or an item-specific exception can still give access.",
+                "A new snapshot can take up to 24 hours (first one up to five days); a pending report does not mean the change failed."
+              ]
+            },
+            {
+              "title": "Plan a phased rollout across the organization",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/6-plan-phased-rollout",
+              "minutes": 9,
+              "points": [
+                "Course model: Pilot, Validate, Expand. Microsoft's setup guidance names its phases Pilot, Deploy, Operate.",
+                "Validate gate needs timestamped readiness evidence, approved scope, control evidence, access tests (allowed and denied user), discovery evidence, fresh reports and decision evidence with thresholds.",
+                "Positive sentiment alone does not pass the gate; if a check fails or is missing, hold at the current population and return to validate.",
+                "Stale or missing evidence can justify an honest 'wait' decision."
+              ]
+            },
+            {
+              "title": "Exercise - Stage a phased pilot rollout group",
+              "url": "https://learn.microsoft.com/training/modules/enable-manage-microsoft-365-copilot/7-exercise-stage-phased-rollout-group",
+              "minutes": 12,
+              "points": [
+                "Create a new security group (for example Copilot Pilot - Wave 1) with Assigned membership, and do not reuse a group that grants app access or other licenses.",
+                "Assign the Microsoft 365 Copilot license to the group (Billing > Licenses); group licensing uses seats already purchased and shows problems on the Errors & issues tab.",
+                "A group assignment does not replace or double-count a user's direct assignment.",
+                "Usage reports lag about two days, so licensing success is not adoption."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Copilot readiness report",
+              "definition": "Microsoft 365 admin center report showing licenses, update-channel eligibility and app activity for the past 28 days."
+            },
+            {
+              "term": "EEEU",
+              "definition": "Everyone except external users — a broad grant covering current and future internal users, a common oversharing source."
+            },
+            {
+              "term": "Restricted Content Discovery (RCD)",
+              "definition": "Temporary site-level control that removes a SharePoint site from org-wide search and Copilot discovery without changing permissions."
+            },
+            {
+              "term": "Restricted Access Control (RAC)",
+              "definition": "Denies users outside configured control groups, even with earlier permissions; allowed users still need normal permission."
+            },
+            {
+              "term": "SharePoint Advanced Management (SAM)",
+              "definition": "Source of site permission, EEEU and assessment reports; needs an eligible base subscription plus a Copilot license, SAM Plan 1 or E7."
+            },
+            {
+              "term": "Go/no-go threshold",
+              "definition": "Measurable criterion that must be met before the rollout expands to the next group."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Evidence sources for data readiness",
+              "headers": [
+                "Source",
+                "Covers",
+                "Timing and use"
+              ],
+              "rows": [
+                [
+                  "Site permissions for your organization snapshot",
+                  "Permissions, groups, EEEU, sharing links, owner, sensitivity; web view top 100 sites, CSV up to 1 million",
+                  "First run up to 5 days, later up to 24 hours, data up to 48 hours old; run at most every 30 days; current permission baseline"
+                ],
+                [
+                  "EEEU activity report",
+                  "Top 100 sites by items or groups shared with EEEU in the past 28 days",
+                  "Up to 24 hours; activity, not the current EEEU baseline"
+                ],
+                [
+                  "Content Management Assessment",
+                  "Inactive sites, ownership, broken inheritance, EEEU, permissive links",
+                  "2 to 72 hours; no action without admin consent; every 30 days"
+                ],
+                [
+                  "DSPM data risk assessment",
+                  "Top 100 SharePoint sites by usage, adds sensitivity context",
+                  "Weekly default, first results after 4 days; custom results need 48 hours and must be rerun after changes"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Copilot exposes oversharing, it doesn't create it → fix the **permission** (remove EEEU grant), don't blame the license.",
+            "RCD → **discovery** only; RAC → **access** (needs normal permission AND control-group membership). Neither changes the other.",
+            "A successful pilot or an empty report → **not proof**; stale data means wait, not pass."
+          ],
+          "selfCheck": [
+            {
+              "q": "The readiness report shows a user as a suggested candidate but 'Uses eligible update channel' is No. What does that tell you and what do you do?",
+              "a": "The user is a high-usage unlicensed candidate, but desktop apps are not on an eligible channel; corroborate in config.office.com > Inventory. A license alone does not fix the channel."
+            },
+            {
+              "q": "An admin disables future selection of EEEU, but an existing site still grants it. What must be done?",
+              "a": "Explicitly remove the existing grant (or constrain with RAC) and then verify access with a direct test."
+            },
+            {
+              "q": "Half-way through a wave a go/no-go threshold fails. What happens?",
+              "a": "It is a no-go: stop assigning licenses to the next group, hold at the current population and return to validate until the gap is closed."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.configure-copilot-settings-extensibility",
@@ -134,7 +296,243 @@
           "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/",
           "durationMinutes": 82,
           "updated": "2026-10-02",
-          "learnSummary": "Configure the Microsoft Copilot tenant-settings catalog, manage web search and Cowork administration, set up Copilot Search, and extend Copilot with Copilot Connectors and third-party AI providers."
+          "learnSummary": "Configure the Microsoft Copilot tenant-settings catalog, manage web search and Cowork administration, set up Copilot Search, and extend Copilot with Copilot Connectors and third-party AI providers.",
+          "tldr": "This module covers where Microsoft Copilot is governed: the settings catalog, web search (Cloud Policy), Cowork access, Copilot Search, third-party AI providers and Copilot connectors. For each control, ask who is affected, how fast, and which admin surface and role apply.",
+          "objectives": [
+            "Configure the Microsoft Copilot tenant-settings catalog and identify each setting's admin-center location.",
+            "Manage web search for Microsoft Copilot and Copilot Chat, and configure Copilot Search.",
+            "Govern Cowork access and web-search behavior without authorizing chargeable usage.",
+            "Manage third-party AI providers and evaluate whether a provider offering is handled as a Microsoft subprocessor or an independent processor.",
+            "Configure Copilot Connectors and choose connector types that balance richer grounding against expanded data exposure.",
+            "Recognize awareness-level extensibility surfaces, including SharePoint AI skills and the Copilot Frontier program."
+          ],
+          "keyPoints": [
+            "The **settings catalog** is at Microsoft 365 admin center > Copilot > Settings. AI Administrator changes it, Global Reader views it; release preferences also accept Office Apps Administrator or Security Administrator.",
+            "**Release audiences**: Standard (default GA), Deferred (deferred-capable updates 30 days after Standard), Frontier (pre-GA, managed separately). Group exceptions use an Entra security group, limit 100 users, up to 24 hours.",
+            "**Web search** is one Cloud Policy setting, **Allow web search in Copilot**, configured in the Microsoft 365 Apps admin center. The policy is the ceiling; users can only turn it off, never beyond the policy.",
+            "**Cowork access** needs a Copilot license, an enabled environment and a **spending policy** that selects Cowork. The old Agents > All Agents > Cowork surface has no effect on access.",
+            "**Copilot Search** needs no setup: eligible Copilot-licensed users get it, others get Microsoft Search. Admins add acronyms (Published, up to a day) and bookmarks (title, URL, keywords).",
+            "**Independent processors** (Mistral, SpaceXAI independent offering, Anthropic with Data Retention) fall outside Microsoft DPA safeguards; **subprocessors** (Anthropic, OpenAI-operated) fall under Microsoft terms. Assignments are provider-level and take hours.",
+            "**Connector types**: tenant-configured synced and self-serve synced index content; **federated** connectors fetch live via MCP, with the source checking permissions at query time. 'No indexing' does not mean no data transfer.",
+            "**SharePoint AI skills** have no on/off switch; govern via site permissions, retention, labels and auditing. **Frontier** is a tenant-level opt-in decision requiring a Copilot license."
+          ],
+          "units": [
+            {
+              "title": "Configure the Microsoft Copilot tenant-settings catalog",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/2-configure-copilot-settings-catalog",
+              "minutes": 7,
+              "points": [
+                "Catalog controls: self-service purchases (Allow, Allow trials only, Do not allow), Copilot in admin centers, image generation, AI Disclaimer, release preferences.",
+                "Image generation set to Don't allow: PowerPoint can still use stock or brand images; Copilot Chat returns no substitute image.",
+                "AI Disclaimer (Standard or Bold, optional policy URL) shows in Word, Excel, PowerPoint, Outlook, OneNote and the Copilot app, not in SharePoint, OneDrive, Whiteboard or Forms.",
+                "Modern Standard/Deferred options are not available in GCC, GCC High or DoD; those use Targeted and Standard."
+              ]
+            },
+            {
+              "title": "Exercise - Configure the Microsoft Copilot settings catalog",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/3-exercise-configure-copilot-settings-catalog",
+              "minutes": 10,
+              "points": [
+                "Set Deferred release for the organization and assign the pilot Entra security group to Standard release so pilot users get GA features first.",
+                "Release preference changes can take up to 24 hours; neither this setting nor image generation governs Frontier access.",
+                "Image generation: Copilot > Settings > View all > Copilot image generation (or under Copilot actions)."
+              ]
+            },
+            {
+              "title": "Manage web search for Microsoft Copilot and Copilot Chat",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/4-manage-web-search-copilot-copilot-chat",
+              "minutes": 5,
+              "points": [
+                "Three policy states: enabled in both, disabled in both, disabled in Work mode only (which also disables web search in Researcher and Cowork).",
+                "Office Apps Administrator is recommended; Security Administrator and Global Administrator also work. Scope can be all users or selected groups; not supported in 21Vianet.",
+                "Assigned groups usually get Cloud Policy changes within 90 minutes; others check again in 24 hours; applies next time the Office app opens.",
+                "Generated Bing queries have user and tenant identifiers removed, and the DPA, HIPAA and EU Data Boundary do not apply to them. A missing citation does not prove the policy failed."
+              ]
+            },
+            {
+              "title": "Manage Copilot Cowork",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/4a-manage-copilot-cowork",
+              "minutes": 8,
+              "points": [
+                "Access needs a Microsoft 365 Copilot license, an environment where Cowork is enabled, and usage-based billing granted through a spending policy that selects Cowork.",
+                "A spending policy is an access control, not just a budget; to keep a user out, leave them out of every spending policy that selects Cowork. Enabling one can authorize chargeable usage.",
+                "Cowork web search follows the Cloud Policy state only, with no user toggle: choose Enabled with the option Disabled in Work mode, Enabled in Web mode and Chat.",
+                "Cloud Policy applies to user objects, so scope the pilot to user accounts, not a device-only group. Not supported in 21Vianet, GCC, GCC High or DoD."
+              ]
+            },
+            {
+              "title": "Configure Copilot Search",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/5-configure-copilot-search",
+              "minutes": 5,
+              "points": [
+                "Searches Microsoft 365 content and configured third-party connector sources; public web search is a separate feature.",
+                "Configured at Copilot > Search; a Search Administrator adds acronym answers. Existing Microsoft Search acronyms and bookmarks need no extra enablement.",
+                "Draft acronyms do not appear; Published ones can take up to one day. Bookmarks refresh the index immediately, but ranking varies by user.",
+                "Verify entries as a licensed user with patterns like 'define', 'meaning of', 'stands for'."
+              ]
+            },
+            {
+              "title": "Exercise - Configure web search and Copilot Search",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/6-exercise-configure-web-search-copilot-search",
+              "minutes": 10,
+              "points": [
+                "Cloud Policy path: Microsoft 365 Apps admin center > Customization > Policy Management, scoped to the pilot group.",
+                "If behavior differs, check propagation time and whether a higher-priority Cloud Policy configuration overrides it.",
+                "Acronyms are added at Copilot > Search > Acronyms with state Published; allow up to one day and test as a licensed user."
+              ]
+            },
+            {
+              "title": "Manage third-party AI providers",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/7-manage-third-party-ai-providers",
+              "minutes": 7,
+              "points": [
+                "AI subprocessor = handled for Microsoft under the DPA and Product Terms; AI independent processor = own terms, outside Microsoft safeguards. Role and geography are not implied by the legal class.",
+                "SpaceXAI as independent processor requires Global Administrator; Mistral, Anthropic, OpenAI-operated and Anthropic with Data Retention accept AI Administrator or Global Administrator.",
+                "Assignments are provider-level (not model-level), support users, security groups or nested groups, up to 999 combined assignments, enforced across Copilot, Copilot Studio and Power Platform.",
+                "Accepting independent-processor terms is a legal commitment; roll back with No users and verify with a previously allowed user after the propagation window (hours)."
+              ]
+            },
+            {
+              "title": "Exercise - Enable a third-party AI provider",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/8-exercise-enable-third-party-ai-provider",
+              "minutes": 10,
+              "points": [
+                "Mistral and SpaceXAI: Copilot > Settings > View all > AI providers for other large language models. Anthropic and OpenAI: AI providers operating as Microsoft subprocessors.",
+                "Pilot users need an eligible Microsoft 365 Copilot license; if the provider card is not available for the tenant or cloud, that is a valid result.",
+                "Assign a selected group, wait a few hours, verify in a surface showing provider or model choice, and check for broader assignments."
+              ]
+            },
+            {
+              "title": "Configure Copilot connectors",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/9-configure-copilot-connectors",
+              "minutes": 6,
+              "points": [
+                "Deployment needs the AI Administrator role; Copilot grounding needs a Copilot add-on or Microsoft 365 E7, and every user querying a federated source needs that license.",
+                "Synced connector: Copilot > Connectors > Gallery; choose Only users with access to the content, verify identity mapping, run a full crawl after ACL changes (incremental crawls skip permission changes).",
+                "Federated: users authenticate via OAuth, the source enforces permissions at query time, Purview auditability still applies; Work IQ custom tooling is preview and not for production.",
+                "Remove: turn Copilot Visibility off (up to 30 minutes), or delete the connection and avoid the Delete failed state."
+              ]
+            },
+            {
+              "title": "Govern SharePoint AI skills and the Frontier program",
+              "url": "https://learn.microsoft.com/training/modules/configure-copilot-settings-extensibility/10-govern-sharepoint-skills-frontier",
+              "minutes": 4,
+              "points": [
+                "SharePoint skills (preview) are reusable multi-step tasks saved as Markdown in the Agent Assets library on each site; Edit permission creates, View permission runs, and a skill never expands what the user can already do.",
+                "No single on/off switch: existing site permissions, retention, labels and auditing are the controls, so get them right before users build skills.",
+                "Frontier gives early access to emerging agents and experiences before GA; tenant-level opt-in, with control over which users get which capabilities; requires a Copilot license."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Cloud Policy service",
+              "definition": "Microsoft 365 Apps admin center service that applies settings (such as Allow web search in Copilot) to user objects, scoped to all users or groups."
+            },
+            {
+              "term": "Spending policy",
+              "definition": "Access control that selects Cowork and enables usage-based billing for users in scope."
+            },
+            {
+              "term": "AI subprocessor",
+              "definition": "Provider that handles data for Microsoft under the Microsoft DPA, Product Terms and enterprise safeguards."
+            },
+            {
+              "term": "AI independent processor",
+              "definition": "Provider that handles data under its own terms, outside Microsoft safeguards."
+            },
+            {
+              "term": "Federated connector",
+              "definition": "Connector that fetches live results through MCP without indexing or storing source data in Microsoft 365."
+            },
+            {
+              "term": "Frontier",
+              "definition": "Program for early, pre-GA access to Copilot agents and AI experiences, managed at tenant level."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which connector model?",
+              "headers": [
+                "Dimension",
+                "Tenant-configured synced",
+                "Self-serve synced",
+                "Federated"
+              ],
+              "rows": [
+                [
+                  "Data behavior",
+                  "Indexes content, metadata and ACL in Microsoft 365",
+                  "Indexes content the individual user selects",
+                  "Live fetch via MCP; no index or storage in Microsoft 365"
+                ],
+                [
+                  "Setup",
+                  "Admin configures org-level connection",
+                  "Admin enables; user authenticates and consents",
+                  "Admin enables; user authenticates; source enforces permissions"
+                ],
+                [
+                  "Permissions",
+                  "Indexed ACL; verify identity mapping",
+                  "User-selected source access",
+                  "Source checks at query time"
+                ],
+                [
+                  "Removal",
+                  "Delete connection, verify content removed",
+                  "Disconnect or disable",
+                  "Remove access or disable, retest"
+                ]
+              ]
+            },
+            {
+              "title": "Release audiences",
+              "headers": [
+                "Audience",
+                "Availability",
+                "Admin selection"
+              ],
+              "rows": [
+                [
+                  "Frontier",
+                  "Pre-GA, subject to change, not under GA SLAs",
+                  "Frontier controls, not the GA setting"
+                ],
+                [
+                  "Standard",
+                  "Default generally available channel",
+                  "Standard Release"
+                ],
+                [
+                  "Deferred",
+                  "Deferred-capable updates 30 days after Standard",
+                  "Deferred Release"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Web search policy lives in the **Microsoft 365 Apps admin center (Cloud Policy)**, not the Copilot settings page — the page only links to it.",
+            "Cowork access → **spending policy**, not the legacy Agents > All Agents entry.",
+            "SpaceXAI independent processor → **Global Administrator only**; most other providers accept AI Administrator too.",
+            "ACL changed on a synced connector → run a **full crawl**; incremental crawls won't pick it up."
+          ],
+          "selfCheck": [
+            {
+              "q": "Users complain web search stopped in Copilot Work mode but works in Web mode and Chat. Which policy state is configured, and what else does it affect?",
+              "a": "Allow web search in Copilot is set to disabled in Work mode only; this also disables web search in Researcher and Cowork."
+            },
+            {
+              "q": "An admin sets a provider to No users and immediately tests with a previously allowed user, who still gets in. Has the rollback failed?",
+              "a": "Not necessarily; provider changes take hours to propagate, so verify after the propagation window."
+            },
+            {
+              "q": "Which connector model keeps source data out of a Microsoft 365 index and has the source check permissions at query time?",
+              "a": "A federated connector (via MCP), though requested data is still transferred at runtime."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.establish-agent-identities-entra-agent-id",
@@ -143,7 +541,176 @@
           "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/",
           "durationMinutes": 65,
           "updated": "2026-09-21",
-          "learnSummary": "Establish governed identities for AI agents using Microsoft Entra Agent ID—assign sponsors and Microsoft Entra owners, automate sponsor-transfer lifecycle transitions, and apply Conditional Access to secure agent access."
+          "learnSummary": "Establish governed identities for AI agents using Microsoft Entra Agent ID—assign sponsors and Microsoft Entra owners, automate sponsor-transfer lifecycle transitions, and apply Conditional Access to secure agent access.",
+          "tldr": "Microsoft Entra Agent ID gives AI agents a purpose-built identity model with a blueprint, an agent identity and an optional user account. Sponsors provide business accountability, owners provide technical administration, Lifecycle Workflows keep sponsorship current, and Conditional Access (scoped to the blueprint principal) controls token requests.",
+          "objectives": [
+            "Explain the Microsoft Entra Agent ID identity model, including agent identity blueprints, agent identities, and agent user accounts.",
+            "Assign sponsors and Microsoft Entra owners to an agent identity, distinct from Agent Registry ownership.",
+            "Automate sponsor-transfer lifecycle transitions using Microsoft Entra ID Governance Lifecycle Workflows.",
+            "Apply Conditional Access to agent identities and select the correct licensing model."
+          ],
+          "keyPoints": [
+            "A plain service principal has no enforced **sponsorship**, no agent-aware audit and no blueprint lifecycle. Agent ID adds blueprint, blueprint principal, agent identity and optional agent user account.",
+            "The **blueprint holds the credentials** (federated credentials, certificates or keys, client secrets); child agent identities store none, and the agent identity is the acting client in tokens and logs.",
+            "An **agent user account** is optional, 1:1 with an agent identity, and needed only when a system strictly requires a user object (shared mailbox, Teams channel, document library).",
+            "There is **no in-place conversion** of an app registration or service principal; migrate side by side, with at least one sponsor required at creation.",
+            "**Sponsor** = business accountability (can disable, edit sponsors, soft-delete). **Owner** = technical administration (credentials, restore, hard-delete). The **Agent Registry owner** is a third, separate relationship in the Microsoft 365 admin center.",
+            "Only the task **Transfer agent identity sponsorships to manager** changes sponsorship, in a Mover or Leaver workflow, and the sponsor needs a populated manager attribute. It does not change the Entra owner or Registry owner.",
+            "Conditional Access on an agent identity covers only that identity; select the **blueprint principal** to cover current and future children. It does not cover the agent's user account.",
+            "For an agent identity, **Block access** is the only control and **Agent risk (Preview)** the only condition. Use **Report-only** first; baseline needs Microsoft 365 E7 or Agent 365 plus Entra ID P1 or Microsoft 365 E3."
+          ],
+          "units": [
+            {
+              "title": "Understand the Microsoft Entra Agent ID object model",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/2-understand-agent-id-object-model",
+              "minutes": 6,
+              "points": [
+                "Four objects: agent identity blueprint (template and credential holder), blueprint principal (tenant presence, audit object), agent identity (single-tenant service principal with agent subtype), agent's user account (optional).",
+                "Interactive agents use OAuth on-behalf-of (agent identity is subject, user in the actor claim); autonomous agents use client credentials under their own identity.",
+                "Creation channels include Microsoft Foundry, Copilot Studio, Teams Developer Portal, Microsoft Agent 365, Azure App Service or Functions, and third-party agents via the Entra Auth SDK or workload identity federation.",
+                "New objects can have read-after-write delay: wait 30 to 60 seconds with exponential backoff."
+              ]
+            },
+            {
+              "title": "Assign a sponsor and a Microsoft Entra owner",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/3-assign-sponsor-owner-agent-identity",
+              "minutes": 6,
+              "points": [
+                "Sponsors for agent identities, blueprints and blueprint principals: users (including guests) and groups with dynamic membership or Microsoft 365 groups; role-assignable groups are not supported. Agent user accounts accept any group.",
+                "Owners can be users, guests or service principals, never groups; ownership applies to the assigned object only.",
+                "A sponsor can't edit authentication settings, manage credentials, re-enable, restore or hard-delete.",
+                "Sponsorship does not transfer automatically when the sponsor leaves, and Registry owner reassignment is separate."
+              ]
+            },
+            {
+              "title": "Exercise - Assign a sponsor and owner to an agent identity",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/4-exercise-assign-sponsor-owner-agent-identity",
+              "minutes": 10,
+              "points": [
+                "Needs Agent ID Administrator or being an owner. Path: Entra ID > Agents > Agent identities > Access > Owners and sponsors.",
+                "Sponsorship is additive: adding a co-sponsor does not replace the first sponsor; keep at least one.",
+                "Agent identity ownership does not make someone owner of its blueprint; compare with the Registry owner in the Microsoft 365 admin center."
+              ]
+            },
+            {
+              "title": "Automate sponsor transfer with Lifecycle Workflows",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/5-automate-sponsor-transfer-lifecycle-workflows",
+              "minutes": 6,
+              "points": [
+                "Three sponsor tasks, all Mover and Leaver tasks (not Joiner): transfer sponsorships to manager, email the manager, email co-sponsors. Only the transfer task changes sponsorship.",
+                "Transfer task: gets the manager, finds each sponsored agent identity, adds the manager as sponsor, removes the employee.",
+                "History status: continueOnError true gives Completed with errors; false gives Failed. No automatic retry or rollback.",
+                "Least-privileged role is Lifecycle Workflows Administrator; licensing is Microsoft 365 E7, or Agent 365 plus Entra ID P1 or Microsoft 365 E3."
+              ]
+            },
+            {
+              "title": "Exercise - Configure a sponsor-transfer Lifecycle Workflow",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/6-exercise-configure-sponsor-transfer-lifecycle-workflow",
+              "minutes": 10,
+              "points": [
+                "Use the Pre-Offboarding of an employee template, keep the time-based trigger on employeeLeaveDateTime, and replace default tasks with the sponsor tasks.",
+                "The What-if tool previews scope and failures without performing tasks, supports only time-based triggers, and needs an ID Governance or Entra Suite license.",
+                "Run on demand to test; after a run, confirm sponsorship on Owners and sponsors and that the technical owner is unchanged.",
+                "An overall failure does not undo tasks that already succeeded."
+              ]
+            },
+            {
+              "title": "Apply Conditional Access to agent identities and choose the right license",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/7-apply-conditional-access-agent-licensing",
+              "minutes": 6,
+              "points": [
+                "Policy on one agent identity covers only it; the blueprint principal in the agent picker covers current and future children, evaluated on fresh token requests.",
+                "Agent identity: Block access only, Agent risk (Preview) only condition. Agent user account: endpoint controls such as compliant device. OBO user is evaluated by user-targeted policy.",
+                "Not enforced when the blueprint acquires a token to create identities, when Security Defaults are on, or when the agent uses an API key.",
+                "Agent risk needs Entra ID P2 during preview; Conditional Access Administrator creates the policy, Reports Reader reads sign-in evidence."
+              ]
+            },
+            {
+              "title": "Exercise - Apply Conditional Access to an agent identity blueprint",
+              "url": "https://learn.microsoft.com/training/modules/establish-agent-identities-entra-agent-id/8-exercise-apply-conditional-access-agent-blueprint",
+              "minutes": 10,
+              "points": [
+                "Create a Block policy under Users, agents (Preview) or workload identities > Agents, pick the blueprint, select the target resource, and leave it in Report-only.",
+                "Saved configuration proves only configuration, not evaluation; read results in sign-in logs.",
+                "Report-only: Failure = would have blocked; Report-only: Not applied = identity was out of scope (for example excluded). Requests still succeed in report-only.",
+                "Protecting paired agent user accounts needs a second policy."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Agent identity blueprint",
+              "definition": "Template and authentication foundation for agent identities; holds credentials and starts the token exchange."
+            },
+            {
+              "term": "Agent identity",
+              "definition": "Runtime identity of a specific agent: a single-tenant service principal with an agent subtype and no credentials of its own."
+            },
+            {
+              "term": "Agent's user account",
+              "definition": "Optional 1:1 user object paired with an agent identity for systems that require a user."
+            },
+            {
+              "term": "Sponsor",
+              "definition": "Human or group accountable for an agent's purpose, lifecycle decisions and access reviews."
+            },
+            {
+              "term": "Microsoft Entra owner",
+              "definition": "Technical administrator of an agent identity, scoped to the assigned object."
+            },
+            {
+              "term": "Report-only mode",
+              "definition": "Conditional Access state that records the verdict a policy would reach without enforcing it."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Sponsor vs owner vs Agent Registry owner",
+              "headers": [
+                "Role",
+                "Accountable for",
+                "Lives in"
+              ],
+              "rows": [
+                [
+                  "Sponsor",
+                  "Purpose, lifecycle decisions, access reviews; can disable, edit sponsors, soft-delete",
+                  "Microsoft Entra Agent ID"
+                ],
+                [
+                  "Owner",
+                  "Technical administration: credentials, add relationships, disable, delete, re-enable, restore, hard-delete",
+                  "Microsoft Entra Agent ID"
+                ],
+                [
+                  "Agent Registry owner",
+                  "Registry metadata and administrative settings in Microsoft 365",
+                  "Microsoft 365 admin center"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Credentials → on the **blueprint**, never on child agent identities.",
+            "Sponsor transfer happens only with the **Transfer agent identity sponsorships to manager** task; notification tasks transfer nothing, and owners and Registry owners don't change.",
+            "Conditional Access on the blueprint principal → covers **agent identities**, not their **user accounts**.",
+            "Agent identity can't complete interactive remediation → **Block access only**, no compliant-device control."
+          ],
+          "selfCheck": [
+            {
+              "q": "Engineering will create three more agents from the same blueprint. Where do you scope the Conditional Access policy so they are protected from day one?",
+              "a": "On the agent identity blueprint principal, which covers current and future child agent identities."
+            },
+            {
+              "q": "A leaver workflow only contains the two email tasks. What happens to the departing sponsor's agent identities?",
+              "a": "Nothing changes; only the Transfer agent identity sponsorships to manager task changes sponsorship, and the sponsor needs a populated manager attribute."
+            },
+            {
+              "q": "An autonomous agent must open a shared mailbox that requires a user object. What identity design fits?",
+              "a": "Pair the agent identity with an agent user account; both objects exist side by side."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.curate-control-agents-registry-tools",
@@ -152,7 +719,175 @@
           "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/",
           "durationMinutes": 58,
           "updated": "2026-09-21",
-          "learnSummary": "Govern what agents can invoke using Agent 365 tools, including MCP servers, and curate the ongoing agent estate using Registry actions beyond initial onboarding."
+          "learnSummary": "Govern what agents can invoke using Agent 365 tools, including MCP servers, and curate the ongoing agent estate using Registry actions beyond initial onboarding.",
+          "tldr": "Administrators govern which tools agents can invoke through the Agent Tools registry (Available vs Blocked, plus approval of Bring Your Own MCP servers with separate Entra consent). They also curate the agent estate with ongoing Agent Registry actions and audit it by publisher type and channel.",
+          "objectives": [
+            "Review, approve, and block tools for agents, including Bring Your Own (BYO) MCP server requests.",
+            "Manage ongoing Agent Registry actions beyond initial onboarding, including uploading a custom agent, reassigning an already-active agent's owner, deleting an agent, and starting or stopping Microsoft Foundry agents.",
+            "Filter and audit the agent estate by publisher type and channel."
+          ],
+          "keyPoints": [
+            "The tools registry is at **Agents > Tools > Registry** (Available or Blocked); **Requests** holds pending BYO MCP registrations. AI Administrator is the least-privileged role.",
+            "**Approval and Microsoft Entra consent are separate**: approve the request, then grant the exact consent. Client discovery and first invocation (connection, API key) are further steps.",
+            "**Block a tool** to remove one capability across supported clients without deleting agents that use it; blocking an agent governs the agent, not its tools. Block and Unblock are separate from Approve and Reject.",
+            "BYO MCP (preview) works in Copilot Studio, Visual Studio Code, Claude Code and GitHub Copilot CLI, not Azure AI Foundry or Declarative Agents. Delete and republish are unsupported, so **block** retires a server.",
+            "Review requests as **Accept** (proportionate permissions, complete evidence), **Reject** (excessive or unrelated permission) or **Conditional** (evidence missing; a review class, not an admin-center status).",
+            "**Assign new owner** fully replaces the owner (previous owner loses all access) for Agent Builder or Copilot Studio agents; deleting is documented for Agent Builder agents, is irreversible and takes up to 24 hours.",
+            "Starting or stopping a **Foundry agent** provisions or deallocates compute and needs **Azure AI Owner**; AI Administrator does not grant it.",
+            "Registry filters give a **candidate inventory** (Publisher Type, Channel, Status), not proof a person can use an agent; validate Users, Permissions, license and connection."
+          ],
+          "units": [
+            {
+              "title": "Review, approve, and block tools for agents",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/2-review-approve-block-tools",
+              "minutes": 5,
+              "points": [
+                "Registry lists name, status, type and publisher; Available does not prove review history, authorization, data access or actual use.",
+                "BYO flow: developer registers (pending request), AI Administrator or Global Administrator approves or rejects, administrator grants Entra consent, supported client discovers it, user needs audience, license, permissions and data access.",
+                "Copilot Studio discovery can take up to 30 minutes after approval and consent; no published timing for other clients, and no published block propagation SLA.",
+                "Blocking SharePoint or Foundry agents affects only Microsoft Copilot Chat; blocking Agent Builder or Copilot Studio agents affects Copilot and other hosts."
+              ]
+            },
+            {
+              "title": "Exercise - Review requests and control tool availability",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/3-exercise-review-approve-block-tool",
+              "minutes": 10,
+              "points": [
+                "Check that the requested scope matches the declared tools: read-only tools with Cases.Read.All, clear ownership, authentication and data boundary is an Accept; consent is still a separate step.",
+                "Block then Unblock a tool in Registry; the tool shows Blocked or Available again, and changes can take a few minutes to reach clients.",
+                "Blocking a tool doesn't delete agents, revoke other permissions or undo consent."
+              ]
+            },
+            {
+              "title": "Govern bring your own MCP servers",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/4-govern-bring-your-own-model-context-protocol-servers",
+              "minutes": 6,
+              "points": [
+                "Registration needs Agent 365 CLI 1.1.165-preview or later, the provisioned Agent 365 service principal, and a public remote HTTPS endpoint; developer runs a365 develop-mcp register-external-mcp-server.",
+                "Authentication types: NoAuth, APIKey (header or query), ExternalOAuth, EntraOAuth.",
+                "Reviewer verifies declared tools, exact scopes, endpoint ownership, authentication, data boundaries, retention, geography and third-party security.",
+                "Defender advanced hunting can observe ExecuteToolByGateway events with the right permissions and license; gateway telemetry does not mean Microsoft endorsement."
+              ]
+            },
+            {
+              "title": "Exercise - Review a bring your own model context protocol (MCP) server registration",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/5-exercise-review-bring-your-own-model-context-protocol-server-registration",
+              "minutes": 10,
+              "points": [
+                "Request asking Knowledge.ReadWrite.All plus Directory.ReadWrite.All for a read-only lookup: Reject and ask for Knowledge.Read.All and no directory permission.",
+                "Request missing owner attestation, rotation owner for the API key and data boundary: Conditional; send it back rather than approve.",
+                "After approval, grant consent, check Registry shows Available, then connect from a client; first use can still need setup such as an API key.",
+                "Retire with Block; this isn't revocation of the external API key."
+              ]
+            },
+            {
+              "title": "Perform ongoing Agent Registry curation",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/6-perform-registry-curation",
+              "minutes": 6,
+              "points": [
+                "Upload a custom agent: AI Administrator or Global Administrator uploads a ZIP from Agent Builder or Copilot Studio at Agents > All agents > Add agent, then sets Publish and Deploy audiences.",
+                "Assign new owner: new owner must be an organization user, gets edit and delete plus the previous owner's files; the previous owner loses all access. Not supported for Foundry, SharePoint or other platforms.",
+                "Agent Builder Add owner and Remove owner support multi-owner continuity, unlike Assign new owner.",
+                "Deletion removes files and the SharePoint Embedded container; don't generalize it to every agent or use it as routine rollback."
+              ]
+            },
+            {
+              "title": "Exercise - Reassign an active agent's owner",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/7-exercise-reassign-active-agent-owner",
+              "minutes": 9,
+              "points": [
+                "Agents > All agents > select agent > Assign new owner > choose person > Assign; selecting a name alone transfers nothing.",
+                "For an Agent Builder agent the new owner needs a Microsoft Copilot license; ownerless agents are supported and a departed owner's account needn't stay active.",
+                "There is no shared state: the previous owner loses edit, delete and file access immediately, so it isn't the same as adding a delegate."
+              ]
+            },
+            {
+              "title": "Audit the agent estate by publisher and channel",
+              "url": "https://learn.microsoft.com/training/modules/curate-control-agents-registry-tools/8-audit-agent-estate-publisher-channel",
+              "minutes": 4,
+              "points": [
+                "Summary numbers: Total agents, Agents without owners, Unmanaged agents (created or managed outside Agent 365); an agent can have an owner and still be unmanaged.",
+                "Candidate inventory filters: Publisher Type non-Microsoft, Channel Teams, Status Available.",
+                "To confirm a person can use an agent, check Details, Users (Available to, Installed for), Permissions and consent, license and connection, and recent activity.",
+                "Security tab and Risks column need Microsoft E7 or Agent 365; Export filtered agents is a point-in-time snapshot with 30+ fields."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Bring Your Own (BYO) MCP server",
+              "definition": "Remote MCP server registered by a developer through Agent 365 and governed by an approval and consent flow (preview)."
+            },
+            {
+              "term": "Agent Tools registry",
+              "definition": "Agents > Tools > Registry list of tools with Available or Blocked status."
+            },
+            {
+              "term": "Assign new owner",
+              "definition": "Registry action that fully replaces an agent's owner; the previous owner loses all access."
+            },
+            {
+              "term": "Publisher Type / Channel",
+              "definition": "Registry filters: who owns or distributes the agent, and where it is deployed and discoverable."
+            },
+            {
+              "term": "Unmanaged agents",
+              "definition": "Agents created or managed outside Agent 365."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Ongoing Registry actions",
+              "headers": [
+                "Action",
+                "Scope",
+                "Role"
+              ],
+              "rows": [
+                [
+                  "Upload a custom agent",
+                  "Owner-supplied ZIP from Agent Builder or Copilot Studio",
+                  "AI Administrator or Global Administrator"
+                ],
+                [
+                  "Assign new owner",
+                  "Ownerless or active shared Agent Builder or Copilot Studio agent",
+                  "AI Administrator or Global Administrator"
+                ],
+                [
+                  "Delete an agent",
+                  "Documented for Agent Builder; irreversible, up to 24 hours",
+                  "Not stated in the unit"
+                ],
+                [
+                  "Start or stop a Foundry agent",
+                  "Provisions or deallocates Azure compute",
+                  "Azure AI Owner"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Approve a BYO server → **not enough**; Microsoft Entra consent is a separate admin step.",
+            "Retire a BYO MCP server → **Block**, since delete and republish are unsupported.",
+            "Tool lever ≠ agent lever: blocking a **tool** keeps the agent; blocking an **agent** doesn't touch its tools.",
+            "Registry filters give a **candidate list**, not who can actually use the agent."
+          ],
+          "selfCheck": [
+            {
+              "q": "A Vendor Lookup MCP request has no endpoint owner attestation, no key rotation owner and no stated data boundary. How do you classify it?",
+              "a": "Conditional: don't approve or grant consent until the evidence is complete; return it to the developer or reject it so a complete request can be submitted."
+            },
+            {
+              "q": "A Copilot Studio agent needs an accountable new owner and a Foundry agent must be stopped. Which action and role apply?",
+              "a": "Assign new owner (AI Administrator or Global Administrator) for the Copilot Studio agent; stop the Foundry agent as an Azure compute action with the Azure AI Owner role."
+            },
+            {
+              "q": "Your manager asks how many non-Microsoft agents the finance team can use in Teams. Is the filtered count the answer?",
+              "a": "No, the filter (non-Microsoft, Teams, Available) gives only candidates; validate Users scope, permissions and consent, license, and connection for the finance users."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn-bizapps.agent-365-monitor-manage",
