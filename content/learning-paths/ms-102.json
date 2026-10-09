@@ -233,7 +233,201 @@
           "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/",
           "durationMinutes": 57,
           "updated": "2026-08-20",
-          "learnSummary": "This module examines how Exchange Online Protection (EOP) protects organizations from phishing and spoofing. It also explores how EOP blocks spam, bulk email, and malware before they arrive in users’ mailboxes."
+          "learnSummary": "This module examines how Exchange Online Protection (EOP) protects organizations from phishing and spoofing. It also explores how EOP blocks spam, bulk email, and malware before they arrive in users’ mailboxes.",
+          "tldr": "Exchange Online Protection (EOP) is the built-in email filtering layer of Microsoft 365: it blocks malware, spam, bulk mail, phishing and spoofing before mail reaches mailboxes. You tune it with anti-malware and anti-spam policies, clean up already-delivered threats with zero-hour auto purge, and strengthen spoofing defences with SPF, DKIM and DMARC.",
+          "objectives": [
+            "Describe how Exchange Online Protection analyzes email to provide anti-malware and anti-spam protection.",
+            "List several mechanisms used by Exchange Online Protection to filter spam and malware.",
+            "Describe other solutions administrators might implement to provide extra protection against phishing and spoofing.",
+            "Understand how EOP provides protection against outbound spam."
+          ],
+          "keyPoints": [
+            "**Anti-malware scanning can't be disabled**. A **default anti-malware policy** exists (editable, not deletable); custom policies always take precedence over it and can be reordered.",
+            "The **common attachments filter** treats listed file types (e.g. executables) as malware without scanning — reject with an NDR or quarantine.",
+            "EOP stamps a **spam confidence level (SCL)**: -1 skipped filtering, 0–1 not spam, 5–6 spam, 7–9 high confidence spam. Values **2, 3 and 4 are never used**.",
+            "**High confidence phishing** is always quarantined and users can never release it themselves — at most they can *request* release, which an admin approves.",
+            "**Zero-hour auto purge (ZAP)** retroactively acts on delivered malware, phishing and spam in Exchange Online mailboxes; it doesn't work in standalone EOP for on-premises mailboxes.",
+            "**Safe sender lists, mail flow rules and Inbox rules take precedence over ZAP** — bypassing filtering also stops ZAP from cleaning those messages.",
+            "**SPF** checks the sending IP against the 5321.MailFrom domain, **DKIM** signs messages to prove they weren't tampered with, **DMARC** aligns them with the visible 5322.From address.",
+            "**Allowed senders/domains lists** bypass most protection and SPF/DKIM/DMARC — use them only for temporary testing and never add common domains like microsoft.com."
+          ],
+          "units": [
+            {
+              "title": "Implement anti-malware policies",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/2-implement-anti-malware-policies",
+              "minutes": 9,
+              "points": [
+                "Multiple anti-malware engines; scanning can't be turned off. The MX record routes mail through EOP; the SPF TXT record identifies valid senders.",
+                "Pipeline: reputation/heuristics at the edge → signature scanners → reputation block → heuristic clustering with sandbox detonation → ML and static rules. Defender for Office 365 then adds Safe Attachments and Safe Links.",
+                "Policy settings: common attachments filter, ZAP for malware, quarantine policy (default **AdminOnlyAccessPolicy**), admin notifications for internal/external senders, custom notification text.",
+                "PowerShell is two steps: `New-MalwareFilterPolicy`, then `New-MalwareFilterRule` linking it to recipients. Policy changes require Organization Management or Security Administrator.",
+                "EICAR test files are quarantined before reaching Defender for Office 365 — validate policies with the Defender for Office 365 reports instead."
+              ]
+            },
+            {
+              "title": "Implement anti-spam policies",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/3-implement-anti-spam-policies",
+              "minutes": 9,
+              "points": [
+                "Verdicts: Spam (SCL 5–6), High confidence spam (7–9), Phishing (quarantined by default), High confidence phishing (always quarantined), Bulk (BCL threshold met).",
+                "**MarkAsSpamBulkMail** (PowerShell-only, on by default) turns a BCL at or above the threshold into SCL 6; off = BCL stamped but no action.",
+                "Recipient filters: same condition values use OR, different condition types use AND; exceptions always use OR.",
+                "Spam filtering can't be turned off, but mail flow rules can bypass most of it (not for SecOps mailboxes or phishing simulations — use advanced delivery policy).",
+                "Priority: Strict preset → Standard preset → custom policies → Default (always last, applies to everyone, can't be deleted or disabled). Processing stops at the first matching policy."
+              ]
+            },
+            {
+              "title": "Detect messages with spam or malware using Zero-hour auto purge",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/4-detect-messages-use-zero-hour-auto-purge",
+              "minutes": 4,
+              "points": [
+                "ZAP follows signature updates and acts on mail already delivered; users aren't notified, and it also moves false positives back to the Inbox.",
+                "Malware and high confidence phishing → quarantined. Phishing and spam → outcome follows the verdict action (Junk or quarantine; X-header, prepend, redirect, delete = no ZAP action). Spam ZAP only acts on unread messages.",
+                "ZAP doesn't quarantine messages still in Safe Attachments Dynamic Delivery or whose attachment was already replaced by Malware Alert Text.txt.",
+                "Check ZAP activity in the Mail flow status report or in Threat Explorer (Additional action = ZAP); mailbox audit logs don't record it."
+              ]
+            },
+            {
+              "title": "Explore anti-spoofing protection provided by Exchange Online Protection",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/5-explore-anti-spoofing-protection",
+              "minutes": 8,
+              "points": [
+                "EOP anti-spoofing focuses on forgery of the **From header**. Tools: email authentication, spoof intelligence insight (last 7 days), Spoof tab in the Tenant Allow/Block List, anti-phishing policies, Spoof detections report.",
+                "**Intra-org spoofing** (same domain/organization) shows `reason=6xx`, SFTY 9.11; **cross-domain spoofing** shows `reason=000/001`, SFTY 9.22.",
+                "Mailing lists that modify subject or footer often cause spoofing false positives — fix with email authentication, ARC, Inbox rules or Tenant Allow/Block List overrides."
+              ]
+            },
+            {
+              "title": "Explore other anti-spoofing protection",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/6-explore-other-anti-spoofing-protection",
+              "minutes": 8,
+              "points": [
+                "SMTP allows spoofing by design; when EOP lacks reputation history, SPF, DKIM and DMARC records in DNS help decide.",
+                "**SPF** lists authorized sending servers; update it for hybrid, DKIM/DMARC setup or when hitting the 10-lookup limit.",
+                "**DKIM**: private key signs the header, public key in DNS. Automatic for onmicrosoft.com; configure manually for multiple custom domains, DMARC, own keys/CNAMEs or third-party bulk mailers.",
+                "**DMARC** checks the 5322.From address that users see; SPF alone only checks 5321.MailFrom, so a message can pass SPF with a spoofed From."
+              ]
+            },
+            {
+              "title": "Examine outbound spam filtering",
+              "url": "https://learn.microsoft.com/training/modules/examine-exchange-online-protection/7-examine-outbound-spam-filtering",
+              "minutes": 6,
+              "points": [
+                "Anti-spam technologies: **connection filtering** (IP allow/block lists, safe list), spam (content) filtering, **outbound spam filtering** (content and outbound limits), spoof intelligence.",
+                "Envelope-based allow/block = these technologies; payload-based (URLs, files) = Tenant Allow/Block List.",
+                "Fix false positives/negatives: report to Microsoft, read anti-spam headers, point MX to Microsoft 365 (otherwise Enhanced Filtering for Connectors), use SPF/DKIM/DMARC, check BCL settings.",
+                "Hybrid/standalone EOP needs on-premises mail flow rules to translate EOP verdicts to Junk Email, and directory synchronization so Safe Senders lists are honoured."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "SCL",
+              "definition": "Spam confidence level stamped in an X-header; higher means more likely spam (-1, 0–1, 5–6, 7–9)."
+            },
+            {
+              "term": "BCL",
+              "definition": "Bulk complaint level for gray mail from bulk senders; the threshold is set in anti-spam policies."
+            },
+            {
+              "term": "ZAP",
+              "definition": "Zero-hour auto purge — retroactively moves or quarantines delivered malicious or spam messages."
+            },
+            {
+              "term": "Common attachments filter",
+              "definition": "Blocks listed file types as malware without scanning them."
+            },
+            {
+              "term": "Quarantine policy",
+              "definition": "Defines what users can do with quarantined messages and whether they get quarantine notifications."
+            },
+            {
+              "term": "Reputation block",
+              "definition": "EOP compares attachments with files or file pieces previously identified as malicious."
+            },
+            {
+              "term": "5321.MailFrom vs 5322.From",
+              "definition": "Envelope sender (bounce address, checked by SPF) vs the From address shown to users (protected by DMARC)."
+            }
+          ],
+          "tables": [
+            {
+              "title": "SCL values and default actions",
+              "headers": [
+                "SCL",
+                "Meaning",
+                "Default action"
+              ],
+              "rows": [
+                [
+                  "-1",
+                  "Skipped filtering (safe sender, safe recipient, IP allowlist)",
+                  "Inbox"
+                ],
+                [
+                  "0, 1",
+                  "Not spam",
+                  "Inbox"
+                ],
+                [
+                  "5, 6",
+                  "Spam",
+                  "Junk Email (Strict preset: quarantine)"
+                ],
+                [
+                  "7, 8, 9",
+                  "High confidence spam",
+                  "Junk Email (Standard and Strict presets: quarantine)"
+                ]
+              ]
+            },
+            {
+              "title": "Email authentication",
+              "headers": [
+                "Method",
+                "What it does",
+                "Checks"
+              ],
+              "rows": [
+                [
+                  "SPF",
+                  "Lists servers allowed to send for the domain (DNS TXT)",
+                  "5321.MailFrom"
+                ],
+                [
+                  "DKIM",
+                  "Signs the header with a private key; public key in DNS",
+                  "Message integrity / signing domain"
+                ],
+                [
+                  "DMARC",
+                  "Tells receivers what to do when SPF/DKIM fail (DNS TXT)",
+                  "5322.From (displayed address)"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "SCL **2, 3 and 4 are never stamped** by spam filtering — don't pick them in exam answers.",
+            "High confidence phishing → **always quarantined**, users can only **request** release.",
+            "Message passes SPF but displays a fake From address → think **DMARC**, not SPF.",
+            "A safe sender list entry **beats ZAP** — ZAP won't touch that message."
+          ],
+          "selfCheck": [
+            {
+              "q": "An admin must ensure mail for contoso.com reaches Exchange Online mailboxes through EOP. Which DNS record does she add?",
+              "a": "An MX record pointing to Microsoft 365."
+            },
+            {
+              "q": "A phishing message was delivered yesterday; today the signatures are updated. What removes it from the mailbox?",
+              "a": "Zero-hour auto purge (ZAP), which quarantines it because the default Phishing action is Quarantine message."
+            },
+            {
+              "q": "Bulk newsletters with a BCL above the threshold are only stamped and still land in the Inbox. Which setting is likely off?",
+              "a": "The PowerShell-only MarkAsSpamBulkMail setting in the anti-spam policy."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.examine-microsoft-defender-office-365",
@@ -242,7 +436,193 @@
           "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/",
           "durationMinutes": 48,
           "updated": "2024-11-11",
-          "learnSummary": "This module examines how Microsoft Defender for Office 365 extends EOP protection through various tools, including Safe Attachments, Safe Links, spoofed intelligence, spam filtering policies, and the Tenant Allow/Block List."
+          "learnSummary": "This module examines how Microsoft Defender for Office 365 extends EOP protection through various tools, including Safe Attachments, Safe Links, spoofed intelligence, spam filtering policies, and the Tenant Allow/Block List.",
+          "tldr": "Microsoft Defender for Office 365 builds on EOP in cumulative layers: Plan 1 adds prevention (Safe Attachments, Safe Links, impersonation protection, Real-time detections) and Plan 2 adds investigation, response, automation and attack simulation. The module also covers spoof intelligence, outbound spam policies, restricting and blocking email with the Tenant Allow/Block List, and submitting items to Microsoft for analysis.",
+          "objectives": [
+            "Describe how the Safe Attachments feature in Microsoft Defender for Office 365 blocks zero-day malware in email attachments and documents.",
+            "Describe how the Safe Links feature in Microsoft Defender for Office 365 protects users from malicious URLs embedded in email and documents that point to malicious websites.",
+            "Create outbound spam filtering policies.",
+            "Manage email access with the Restrict Access list and the Tenant Allow/Block list.",
+            "Submit messages, URLs, files, and attachments to Microsoft for analysis."
+          ],
+          "keyPoints": [
+            "The stack is **cumulative**: Plan 2 contains Plan 1, which contains EOP. Office 365 E5 includes **Plan 2**; plans up to E3 have EOP and can add Plan 1.",
+            "**Real-time detections** = Plan 1 investigation tool; **Threat Explorer**, Threat Trackers, campaign views, **AIR** and **attack simulation training** = Plan 2.",
+            "**Spoof intelligence insight** shows 7 days of spoofed senders (30 days with `Get-SpoofIntelligenceInsight`); an allow covers only the **spoofed domain + sending infrastructure pair**.",
+            "Outbound spam from a user usually means a **compromised account**; suspicious mail goes through the **high-risk delivery pool** and the user can land on **Restricted users**.",
+            "Outbound policy limits (external/internal per hour, daily) default to 0 = service defaults; the default action **restricts sending until the next day (UTC)** and admins can't override it.",
+            "**Tenant Allow/Block List** overrides filtering for inbound external mail; **block entries win over allow entries**, and blocked domains/addresses also stop users sending to them.",
+            "For false positives, prefer **Submissions** over creating allow entries yourself — Microsoft validates and creates the allow entry when the block was wrong.",
+            "Restricted users get NDR **5.1.8**; unblock via Restricted users in the Defender portal or `Remove-BlockedSenderAddress` — but secure the compromised account first."
+          ],
+          "units": [
+            {
+              "title": "Climb the security ladder from EOP to Microsoft Defender for Office 365",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/2-climb-security-ladder-microsoft-defender-office-365",
+              "minutes": 7,
+              "points": [
+                "EOP stops broad, volume-based known attacks; Plan 1 adds zero-day malware, phish and BEC protection; Plan 2 adds post-breach investigation, hunting, response, automation and simulation.",
+                "EOP tools: spam/phish/malware/bulk filtering, spoof intelligence, admin quarantine, submissions, audit log search, message trace, ZAP.",
+                "Plan 1 adds Safe Attachments, Safe Links (incl. SharePoint, OneDrive, Teams), impersonation protection, time-of-click protection, Real-time detections, URL trace.",
+                "Plan 2 adds Threat Explorer, Threat Trackers, campaign views, AIR, advanced hunting and incidents in Microsoft Defender XDR, attack simulation training.",
+                "End-user focus: EOP and Plan 1 = awareness (Report Message add-in); Plan 2 = training (simulation tooling). Configure email authentication whenever you have EOP."
+              ]
+            },
+            {
+              "title": "Expand EOP protections by using Safe Attachments and Safe Links",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/3-expand-protections-safe-attachments-safe-links",
+              "minutes": 3,
+              "points": [
+                "Safe Attachments detonates attachments in a sandbox after EOP; safe files are delivered, malicious ones are blocked and the user notified.",
+                "Safe Links checks a clicked URL against known-bad lists, then a virtual environment, and redirects to the site or a warning page.",
+                "URL rewriting adds a unique identifier so a link can be blocked later if it turns malicious — protection against zero-day links."
+              ]
+            },
+            {
+              "title": "Manage spoofed intelligence",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/4-manage-spoofed-intelligence",
+              "minutes": 7,
+              "points": [
+                "Legitimate spoofing exists (bulk mailers, marketing partners, assistants, internal apps, mailing lists); spoof intelligence lets you allow those and block the rest.",
+                "Enabled by default in anti-phishing policies; insight lives on the Tenant Allow/Block Lists page. **Insight mode** (on) vs **What if mode** (off) — both show the last 7 days.",
+                "Details per entry: spoofed user (5322.From domain), sending infrastructure (PTR domain or source IP /24), message count, spoof type (internal/external), action (allowed/blocked).",
+                "Overriding a verdict moves the entry to the **Spoof** tab of the Tenant Allow/Block List; blocked spoof default action = move to Junk Email."
+              ]
+            },
+            {
+              "title": "Configure outbound spam filtering policies",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/5-configure-outbound-spam-filtering-policies",
+              "minutes": 8,
+              "points": [
+                "A policy = outbound spam filter **policy** (actions, notifications) + **rule** (priority, sender filters). Default policy applies to all senders, always last, can't be deleted.",
+                "Restriction options: restrict until the following day (default), restrict until an admin removes the user, or alert only.",
+                "Automatic forwarding: Automatic – System-controlled (default), On, Off (external forwarding blocked with an NDR).",
+                "Bcc copies of suspicious outbound messages work only in the **default** policy. PowerShell: `New-HostedOutboundSpamFilterPolicy` then `New-HostedOutboundSpamFilterRule`."
+              ]
+            },
+            {
+              "title": "Manage email access in Microsoft 365",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/6-manage-email-access",
+              "minutes": 9,
+              "points": [
+                "**Restrict** (Exchange mail flow/message delivery restrictions) limits who a mailbox sends to or accepts from; **block** (Defender for Office 365 blocklists) stops a user or domain entirely.",
+                "Tenant Allow/Block List limits: EOP 500 allow + 500 block, Plan 1 1,000 + 1,000, Plan 2 5,000 + 10,000; spoofed senders max 1,024; entries active within 5 minutes.",
+                "Block entries: sender/domain → high confidence phishing; file → malware; URL → high confidence phishing. Default expiry 30 days (90 days or never possible); spoof entries never expire.",
+                "Allow entries from submissions stay 45 days after the entity is judged clean; impersonation false positives go to **Trusted senders and domains** in the anti-phishing policy instead.",
+                "The **User restricted from sending email** alert policy notifies admins (needs audit log search on); removing restrictions can take up to an hour."
+              ]
+            },
+            {
+              "title": "Submit messages, URLs, files, and attachments to Microsoft for analysis",
+              "url": "https://learn.microsoft.com/training/modules/examine-microsoft-defender-office-365/7-submit-messages-urls-attachments-microsoft-analysis",
+              "minutes": 5,
+              "points": [
+                "Submissions page (Actions & submissions) has tabs for Emails, Teams messages, Email attachments, URLs, Files and User-reported messages.",
+                "Microsoft checks email authentication, policy hits, payload reputation/detonation and human grader analysis (GCC/GCC High/DoD: authentication and policy hits only).",
+                "Users report via Report Message/Report Phishing add-ins or the Outlook on the web button; with Plan 2, user submissions trigger automated investigations.",
+                "Messages up to 30 days old; throttles: 150 per 15 minutes, same item 3 per 24 hours / 1 per 15 minutes."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Spoof intelligence insight",
+              "definition": "Defender portal view of spoofed senders detected in the last 7 days, where you allow or block them."
+            },
+            {
+              "term": "Sending infrastructure",
+              "definition": "PTR domain of the source IP, or the source IP /24 if there's no PTR record."
+            },
+            {
+              "term": "High-risk delivery pool",
+              "definition": "Separate outbound IP pool used for suspicious outbound mail to protect the service's reputation."
+            },
+            {
+              "term": "Restricted users",
+              "definition": "Defender portal list of users blocked from sending email after exceeding outbound limits."
+            },
+            {
+              "term": "Tenant Allow/Block List",
+              "definition": "Admin overrides for filtering verdicts on domains/addresses, files, URLs and spoofed senders."
+            },
+            {
+              "term": "Submissions",
+              "definition": "Defender portal page to report false positives/negatives to Microsoft and track the results."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Which product gives you what?",
+              "headers": [
+                "Product",
+                "Focus",
+                "Typical tools"
+              ],
+              "rows": [
+                [
+                  "EOP",
+                  "Broad, volume-based known attacks",
+                  "Anti-spam, anti-malware, spoof intelligence, quarantine, message trace, ZAP"
+                ],
+                [
+                  "Defender for Office 365 Plan 1",
+                  "Zero-day malware, phish, BEC (prevention/detection)",
+                  "Safe Attachments, Safe Links, impersonation protection, Real-time detections"
+                ],
+                [
+                  "Defender for Office 365 Plan 2",
+                  "Investigation, hunting, response, automation, training",
+                  "Threat Explorer, Threat Trackers, AIR, attack simulation training, advanced hunting"
+                ]
+              ]
+            },
+            {
+              "title": "Tenant Allow/Block List entry limits",
+              "headers": [
+                "Subscription",
+                "Allow entries",
+                "Block entries"
+              ],
+              "rows": [
+                [
+                  "EOP",
+                  "500",
+                  "500"
+                ],
+                [
+                  "Defender for Office 365 Plan 1",
+                  "1,000",
+                  "1,000"
+                ],
+                [
+                  "Defender for Office 365 Plan 2",
+                  "5,000",
+                  "10,000"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "You see **Real-time detections** → Plan 1; you see **Threat Explorer** → Plan 2.",
+            "Spoof intelligence insight = **7 days** in the portal, **30 days** in PowerShell.",
+            "Tenant Allow/Block List: **block beats allow**, and it applies to **inbound external** mail only (but blocks also stop outbound sending to those addresses).",
+            "Bcc copy of suspicious outbound mail → only in the **default** outbound spam policy."
+          ],
+          "selfCheck": [
+            {
+              "q": "A user suddenly sends thousands of messages and now gets NDR 5.1.8. What happened and how do you fix it?",
+              "a": "Outbound spam protection put the user on Restricted users; secure the account (e.g. reset password, MFA), then remove the user from Restricted users or run Remove-BlockedSenderAddress."
+            },
+            {
+              "q": "A partner's legitimate mail is blocked as spoofed. What is the recommended action?",
+              "a": "Report it on the Submissions page as Should not have been blocked (False positive), or allow the domain/infrastructure pair via spoof intelligence (Spoof tab in the Tenant Allow/Block List)."
+            },
+            {
+              "q": "Which Defender for Office 365 plan is needed for automated investigation and response?",
+              "a": "Plan 2 (included in Office 365 E5)."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.manage-safe-attachments-microsoft-365",
@@ -251,7 +631,169 @@
           "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/",
           "durationMinutes": 33,
           "updated": "2024-12-12",
-          "learnSummary": "This module examines how to manage Safe Attachments in your Microsoft 365 tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102"
+          "learnSummary": "This module examines how to manage Safe Attachments in your Microsoft 365 tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102",
+          "tldr": "Safe Attachments (Defender for Office 365) detonates attachments in a virtual environment and uses behavioral analysis to catch malware before anti-virus signatures exist. You configure it with a policy (actions) plus a rule (who and priority) in the Defender portal or PowerShell, and can bypass it for trusted internal sources with a mail flow rule. Dynamic Delivery keeps users productive by delivering the body immediately while the attachment is scanned.",
+          "objectives": [
+            "Create and modify a Safe Attachments policy using Microsoft Defender XDR",
+            "Create a Safe Attachments policy by using PowerShell",
+            "Configure a Safe Attachments policy",
+            "Describe how a transport rule can disable a Safe Attachments policy",
+            "Describe the end-user experience when an email attachment is scanned and found to be malicious"
+          ],
+          "keyPoints": [
+            "Safe Attachments opens supported attachments in a **hypervisor/virtual environment** and uses **behavioral analysis**, in the same region where your Microsoft 365 data resides.",
+            "There's **no default Safe Attachments policy**, but the **Built-in protection** preset security policy covers every recipient not in Standard/Strict presets or a custom policy.",
+            "Unknown malware response: **Off**, **Monitor** (deliver and track), **Block** (recommended default, quarantine and block future instances), **Dynamic Delivery** (deliver body now, attachment after scanning).",
+            "**Redirect** of messages with detected attachments only supports the **Monitor** action; the default quarantine policy is **AdminOnlyAccessPolicy**.",
+            "A policy is really a **Safe Attachments policy + rule**. In PowerShell create the **policy first**, then the rule; removing one doesn't remove the other.",
+            "**Priority 0 is highest**; processing stops at the first matching policy. New policies get a lower priority than older ones by default.",
+            "To skip scanning for trusted internal senders, scanners or faxes, create a mail flow rule that sets the header **X-MS-Exchange-Organization-SkipSafeAttachmentProcessing**.",
+            "A new policy typically takes **about 30 minutes** to take effect."
+          ],
+          "units": [
+            {
+              "title": "Protect users from malicious attachments by using Safe Attachments",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/2-protect-use-safe-attachments",
+              "minutes": 4,
+              "points": [
+                "Targets common malware carriers: Office files, PDFs, executables, Flash files; works for internal and external senders.",
+                "Attachments execute in virtual environments running different Windows and app versions; behavioral analysis detects things like registry changes or Trojans.",
+                "Built-in protection preset applies once the tenant has at least one Defender for Office 365 license; Microsoft recommends licensing all protected users.",
+                "Forwarded messages to external recipients are protected if those recipients are in a Microsoft 365 organization."
+              ]
+            },
+            {
+              "title": "Create Safe Attachment policies using Microsoft Defender for Office 365",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/3-create-safe-attachment-policies-microsoft-defender-office-365",
+              "minutes": 5,
+              "points": [
+                "Scanning happens after EOP malware scanning and before delivery. Requires Organization Management or Security Administrator.",
+                "Path: Defender portal → Policies & rules → Threat policies → Safe Attachments → Create. At least one users/groups/domains condition is required; dynamic distribution groups aren't supported.",
+                "**Off** is only for trusted sources (internal senders, scanners, faxes, smart hosts); EOP anti-malware still scans.",
+                "Quarantine policies: AdminOnlyAccessPolicy (default), DefaultFullAccessPolicy, DefaultFullAccessWithNotificationPolicy (used by Standard/Strict presets)."
+              ]
+            },
+            {
+              "title": "Create Safe Attachments policies using PowerShell",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/4-create-safe-attachments-windows-powershell",
+              "minutes": 7,
+              "points": [
+                "Rule = conditions; policy = actions and redirect settings. Cmdlets: `*-SafeAttachmentPolicy` and `*-SafeAttachmentRule`.",
+                "`New-SafeAttachmentPolicy` defaults: Action **Block**, ActionOnError **$true** (don't deliver if scanning fails). Example adds `-Redirect $true -RedirectAddress`.",
+                "`New-SafeAttachmentRule -SafeAttachmentPolicy ... -RecipientDomainIs` links the rule; one rule maps to one policy. PowerShell-only at creation: create disabled or set priority.",
+                "A policy created in PowerShell isn't visible in the portal until a rule is assigned. Changing a priority shifts the others by 1."
+              ]
+            },
+            {
+              "title": "Modify an existing Safe Attachments policy",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/5-modify-existing-safe-attachments-policy",
+              "minutes": 2,
+              "points": [
+                "Select the policy name (not the check box) to open the details pane and edit the same settings as at creation.",
+                "Priorities follow creation order (first = 0); no two policies share a priority.",
+                "In the portal you can change priority only after creation; in PowerShell you can set it when creating the rule."
+              ]
+            },
+            {
+              "title": "Create a transport rule to bypass a Safe Attachments policy",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/6-create-transport-rule-bypass-safe-attachments-policy",
+              "minutes": 4,
+              "points": [
+                "Use case: let mail from trusted internal senders, scanners, faxes or smart hosts flow without scanning delay.",
+                "Exchange admin center → Mail flow → Rules → Create a new rule; condition e.g. sender is Inside the organization.",
+                "Action: Modify the message properties → set a message header `X-MS-Exchange-Organization-SkipSafeAttachmentProcessing`; the value is required but ignored."
+              ]
+            },
+            {
+              "title": "Examine the end-user experience with Safe Attachments",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-attachments-microsoft-365/7-examine-end-user-experience-safe-attachments",
+              "minutes": 3,
+              "points": [
+                "**Block**: the whole message (body and attachment) is withheld; the user gets a notification instead. Choose it for high-risk users or sensitive environments.",
+                "**Dynamic Delivery** (recommended for most organizations): body arrives immediately with a placeholder attachment saying it's being scanned.",
+                "Clean file → reattached to the original message; malware → replaced by an attachment explaining it was infected."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Safe Attachments",
+              "definition": "Defender for Office 365 feature that detonates attachments in a virtual environment before delivery."
+            },
+            {
+              "term": "Dynamic Delivery",
+              "definition": "Delivers the message body immediately with a placeholder attachment until scanning finishes."
+            },
+            {
+              "term": "Built-in protection",
+              "definition": "Preset security policy giving Safe Attachments protection to everyone not covered by Standard/Strict or custom policies."
+            },
+            {
+              "term": "Safe Attachments rule",
+              "definition": "Defines recipients (conditions/exceptions) and priority; linked to exactly one Safe Attachments policy."
+            },
+            {
+              "term": "ActionOnError",
+              "definition": "PowerShell setting; $true (default) means don't deliver if Safe Attachments scanning fails."
+            },
+            {
+              "term": "X-MS-Exchange-Organization-SkipSafeAttachmentProcessing",
+              "definition": "Message header set by a mail flow rule to bypass Safe Attachments scanning."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Safe Attachments unknown malware response",
+              "headers": [
+                "Action",
+                "Behavior",
+                "Use when"
+              ],
+              "rows": [
+                [
+                  "Off",
+                  "No Safe Attachments scan (EOP anti-malware still runs)",
+                  "Trusted internal senders, scanners, faxes, smart hosts"
+                ],
+                [
+                  "Monitor",
+                  "Delivers and tracks detected malware; supports redirect",
+                  "Analyzing who receives detected messages"
+                ],
+                [
+                  "Block (default, recommended)",
+                  "Quarantines messages with malware; blocks future instances",
+                  "Protection against repeated attacks with the same malware"
+                ],
+                [
+                  "Dynamic Delivery",
+                  "Delivers body now, placeholder until scan completes",
+                  "Avoiding delivery delays while staying protected"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "\"Deliver and track what happens with malware\" → **Monitor**, not Block or Dynamic Delivery.",
+            "Redirect to a SecOps mailbox works only with **Monitor**.",
+            "PowerShell order: **policy first, then rule** — and deleting one leaves the other behind.",
+            "Bypass scanning for trusted internal mail → **mail flow rule + SkipSafeAttachmentProcessing header**, not turning the policy off for everyone."
+          ],
+          "selfCheck": [
+            {
+              "q": "Users complain that emails with attachments arrive late after enabling Safe Attachments. Which action fixes this without losing protection?",
+              "a": "Dynamic Delivery — the body is delivered immediately and the attachment follows once scanning finishes."
+            },
+            {
+              "q": "A tenant has Defender for Office 365 but no Safe Attachments policies. Are users protected?",
+              "a": "Yes, the Built-in protection preset security policy covers all recipients not in Standard/Strict or custom policies."
+            },
+            {
+              "q": "You created a policy with New-SafeAttachmentPolicy but it doesn't appear in the Defender portal. Why?",
+              "a": "It isn't assigned to a Safe Attachments rule yet; create one with New-SafeAttachmentRule."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.manage-safe-links-microsoft-365",
@@ -260,7 +802,165 @@
           "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/",
           "durationMinutes": 41,
           "updated": "2024-12-13",
-          "learnSummary": "This module examines how to manage Safe Links in your tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102"
+          "learnSummary": "This module examines how to manage Safe Links in your tenant by creating and configuring policies and using transport rules to disable a policy from taking effect in certain scenarios. MS-102",
+          "tldr": "Safe Links (Defender for Office 365) rewrites and scans URLs in inbound email and checks links at time of click in email, Microsoft Teams and Office apps. Like Safe Attachments, it's configured as a policy plus a rule in the Defender portal or PowerShell, can be bypassed with a mail flow rule header, and shows users warning pages when a link or linked file is malicious.",
+          "objectives": [
+            "Create and modify a Safe Links policy using Microsoft Defender XDR",
+            "Create a Safe Links policy using PowerShell",
+            "Configure a Safe Links policy",
+            "Describe how a transport rule can disable a Safe Links policy",
+            "Describe the end-user experience when Safe Links identifies a link to a malicious website embedded in email, and a link to a malicious file hosted on a website"
+          ],
+          "keyPoints": [
+            "Safe Links gives **URL scanning and rewriting** in mail flow plus **time-of-click verification** in email, Teams and supported Office apps — catching links weaponized after delivery.",
+            "Rewritten URLs use the prefix `https://<datacenter>.safelinks.protection.outlook.com`; URLs are **scanned before delivery even when not rewritten**.",
+            "There's **no default Safe Links policy**; the **Built-in protection** preset covers recipients not in Standard/Strict presets or custom policies.",
+            "Recommended: Safe Links on, apply to **internal messages**, **real-time scanning** of suspicious links and links to files, **wait for scanning before delivery**, track clicks, and **don't let users click through**.",
+            "**Do not rewrite URLs, do checks via SafeLinks API only**: no wrapping, URLs still scanned before delivery and checked by Outlook via API at click time.",
+            "In **Teams and Office apps URLs aren't rewritten** — they're checked at click time; Teams setting changes can take up to **24 hours**.",
+            "Limitations: no protection in mail-enabled public folders, RTF messages or S/MIME-signed messages; only HTTP(S) and FTP; SharePoint/OneDrive URLs are processed but no longer wrapped.",
+            "Bypass with a mail flow rule setting **X-MS-Exchange-Organization-SkipSafeLinksProcessing**; PowerShell requires the **policy before the rule**."
+          ],
+          "units": [
+            {
+              "title": "Protect users from malicious URLs by using Safe Links",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/2-protect-use-safe-links",
+              "minutes": 9,
+              "points": [
+                "Rewritten URLs stay rewritten on manual forward/reply; with automatic forwarding (Inbox rules, SMTP) they're only rewritten if the final recipient is protected or the URL was already rewritten.",
+                "Office apps protection needs Microsoft 365 Apps or Business Premium, modern authentication and a work or school account; it also covers attached Office documents once opened.",
+                "Teams: links checked in chats, group chats, channels and tabs; from a pinned tab the warning appears inside Teams with browser opening disabled.",
+                "Each policy has a **Do not rewrite the following URLs** list; only the first applied policy's list counts. To skip scanning at both mail flow and click time, add an allow entry via Submissions.",
+                "Warning pages: scan in progress, suspicious message, phishing attempt (all URLs in the message blocked), malicious website, error."
+              ]
+            },
+            {
+              "title": "Create Safe Links policies using Microsoft 365 Defender",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/3-create-safe-links-policies-microsoft-defender-office-365",
+              "minutes": 6,
+              "points": [
+                "Path: Defender portal → Policies & rules → Threat policies → Safe Links → Create. Requires Organization Management or Security Administrator.",
+                "Policy = protection options (scanning, real-time, wait, internal, tracking, click-through); rule = priority and recipient filters.",
+                "Click tracking isn't supported for internal-to-internal messages; organization branding on warning pages helps users recognize real warnings.",
+                "Notification page: default or custom notification text."
+              ]
+            },
+            {
+              "title": "Create Safe Links policies using PowerShell",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/4-create-safe-links-policies-windows-powershell",
+              "minutes": 9,
+              "points": [
+                "Cmdlets: `*-SafeLinksPolicy` (actions) and `*-SafeLinksRule` (conditions); removing one doesn't remove the other.",
+                "`New-SafeLinksPolicy` parameters include `-IsEnabled`, `-EnableSafeLinksForTeams`, `-ScanUrls`, `-DeliverMessageAfterScan`, `-EnableForInternalSenders`, `-DoNotAllowClickThrough`, `-DoNotTrackUserClicks` (default $false = clicks tracked).",
+                "`New-SafeLinksRule -SafeLinksPolicy ... -RecipientDomainIs` links the rule; a policy isn't visible in the portal until assigned to a rule.",
+                "Priority 0 is highest; `Set-SafeLinksRule -Priority` shifts the other rules by 1."
+              ]
+            },
+            {
+              "title": "Modify an existing Safe Links policy",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/5-modify-existing-safe-links-policy",
+              "minutes": 2,
+              "points": [
+                "Select the policy name (not the check box) to edit settings in the details pane.",
+                "Priorities follow creation order; newer policies have lower priority, and processing stops after the first applied policy.",
+                "Portal: change priority only after creation; PowerShell: set it when creating the rule."
+              ]
+            },
+            {
+              "title": "Create a transport rule to bypass a Safe Links policy",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/6-create-transport-rule-bypass-safe-links-policy",
+              "minutes": 2,
+              "points": [
+                "Same approach as for Safe Attachments: Exchange admin center → Mail flow → Rules → Create a new rule.",
+                "Condition e.g. sender is Inside the organization; action: set message header `X-MS-Exchange-Organization-SkipSafeLinksProcessing` (value required but ignored)."
+              ]
+            },
+            {
+              "title": "Examine the end-user experience with Safe Links",
+              "url": "https://learn.microsoft.com/training/modules/manage-safe-links-microsoft-365/7-examine-end-user-experience-safe-links",
+              "minutes": 5,
+              "points": [
+                "On click, the URL is redirected to a secure server and checked against known malicious sites; safe → site opens, malicious → warning page.",
+                "Only the malicious link is blocked; other links in the same message keep working.",
+                "A \"continue to the site\" option appears only if the admin allowed users to click through to the original URL.",
+                "**URL detonation** combines Safe Links and Safe Attachments: a linked file is downloaded and detonated in the sandbox while the user sees a scanning page."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Safe Links",
+              "definition": "Defender for Office 365 feature that rewrites/scans URLs and verifies them at time of click."
+            },
+            {
+              "term": "Time-of-click protection",
+              "definition": "The URL is checked when the user selects it, not only at delivery."
+            },
+            {
+              "term": "URL wrapping",
+              "definition": "Rewriting a link to the safelinks.protection.outlook.com prefix with the original URL encoded."
+            },
+            {
+              "term": "URL detonation",
+              "definition": "Linked files are downloaded and detonated in the Safe Attachments sandbox when clicked."
+            },
+            {
+              "term": "Do not rewrite the following URLs",
+              "definition": "Per-policy list of URLs not scanned or wrapped during mail flow (still checked at click)."
+            },
+            {
+              "term": "X-MS-Exchange-Organization-SkipSafeLinksProcessing",
+              "definition": "Header set by a mail flow rule to bypass Safe Links."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Safe Links by location",
+              "headers": [
+                "Location",
+                "URLs rewritten?",
+                "How it works"
+              ],
+              "rows": [
+                [
+                  "Email",
+                  "Yes by default (unless API-only option)",
+                  "Scanned in mail flow and checked at time of click"
+                ],
+                [
+                  "Microsoft Teams",
+                  "No",
+                  "Time-of-click check in chats, channels and tabs; changes take up to 24 hours"
+                ],
+                [
+                  "Office apps",
+                  "No",
+                  "Time-of-click check in supported apps; needs modern auth and a work or school account"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "\"Scan URLs before delivery but don't rewrite them\" → **Do not rewrite URLs, do checks via SafeLinks API only**.",
+            "Policy created in PowerShell missing from the portal → it hasn't been **assigned to a Safe Links rule** yet.",
+            "Safe Links skips **RTF**, **S/MIME-signed** messages and **mail-enabled public folders**.",
+            "Safe Attachments bypass header ends in **SkipSafeAttachmentProcessing**, Safe Links in **SkipSafeLinksProcessing** — don't mix them up."
+          ],
+          "selfCheck": [
+            {
+              "q": "A link was harmless at delivery but now redirects to a phishing site. Does Safe Links still protect the user?",
+              "a": "Yes — time-of-click verification checks the URL when the user selects it and shows a warning page if it's malicious."
+            },
+            {
+              "q": "Pat is in a Safe Links policy, but Office apps protection is turned off. Is a link clicked in a Word document protected?",
+              "a": "No, the Office apps setting in the policy that applies to Pat must be on."
+            },
+            {
+              "q": "You want messages held until all URLs are confirmed safe. Which setting?",
+              "a": "Wait for URL scanning to complete before delivering the message (with real-time URL scanning turned on)."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     },
@@ -278,7 +978,175 @@
           "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/",
           "durationMinutes": 53,
           "updated": "2026-05-25",
-          "learnSummary": "This module examines how Microsoft 365 Threat Intelligence provides admins with evidence-based knowledge and actionable advice that can be used to make informed decisions about protecting and responding to cyber-attacks against their tenants. MS-102"
+          "learnSummary": "This module examines how Microsoft 365 Threat Intelligence provides admins with evidence-based knowledge and actionable advice that can be used to make informed decisions about protecting and responding to cyber-attacks against their tenants. MS-102",
+          "tldr": "Threat intelligence in Microsoft 365 is powered by the Microsoft Intelligent Security Graph, which feeds detections across Windows, Azure and Microsoft 365 and is exposed to apps through the Microsoft Graph security API. In the Microsoft Defender portal you triage alerts, let automated investigation and response (AIR) remediate threats, hunt proactively with KQL-based advanced hunting, and use threat analytics and reports to understand your exposure.",
+          "objectives": [
+            "Describe how threat intelligence in Microsoft 365 is powered by the Microsoft Intelligent Security Graph.",
+            "Create alerts that can identify malicious or suspicious events.",
+            "Understand how the automated investigation and response process works in Microsoft Defender XDR.",
+            "Describe how threat hunting enables security operators to identify cybersecurity threats.",
+            "Describe how Advanced hunting in Microsoft Defender XDR proactively inspects events in your network to locate threat indicators and entities."
+          ],
+          "keyPoints": [
+            "The **Intelligent Security Graph** consumes about **6.5 trillion signals daily** and shares them across Windows, Azure and Microsoft 365 — a threat seen in one is quickly known to the others.",
+            "The **Microsoft Graph security API** is a broker: one call is federated to all security providers and results come back in a **common schema** (alerts, Secure Score, threat indicators, SIEM streaming).",
+            "**Alerts** are the basis of incidents; Defender XDR aggregates related alerts into **incidents**. The Alerts queue shows new and in-progress alerts from the last **30 days**.",
+            "Classify alerts as **True positive**, **Informational, expected activity** or **False positive** — classification improves detection quality.",
+            "**AIR**: alert → incident → automated investigation → verdict per evidence (malicious, suspicious, no threats found) → remediation, automatic or after approval in the **Action center**.",
+            "**Advanced hunting** queries up to **30 days of raw data** with **Kusto Query Language (KQL)**; the same queries can become **custom detection rules**.",
+            "**Threat analytics** = Microsoft's in-product threat intelligence reports with analyst reports (MITRE ATT&CK), related incidents, impacted assets, prevented emails and exposure/mitigations."
+          ],
+          "units": [
+            {
+              "title": "Explore Microsoft Intelligent Security Graph",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/2-explore-microsoft-intelligent-security-graph",
+              "minutes": 6,
+              "points": [
+                "Goal: focus on breach prevention and spend less on recovery. Data from 100+ datacenters, over 1 billion Windows Update PCs, Digital Crime Unit and partner research.",
+                "AI and machine learning analyze signals; integration means services in one platform talk to the others.",
+                "Graph security API: standard interface and uniform schema, integrates alerts and threat intelligence, enriches with context (Entra ID, Intune, Microsoft 365), automates SecOps.",
+                "Partners can consume Graph data or contribute their own alerts and actions; also supports eDiscovery (Premium) automation."
+              ]
+            },
+            {
+              "title": "Explore alert policies in Microsoft 365",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/3-explore-alert-policies-microsoft-365",
+              "minutes": 9,
+              "points": [
+                "Not every alert is malicious — e.g. alerting on mailbox delegation monitors activity that could be abused.",
+                "Alerts page (Incidents & alerts → Alerts) shows alerts from Defender XDR, Defender for Endpoint, Defender for Office 365, Defender for Identity, Defender for Cloud Apps; filter by severity, status, service source, entities, automated investigation state.",
+                "Alert ID prefixes: `fa` Defender for Office 365, `da`/`ed` Defender for Endpoint, `aa` Defender for Identity, `ca` Defender for Cloud Apps.",
+                "Alert page: alert story (process tree), affected assets, details pane; Manage alert sets status, assignment, classification and comments; View similar alerts and Recommendations speed up triage."
+              ]
+            },
+            {
+              "title": "Run automated investigations and responses",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/4-run-automated-investigations-responses",
+              "minutes": 5,
+              "points": [
+                "AIR with self-healing works across devices, email & content and identities, reducing alert volume pressure on SecOps.",
+                "Remediation examples: quarantine a file, stop a process, isolate a device, block a URL. Configure automatic remediation or approval-only.",
+                "The investigation expands scope when related alerts or affected entities appear; not every alert triggers an investigation.",
+                "Open details from the **Action center** (Pending/History: approve, reject, go hunt) or from an incident's Investigations tab. Tabs include investigation graph, alerts, devices, mailboxes (needs Defender for Office 365 Plan 2), users, evidence, entities, log, pending actions."
+              ]
+            },
+            {
+              "title": "Explore threat hunting with Microsoft Threat Protection",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/5-explore-microsoft-threat-protection",
+              "minutes": 5,
+              "points": [
+                "Threat hunting is **proactive**: find threats buried in signal noise or not flagged by security products.",
+                "Needs comprehensive event data, threat intelligence and granular baselines of normal activity.",
+                "Example: query a new CMS vulnerability's processes, baseline normal behavior, return only unexpected behavior, and schedule the query to notify SecOps on matches.",
+                "Microsoft Threat Protection (the older name of today's Microsoft Defender XDR) uses the Intelligent Security Graph to generate alerts that AIR can remediate, while giving human analysts tools for large data sets and automated monitoring."
+              ]
+            },
+            {
+              "title": "Explore advanced threat hunting in Microsoft Defender XDR",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/6-explore-microsoft-365-defender",
+              "minutes": 7,
+              "points": [
+                "Hunts across Defender for Endpoint devices, Microsoft 365 email, and cloud app, authentication and domain controller activity from Defender for Cloud Apps and Defender for Identity.",
+                "Event/activity data arrives almost immediately; **entity data** (users, devices) is refreshed every 15 minutes and consolidated every 24 hours.",
+                "KQL: statements piped with `|`; operators such as `where`, `summarize`, `join`, `count`, `top`, `limit`, `project`, `extend`, `makeset()`, `find`.",
+                "Performance tips: filter (especially time) first, use `has` instead of `contains` for full tokens, search specific columns, put the smaller table left in joins and project only needed columns."
+              ]
+            },
+            {
+              "title": "Explore threat analytics in Microsoft 365",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/7-explore-threat-analytics-microsoft-365",
+              "minutes": 9,
+              "points": [
+                "Dashboard sections: **Latest threats**, **High-impact threats** (most alerts), **Highest exposure threats** (vulnerability severity × exploitable devices).",
+                "Report tabs: Overview, Analyst report, Related incidents, Impacted assets, Prevented email attempts (last 7 days), Exposure & mitigations.",
+                "Impacted assets = devices with unresolved Defender for Endpoint alerts and mailboxes that received alert-triggering mail.",
+                "Threat tags: Ransomware, Phishing, Vulnerability, Activity group. Mitigations draw on Microsoft Defender Vulnerability Management (security updates, cloud-delivered/PUA/real-time protection)."
+              ]
+            },
+            {
+              "title": "Identify threat issues using Microsoft Defender reports",
+              "url": "https://learn.microsoft.com/training/modules/explore-threat-intelligence-microsoft-365-defender/8-identify-threat-issues-using-microsoft-defender-reports",
+              "minutes": 3,
+              "points": [
+                "Reports: License, Security report (identities, devices, apps), Threat protection (alert trends over 30 days and status), Device health and compliance (sensor and Defender Antivirus status).",
+                "Vulnerable devices, Web protection (phishing, malware, exploit and blocked sites; configure web content filtering), Firewall (blocked connections, top remote IPs), Device control (removable media usage)."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Microsoft Intelligent Security Graph",
+              "definition": "Microsoft's signal and analytics backbone that powers threat intelligence across its products."
+            },
+            {
+              "term": "Microsoft Graph security API",
+              "definition": "Unified API brokering queries and actions to multiple security providers with a common schema."
+            },
+            {
+              "term": "Incident",
+              "definition": "A group of related alerts giving the broader context of an attack."
+            },
+            {
+              "term": "AIR",
+              "definition": "Automated investigation and response — investigates alerts, reaches verdicts and remediates automatically or after approval."
+            },
+            {
+              "term": "Action center",
+              "definition": "Defender portal page listing pending and completed remediation actions across devices, email and identities."
+            },
+            {
+              "term": "Advanced hunting",
+              "definition": "KQL-based hunting over up to 30 days of raw data; queries can drive custom detection rules."
+            },
+            {
+              "term": "Threat analytics",
+              "definition": "In-product threat intelligence reports showing the threat, your exposure and recommended mitigations."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Alert classifications",
+              "headers": [
+                "Classification",
+                "Use for"
+              ],
+              "rows": [
+                [
+                  "True positive",
+                  "Alerts that accurately indicate a real threat (also enter the threat type)"
+                ],
+                [
+                  "Informational, expected activity",
+                  "Security tests, red team activity, expected unusual behavior of trusted apps/users"
+                ],
+                [
+                  "False positive",
+                  "Non-malicious activity; helps improve detection quality"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "What starts an automated investigation? Think **alert → incident → investigation** — the module's knowledge check expects **an incident**.",
+            "Advanced hunting looks back **30 days** of raw data and uses **KQL**, not SQL.",
+            "Pending remediation actions are approved in the **Action center**, not on the Alerts page.",
+            "High-impact = most alerts in **your** org; Highest exposure = vulnerability severity × number of exploitable devices."
+          ],
+          "selfCheck": [
+            {
+              "q": "A SOC wants AIR to isolate devices only after an analyst agrees. Where do analysts approve those actions?",
+              "a": "In the Action center (Pending tab) in the Microsoft Defender portal."
+            },
+            {
+              "q": "Your KQL query searching all columns with contains is slow. Name two improvements.",
+              "a": "Filter on time first, search a specific column, and use has instead of contains for full tokens."
+            },
+            {
+              "q": "Which tool tells you whether a newly published ransomware campaign is active in your tenant and which mitigations are missing?",
+              "a": "Threat analytics — the report's related incidents, impacted assets and Exposure & mitigations tabs."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.implement-app-protection-use-microsoft-defender-cloud-apps",
@@ -287,7 +1155,171 @@
           "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/",
           "durationMinutes": 44,
           "updated": "2024-03-26",
-          "learnSummary": "This module examines how to implement Microsoft Defender for Cloud Apps, which identifies and combats cyberthreats across all your Microsoft and third-party cloud services. MS-102"
+          "learnSummary": "This module examines how to implement Microsoft Defender for Cloud Apps, which identifies and combats cyberthreats across all your Microsoft and third-party cloud services. MS-102",
+          "tldr": "Microsoft Defender for Cloud Apps is Microsoft's cloud app security service: it discovers shadow IT from traffic logs, connects to sanctioned apps through API app connectors, and controls sessions in real time with Conditional Access App Control. You deploy it in the Microsoft Defender portal, govern data with file and other policies, triage the alerts they raise, and keep Cloud Discovery fed with valid logs.",
+          "objectives": [
+            "Describe how Microsoft Defender for Cloud Apps provides improved visibility into network cloud activity and increases the protection of critical data across cloud applications.",
+            "Explain how to deploy Microsoft Defender for Cloud Apps.",
+            "Control your cloud apps with file policies.",
+            "Manage and respond to alerts generated by those policies.",
+            "Configure and troubleshoot Cloud Discovery."
+          ],
+          "keyPoints": [
+            "Four building blocks: **Cloud Discovery** (traffic logs → shadow IT), **sanctioning** via the Cloud app catalog (31,000+ apps scored on more than 90 risk factors), **app connectors** (provider APIs), **Conditional Access App Control** (reverse proxy).",
+            "**Conditional Access App Control** gives real-time control: block downloads, encrypt downloaded data, monitor unmanaged devices, control access from non-corporate or risky IPs.",
+            "Licensing: a license for **every protected user**; set up as **Global Administrator or Security Administrator**. No Office 365 suite license is required.",
+            "Required deployment steps: **connect apps**, **create policies**, **set up Cloud Discovery**; recommended: DLP/file policies, Conditional Access App Control, personalization, data organization (IP tags, domains).",
+            "**File policies** combine content inspection, context filters and governance actions; only the **first triggered policy's governance action** applies. New policies are enabled and scan immediately.",
+            "Cloud Discovery reports: **snapshot** (manual upload) or **continuous** (Defender for Endpoint integration, log collector over Syslog/FTP, Secure Web Gateway, API).",
+            "Logs must be a supported format, contain outbound traffic, and have events **no older than 90 days**; logs are analyzed **four times a day**.",
+            "Alert triage: **true positive** → resolve; **benign positive** or **false positive** → dismiss with a reason. Compromised accounts → suspend until the user is verified."
+          ],
+          "units": [
+            {
+              "title": "Explore Microsoft Defender Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/2-explore-microsoft-defender-cloud-apps",
+              "minutes": 9,
+              "points": [
+                "Formerly Microsoft Cloud App Security; covers shadow IT discovery, protecting sensitive information, detecting threats/anomalies (ransomware, compromised users, rogue apps) and compliance assessment.",
+                "App connectors use provider APIs to pull activity logs and scan data, accounts and content; API limits mean some scans run for hours or days.",
+                "Conditional Access App Control uses a **reverse proxy** to inspect traffic before it reaches the app and can block attacks such as cross-site scripting and SQL injection."
+              ]
+            },
+            {
+              "title": "Deploy Microsoft Defender for Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/3-deploy-microsoft-defender-cloud-apps",
+              "minutes": 10,
+              "points": [
+                "Configure under Defender portal → Settings → Cloud Apps; all traffic with connected apps uses HTTPS.",
+                "Enable file monitoring (and Microsoft Purview Information Protection integration) before building file policies.",
+                "Cloud Discovery: integrate Defender for Endpoint (Windows 10/11 devices in and outside the network), add data sources and log collectors, and prefer **continuous** reports for full coverage.",
+                "Conditional Access App Control works with any web app (catalog or custom); with Entra ID, inline controls such as Monitor only and Block downloads work out of the box. Running another CASB in parallel can double-proxy apps.",
+                "Personalize mail settings, notifications and score metrics; organize data with IP address range tags, continuous reports and managed domains."
+              ]
+            },
+            {
+              "title": "Configure file policies in Microsoft Defender for Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/4-configure-file-policies",
+              "minutes": 8,
+              "points": [
+                "Monitors any file type using 20+ metadata filters; scans at-rest data and new content continuously.",
+                "Policy types: activity, anomaly detection, OAuth app, malware detection (threat detection); file (information protection); access and session (conditional access); app discovery and Cloud Discovery anomaly detection (shadow IT).",
+                "Examples: publicly shared files, sharing with competitor domains, sensitive extensions such as .crt, quarantine stale shared files.",
+                "Inspection method: Built-in DLP or **Data Classification Services** (recommended); set minimum match counts and exclusions. `Contains` matches whole words only; History shows six months of matches.",
+                "Narrow filters carefully — wrong governance actions can cause irreversible loss of file permissions."
+              ]
+            },
+            {
+              "title": "Manage and respond to alerts in Microsoft Defender for Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/5-manage-alerts",
+              "minutes": 3,
+              "points": [
+                "View in Incidents & alerts → Alerts, filtered on Service/detection source = Microsoft Defender for Cloud Apps; use alerts to refine policies.",
+                "Serious violations need immediate action (suspend account, quarantine file, block app); questionable ones need investigation; authorized ones can be dismissed.",
+                "Alert types include policy violations, compromised account, inactive account (60 days unused), new admin user/location, new location (once per country/region), new discovered service, suspicious activity, use of personal account."
+              ]
+            },
+            {
+              "title": "Configure Cloud Discovery in Microsoft Defender for Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/6-configure-cloud-discovery",
+              "minutes": 3,
+              "points": [
+                "Process: upload → parse (dedicated parser per data source) → analyze against the catalog → generate risk assessment report.",
+                "Useful log fields: date, source IP, source user, destination IP and URL, data volumes, action. Cisco ASA needs information level 6.",
+                "Snapshot: upload up to 20 files (zip supported) gathered at peak times; Syslog is supported only by automated upload.",
+                "Log collector compresses data (outbound ≈ 10% of received logs), keeps the last 20 logs, uploads Syslog files above 40 KB, and you get an alert after **48 hours** without data."
+              ]
+            },
+            {
+              "title": "Troubleshoot Cloud Discovery in Microsoft Defender for Cloud Apps",
+              "url": "https://learn.microsoft.com/training/modules/implement-app-protection-use-microsoft-defender-cloud-apps/7-troubleshoot-cloud-discovery",
+              "minutes": 3,
+              "points": [
+                "Defender for Endpoint integration: devices must be Windows 10 version 1809 or later; data takes about two hours to appear.",
+                "Parsing errors (tracked in the governance log): unsupported file type, format mismatch, transactions older than 90 days, no traffic to cataloged apps, unsupported log type (sent to Microsoft for a new parser).",
+                "Log collector: use FTP (not SFTP or SSH) credentials, allow outbound port 443, status Disconnected = no data in 24 hours; an empty dashboard usually means filters exclude the data."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Shadow IT",
+              "definition": "Cloud apps used in the organization without IT's knowledge or approval."
+            },
+            {
+              "term": "Cloud Discovery",
+              "definition": "Analyzes firewall/proxy traffic logs against the Cloud app catalog to find and score used apps."
+            },
+            {
+              "term": "App connector",
+              "definition": "API connection to a cloud app that gives Defender for Cloud Apps visibility and governance."
+            },
+            {
+              "term": "Conditional Access App Control",
+              "definition": "Reverse-proxy-based access and session control over cloud app activity in real time."
+            },
+            {
+              "term": "Log collector",
+              "definition": "On-network component receiving Syslog/FTP logs and uploading them for continuous reports."
+            },
+            {
+              "term": "Governance action",
+              "definition": "Automated remediation a policy applies on a match (e.g. quarantine, remove sharing, apply label)."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Policy types by category",
+              "headers": [
+                "Category",
+                "Policy types",
+                "Example use"
+              ],
+              "rows": [
+                [
+                  "Threat detection",
+                  "Activity, anomaly detection, OAuth app, malware detection",
+                  "Unusually high download rate, risky OAuth permissions"
+                ],
+                [
+                  "Information protection",
+                  "File policy",
+                  "Files with credit card numbers shared publicly"
+                ],
+                [
+                  "Conditional access",
+                  "Access policy, session policy",
+                  "Real-time control of sign-ins and in-app activity"
+                ],
+                [
+                  "Shadow IT",
+                  "App discovery, Cloud Discovery anomaly detection",
+                  "New app detected; user suddenly uploads 600 GB to Dropbox"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Discover apps from traffic logs → **Cloud Discovery**; control a sanctioned app via its API → **app connector**; block downloads in real time → **Conditional Access App Control**.",
+            "Unusual volume in discovery logs → **Cloud Discovery anomaly detection policy**, not the regular anomaly detection policy.",
+            "Cloud Discovery ignores events **older than 90 days**.",
+            "Log collector supports **FTP and Syslog**, not SFTP; it needs outbound **port 443**."
+          ],
+          "selfCheck": [
+            {
+              "q": "You need a one-off view of which cloud apps employees used last month. What do you create?",
+              "a": "A snapshot Cloud Discovery report by manually uploading firewall/proxy logs."
+            },
+            {
+              "q": "Users must be able to view files in a SaaS app from unmanaged devices but not download them. Which capability?",
+              "a": "Conditional Access App Control with a session policy (e.g. block downloads)."
+            },
+            {
+              "q": "An alert is accurate but the activity was a legitimate admin task. How do you classify it?",
+              "a": "Benign positive — dismiss it with a reason such as Actual severity is lower or Not interesting."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.implement-endpoint-protection-use-microsoft-defender-endpoint",
@@ -296,7 +1328,185 @@
           "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/",
           "durationMinutes": 53,
           "updated": "2026-08-20",
-          "learnSummary": "This module examines how Microsoft Defender for Endpoint helps enterprise networks prevent, detect, investigate, and respond to advanced threats by using endpoint behavioral sensors, cloud security analytics, and threat intelligence. MS-102"
+          "learnSummary": "This module examines how Microsoft Defender for Endpoint helps enterprise networks prevent, detect, investigate, and respond to advanced threats by using endpoint behavioral sensors, cloud security analytics, and threat intelligence. MS-102",
+          "tldr": "Microsoft Defender for Endpoint combines sensors built into Windows with cloud analytics and threat intelligence to prevent, detect, investigate and respond to endpoint threats. You connect it to Microsoft Intune, onboard devices, and use device risk in compliance, app protection and Conditional Access policies. Device discovery and Microsoft Defender Vulnerability Management then find unmanaged devices and drive down your exposure score with prioritized recommendations.",
+          "objectives": [
+            "Describe how Microsoft Defender for Endpoint helps enterprise networks prevent, detect, investigate, and respond to advanced threats.",
+            "Onboard supported devices to Microsoft Defender for Endpoint.",
+            "Implement the Threat and Vulnerability Management module to effectively identify, assess, and remediate endpoint weaknesses.",
+            "Configure device discovery to help find unmanaged devices connected to your corporate network.",
+            "Lower your organization's threat and vulnerability exposure by remediating issues based on prioritized security recommendations."
+          ],
+          "keyPoints": [
+            "Three ingredients: **endpoint behavioral sensors** in Windows 10/11, **cloud security analytics**, and **threat intelligence**.",
+            "**Attack surface reduction** is the frontline of defense; then next-generation protection, EDR, automated investigation and remediation, Secure Score for Devices.",
+            "**Plan 1** (in Microsoft 365 E3/A3): next-gen protection, ASR, manual response, central management. **Plan 2** (in E5): adds device discovery, vulnerability management, threat analytics, AIR, advanced hunting, EDR, Threat Experts.",
+            "Intune integration chain: **service-to-service connection** → onboard devices → **compliance policy** sets allowed machine risk → **Conditional Access** blocks noncompliant devices.",
+            "Machine risk levels: **Clear** (most secure, no threats allowed), **Low**, **Medium**, **High** (least secure, all allowed).",
+            "Using both a device configuration profile and an EDR policy to onboard the same device can cause **policy conflicts**.",
+            "**Device discovery**: Basic (passive) or **Standard (active probing, recommended, default since July 2021)**; finds unmanaged endpoints, network devices and IoT.",
+            "**Exposure score**: 0–29 low, 30–69 medium, 70–100 high. Remediate top **security recommendations** via Intune remediation requests or file an exception."
+          ],
+          "units": [
+            {
+              "title": "Explore Microsoft Defender for Endpoint",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/2-explore-microsoft-defender-endpoint",
+              "minutes": 8,
+              "points": [
+                "Sensors send behavioral signals to the organization's private, isolated cloud instance; threat intelligence identifies attacker tools and techniques.",
+                "Architecture: vulnerability management, ASR (incl. network and web protection), next-gen protection, EDR with advanced hunting, AIR, Secure Score for Devices, Microsoft Threat Experts (add-on; apply via Settings → Advanced features).",
+                "Integrates with Defender for Cloud, Microsoft Sentinel, Intune, Defender for Cloud Apps, Defender for Identity, Defender for Office 365.",
+                "Plan 2 licensing: standalone, Windows 10/11 Enterprise E5/A5, Microsoft 365 E5/A5/G5, Microsoft 365 E5/A5/G5/F5 Security, F5 Security & Compliance."
+              ]
+            },
+            {
+              "title": "Configure Microsoft Defender for Endpoint in Microsoft Intune",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/3-configure-microsoft-defender-endpoint-intune",
+              "minutes": 6,
+              "points": [
+                "Integrates as a **Mobile Threat Defense** solution; supports Android, iOS/iPadOS, Linux, macOS, Windows 10/11 and Windows Server.",
+                "Enable once per tenant: Intune admin center → Endpoint security → Microsoft Defender for Endpoint; in the Defender portal Settings → Endpoints → Advanced features → **Microsoft Intune connection = On**. Services sync at least every 24 hours.",
+                "Turn on compliance policy evaluation and app protection policy evaluation per platform; needs the Mobile Threat Defense Read/Modify permission (e.g. Endpoint Security Manager).",
+                "Each MTD connector creates a **classic Conditional Access policy** in Entra ID — don't edit, delete or disable it.",
+                "**Security Management for Microsoft Defender for Endpoint** manages security settings on devices not enrolled in Intune."
+              ]
+            },
+            {
+              "title": "Onboard devices in Microsoft Defender for Endpoint",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/4-onboard-devices-microsoft-defender-endpoint",
+              "minutes": 10,
+              "points": [
+                "Windows: EDR policy in Endpoint security with package type **Auto from connector**, a device configuration profile template, Group Policy or Configuration Manager. Onboarding is a one-time action.",
+                "Android and iOS/iPadOS have no configuration package; for supervised iOS, deploy an app configuration policy with key `issupervised` = `{{issupervised}}`.",
+                "Compliance policy: Require the device to be at or under the machine risk score (Clear/Low/Medium/High); default action Mark device noncompliant.",
+                "App protection policy conditional launch: Max allowed device threat level (Secured/Low/Medium/High) with Block access or Wipe data.",
+                "Conditional Access (an Entra technology): target e.g. SharePoint Online and Exchange Online, grant only with **Require device to be marked as compliant**."
+              ]
+            },
+            {
+              "title": "Manage endpoint vulnerabilities with Microsoft Defender Vulnerability Management",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/5-manage-endpoint-vulnerabilities",
+              "minutes": 6,
+              "points": [
+                "A Defender for Endpoint **Plan 2** component; prioritizes using threat intelligence, breach likelihood, business context and device assessments.",
+                "Asset discovery and inventory: software, certificates (expiry, weak signatures), network shares, browser extensions — even off the corporate network.",
+                "Assessments: security baselines (CIS, STIG), software and vulnerabilities, network shares, event timelines.",
+                "Remediation and tracking: Intune remediation tasks, **block vulnerable applications** for device groups, alternate mitigations, real-time status."
+              ]
+            },
+            {
+              "title": "Manage device discovery and vulnerability assessment",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/6-manage-device-vulnerability-assessment",
+              "minutes": 9,
+              "points": [
+                "Onboarded endpoints collect, probe and scan the network; Basic mode uses SenseNDR.exe passively, Standard adds multicast protocols and smart active probing.",
+                "Onboarding status filter: Onboarded, Can be onboarded, Unsupported, Insufficient information.",
+                "Network devices (switches, routers, WLAN controllers, firewalls, VPN gateways) are scanned agentlessly by a designated device per segment; integrations with Corelight and Defender for IoT.",
+                "Configure in Defender portal → Settings → Device discovery: mode, devices by tag, exclusions (e.g. honeypots), monitored vs ignored networks (corporate = shared network name, gateway, DHCP server).",
+                "Hunt discovered devices in `DeviceInfo` (OnboardingStatus != \"Onboarded\", `invoke SeenBy()`) and `DeviceNetworkEvents` (ConnectionAttempt / ConnectionAcknowledged)."
+              ]
+            },
+            {
+              "title": "Reduce your threat and vulnerability exposure",
+              "url": "https://learn.microsoft.com/training/modules/implement-endpoint-protection-use-microsoft-defender-endpoint/7-reduce-threat-exposure",
+              "minutes": 6,
+              "points": [
+                "Exposure score (lower is better) appears next to Microsoft Secure Score for Devices on the Vulnerability Management dashboard.",
+                "Recommendations are prioritized by **threat**, **breach likelihood** and **business value**; remediating the top ones has the biggest effect.",
+                "Recommendation actions: open software page (event timeline), **remediation request** (Intune ticket, tracked on the Remediation page), **exception** (needs exceptions-handling permission), report inaccuracy.",
+                "Vulnerability Management shows devices active in the last 30 days; software changes show in 2–4 hours (up to 8 on mobile), configuration changes in 4–24 hours."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Attack surface reduction",
+              "definition": "Frontline Defender for Endpoint capabilities, including network and web protection."
+            },
+            {
+              "term": "Mobile Threat Defense (MTD)",
+              "definition": "Intune integration type used to bring Defender for Endpoint device risk into compliance and app protection."
+            },
+            {
+              "term": "Machine risk score",
+              "definition": "Defender for Endpoint risk level (Clear, Low, Medium, High) used in Intune compliance policies."
+            },
+            {
+              "term": "Device discovery",
+              "definition": "Uses onboarded endpoints to find unmanaged devices, network devices and IoT on corporate networks."
+            },
+            {
+              "term": "Exposure score",
+              "definition": "0–100 measure of how vulnerable the organization's devices are; lower is better."
+            },
+            {
+              "term": "Security recommendation",
+              "definition": "Prioritized remediation step from Defender Vulnerability Management, actionable via Intune."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Defender for Endpoint plans",
+              "headers": [
+                "Plan",
+                "Included in",
+                "Capabilities"
+              ],
+              "rows": [
+                [
+                  "Plan 1",
+                  "Standalone, Microsoft 365 E3/A3",
+                  "Next-gen protection, attack surface reduction, manual response actions, central management, security reports, APIs"
+                ],
+                [
+                  "Plan 2",
+                  "Standalone, Windows 10/11 Enterprise E5/A5, Microsoft 365 E5/A5/G5, E5 Security",
+                  "Plan 1 + device discovery, vulnerability management, threat analytics, AIR, advanced hunting, EDR, Threat Experts"
+                ]
+              ]
+            },
+            {
+              "title": "Device discovery modes",
+              "headers": [
+                "Mode",
+                "How it works",
+                "Visibility"
+              ],
+              "rows": [
+                [
+                  "Basic",
+                  "Passive collection of network events seen by onboarded devices (SenseNDR.exe)",
+                  "Limited"
+                ],
+                [
+                  "Standard (recommended, default)",
+                  "Passive + multicast discovery + smart active probing (Windows 10+/Server 2019+)",
+                  "Rich inventory and classification"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Frontline of defense in the Defender for Endpoint stack → **attack surface reduction**.",
+            "Compliance risk level **Clear** = strictest, **High** = allows everything — don't invert them.",
+            "Block vulnerable apps for device groups → **remediation and tracking** in Defender Vulnerability Management.",
+            "Device discovery, vulnerability management and advanced hunting need **Plan 2**, not Plan 1."
+          ],
+          "selfCheck": [
+            {
+              "q": "A compromised laptop is rated High risk by Defender for Endpoint. How do you stop it reaching Exchange Online?",
+              "a": "An Intune compliance policy with a lower allowed machine risk score marks it noncompliant, and a Conditional Access policy requiring a compliant device blocks access."
+            },
+            {
+              "q": "You want to find unpatched printers and unmanaged laptops on the corporate LAN. Which feature and mode?",
+              "a": "Defender for Endpoint device discovery in Standard mode."
+            },
+            {
+              "q": "A recommendation can't be fixed yet because of a legacy app. What do you do?",
+              "a": "File an exception with justification and duration from the recommendation's Exception options."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         },
         {
           "uid": "learn.wwl.implement-threat-protection-use-microsoft-defender-office-365",
@@ -305,7 +1515,185 @@
           "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/",
           "durationMinutes": 35,
           "updated": "2026-05-25",
-          "learnSummary": "This module examines the Microsoft Defender for Office 365 protection stack and its corresponding threat intelligence features, including Threat Explorer, Threat Trackers, and Attack simulation training. MS-102"
+          "learnSummary": "This module examines the Microsoft Defender for Office 365 protection stack and its corresponding threat intelligence features, including Threat Explorer, Threat Trackers, and Attack simulation training. MS-102",
+          "tldr": "Microsoft Defender for Office 365 protects mail in four layers: edge protection, sender intelligence, content filtering and post-delivery protection. On top of preset and custom policies, Plan 2 gives SecOps Threat Explorer for investigation, Threat Trackers for trend intelligence, and Attack simulation training to find and educate vulnerable users.",
+          "objectives": [
+            "Describe the protection stack provided by Microsoft Defender for Office 365.",
+            "Understand how Threat Explorer can be used to investigate threats and help to protect your tenant.",
+            "Describe the Threat Tracker widgets and views that provide you with intelligence on different cybersecurity issues that might affect your company.",
+            "Run realistic attack scenarios using Attack Simulator to help identify vulnerable users before a real attack impacts your organization."
+          ],
+          "keyPoints": [
+            "Protection stack = **Edge protection** → **Sender intelligence** → **Content filtering** → **Post-delivery protection**; the exact path depends on configuration.",
+            "**Content filtering** checks message structure, word frequency, hyperlinks and attachments (mail flow rules, three AV engines, Safe Attachments, URL detonation).",
+            "**Post-delivery** covers Safe Links time-of-click, **ZAP** for phish/malware/spam, Campaign Views, Report Message add-ins and protection in SharePoint, OneDrive and Teams.",
+            "**Real-time detections** (Plan 1) is a subset of **Threat Explorer** (Plan 2); only Threat Explorer has the **All email** view, campaigns and remediation such as triggering AIR.",
+            "Explorer views default to **two days** of data, expandable to **30 days**; email list export up to **200,000** records. Multiple filters use AND unless switched to OR.",
+            "**Threat Trackers**: Noteworthy (threats Microsoft wants you to know), Trending (new in the past week, formerly Campaigns), Tracked queries (run automatically), Saved queries.",
+            "**Attack simulation training** needs Microsoft 365 E5 or Defender for Office 365 Plan 2 and Global Admin, Security Admin, **Attack Simulator Administrator** or **Payload Author** roles.",
+            "Simulation flow: **technique → payload → audience → training → launch**; compare actual vs **predicted compromise rate**."
+          ],
+          "units": [
+            {
+              "title": "Explore the Microsoft Defender for Office 365 protection stack",
+              "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/2-explore-microsoft-defender-office-365-protection-stack",
+              "minutes": 6,
+              "points": [
+                "Edge (not the browser): network throttling, IP and domain reputation, directory-based edge filtering, backscatter detection, Enhanced Filtering for Connectors.",
+                "Sender intelligence: account compromise detection, email authentication (SPF, DKIM, DMARC, ARC), intra-org and cross-domain spoof intelligence, bulk filtering, **mailbox intelligence** (communication graph), user and domain impersonation.",
+                "Content filtering: mail flow rules, Microsoft Defender Antivirus plus two third-party engines, common attachment filtering, attachment and URL reputation blocking, heuristic clustering, ML phishing models, Safe Attachments, linked content and URL detonation.",
+                "Post-delivery: Safe Links (also in Office apps), ZAP for phish/malware/spam, Campaign Views, Report Message/Report Phishing add-ins, Safe Attachments for OneDrive, SharePoint and Teams."
+              ]
+            },
+            {
+              "title": "Examine the security policies and rules used in Microsoft Defender for Office 365",
+              "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/3-examine-security-policies-rules-defender-office-365",
+              "minutes": 4,
+              "points": [
+                "**Preset security policies** apply Microsoft-recommended settings for anti-phishing, anti-malware, Safe Attachments, Safe Links and anti-spam; assign them to users or groups.",
+                "**Custom policies**: threat policies, mail flow rules, outbound spam policies, and Defender for Office 365 anti-phishing (impersonation), Safe Attachments and Safe Links policies.",
+                "Advanced features (Attack Simulator, Threat Explorer, Threat Trackers, threat intelligence, Threat protection status report) require Defender for Office 365 Plan 2 or Microsoft 365 E5."
+              ]
+            },
+            {
+              "title": "Investigate security attacks by using Threat Explorer",
+              "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/4-investigate-security-attacks-use-threat-explorer",
+              "minutes": 5,
+              "points": [
+                "Threat Explorer lets analysts see malware and phish detections, URL click verdicts, email timeline, header preview, delivered malicious mail, and malicious files in SharePoint, OneDrive and Teams.",
+                "Views: **All email** (Explorer default, Explorer only), **Malware** (Real-time detections default), **Phish**, **Content malware** (OneDrive, SharePoint, Teams).",
+                "Components: filters, charts, results grid (UTC or local time), detail panes for email, recipient, IP and URL; actions such as Delete an email.",
+                "The Threat Dashboard gives executives a broad view; Explorer gives analysts the drill-down."
+              ]
+            },
+            {
+              "title": "Identify cybersecurity issues by using Threat Trackers",
+              "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/5-identify-cybersecurity-issues-use-threat-trackers",
+              "minutes": 6,
+              "points": [
+                "Defender portal → Email & collaboration → Threat tracker; requires Global Administrator, Security Administrator or Security Reader.",
+                "Noteworthy trackers stay posted only a couple of weeks (e.g. WannaCry, Petya); Trending trackers show threats new to your mail in the past week.",
+                "Save Explorer queries with **Save query**; tracked queries rerun automatically for trending. Trackers link to Threat Explorer for details.",
+                "Noteworthy items include new malicious files found by Safe Attachments; the **Advanced Analysis** tab (detonation details) exists only for Safe Attachments detections."
+              ]
+            },
+            {
+              "title": "Prepare for attacks with Attack simulation training",
+              "url": "https://learn.microsoft.com/training/modules/implement-threat-protection-use-microsoft-defender-office-365/6-prepare-attack-simulation-training",
+              "minutes": 6,
+              "points": [
+                "Runs benign simulations to find vulnerable users and train them; on-premises mailboxes are supported with reduced reporting.",
+                "Techniques: credential harvest, malware attachment, link in attachment, link to malware, drive-by URL (watering hole).",
+                "Payload data points: click rate, predicted compromise rate, simulations launched, complexity, source (tenant or global).",
+                "Target all or specific users (search or CSV import), assign training with a due date, schedule with region-aware time zone delivery and an end time.",
+                "End-user notifications: positive reinforcement, simulation, training assignment and training reminder; global (built-in) vs tenant (custom)."
+              ]
+            }
+          ],
+          "keyTerms": [
+            {
+              "term": "Edge protection",
+              "definition": "First stack layer of automatic edge blocks (throttling, reputation, directory harvest and backscatter protection)."
+            },
+            {
+              "term": "Mailbox intelligence",
+              "definition": "Learns each user's communication graph to detect senders impersonating usual contacts."
+            },
+            {
+              "term": "Threat Explorer",
+              "definition": "Plan 2 hunting and remediation tool for email and collaboration threats; Real-time detections is its Plan 1 subset."
+            },
+            {
+              "term": "Threat Trackers",
+              "definition": "Widgets and views (Noteworthy, Trending, Tracked and Saved queries) giving intelligence on threats."
+            },
+            {
+              "term": "Attack simulation training",
+              "definition": "Plan 2 / E5 feature for benign phishing simulations with assigned training."
+            },
+            {
+              "term": "Predicted compromise rate",
+              "definition": "Average compromise rate for the same payload type across other tenants, compared with your actual rate."
+            }
+          ],
+          "tables": [
+            {
+              "title": "Defender for Office 365 protection stack",
+              "headers": [
+                "Layer",
+                "Focus",
+                "Examples"
+              ],
+              "rows": [
+                [
+                  "Edge protection",
+                  "First contact, connection-level blocks",
+                  "IP/domain reputation, network throttling, backscatter detection, Enhanced Filtering"
+                ],
+                [
+                  "Sender intelligence",
+                  "Is the sender genuine?",
+                  "SPF/DKIM/DMARC/ARC, spoof intelligence, mailbox intelligence, impersonation protection"
+                ],
+                [
+                  "Content filtering",
+                  "What's in the message?",
+                  "Mail flow rules, AV engines, Safe Attachments, URL reputation, ML models"
+                ],
+                [
+                  "Post-delivery protection",
+                  "After delivery, across Teams and Office",
+                  "Safe Links, ZAP, Campaign Views, Report Message add-ins"
+                ]
+              ]
+            },
+            {
+              "title": "Threat Explorer vs Real-time detections",
+              "headers": [
+                "Feature",
+                "Real-time detections (Plan 1)",
+                "Threat Explorer (Plan 2)"
+              ],
+              "rows": [
+                [
+                  "All email view",
+                  "No",
+                  "Yes (default view)"
+                ],
+                [
+                  "Malware / Phish views",
+                  "Yes (Malware is default)",
+                  "Yes"
+                ],
+                [
+                  "Campaign details and remediation (e.g. trigger AIR)",
+                  "No",
+                  "Yes"
+                ]
+              ]
+            }
+          ],
+          "remember": [
+            "Message structure, word frequency, links and attachments → **content filtering layer**, not edge or post-delivery.",
+            "Threats Microsoft thinks you should know about → **Noteworthy trackers**; new to your tenant this week → **Trending trackers**.",
+            "Only Threat Explorer has the **All email** view — if you only see Malware/Phish views, you're on **Plan 1**.",
+            "Attack simulation training needs **E5 or Defender for Office 365 Plan 2**."
+          ],
+          "selfCheck": [
+            {
+              "q": "Analysts need to find every delivered message from a malicious campaign and delete it from mailboxes. Which tool?",
+              "a": "Threat Explorer (Plan 2), using the All email or Phish view and the Delete an email remediation action."
+            },
+            {
+              "q": "You want to test whether users enter passwords on a fake sign-in page. Which simulation technique?",
+              "a": "Credential harvest."
+            },
+            {
+              "q": "Which stack layer stops directory harvest attempts over SMTP?",
+              "a": "The edge protection layer (directory-based edge filtering)."
+            }
+          ],
+          "summarizedOn": "2026-10-09"
         }
       ]
     },
